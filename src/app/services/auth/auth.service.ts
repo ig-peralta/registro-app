@@ -3,13 +3,15 @@ import { UserService } from '../user/user.service';
 import { SessionService } from '../session/session.service';
 import { UserData } from 'src/app/_utils/interfaces/user-data.interface';
 import { User } from 'src/app/_utils/interfaces/user.interface';
+import { LocalStorageService } from '../local-storage/local-storage.service';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   constructor(
     private readonly user: UserService,
-    private readonly session: SessionService
+    private readonly session: SessionService,
+    private readonly storage: LocalStorageService
   ) {}
 
 
@@ -20,12 +22,15 @@ export class AuthService {
     if (user.password !== password)
       return false;
     delete user.password;
+    delete user.securityAnswer;
     this.session.user = user as UserData;
+    this.storage.setItem('user', user as UserData);
     return true;
   }
 
   logout() {
     this.session.user = null;
+    this.storage.removeItem('user');
   }
 
   recoverPassword(email: string, answer: string): string | null {
