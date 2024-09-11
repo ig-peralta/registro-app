@@ -3,12 +3,12 @@
     <ion-card-header>
       <ion-card-title>Ingreso</ion-card-title>
     </ion-card-header>
-    <ion-card-content class="form">
-      <ion-item class="input">
-        <ion-input class="input" label="Usuario" label-placement="floating" fill="outline" placeholder="Ej: ig.peralta"></ion-input>
+    <ion-card-content class="d-flex flex-column align-items-center">
+      <ion-item class="w-100">
+        <ion-input label="Usuario" label-placement="floating" fill="outline" placeholder="Ej: ig.peralta"></ion-input>
       </ion-item>
-        <ion-item class="input">
-          <ion-input class="input" label="Contraseña" label-placement="floating" fill="outline" type="password" [(ngModel)]="password">
+        <ion-item class="w-100">
+          <ion-input label="Contraseña" label-placement="floating" fill="outline" type="password" [(ngModel)]="password">
             <ion-input-password-toggle *ngIf="password" slot="end"></ion-input-password-toggle>
           </ion-input>
         </ion-item>
