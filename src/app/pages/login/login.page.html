@@ -3,17 +3,17 @@
     <ion-card-header>
       <ion-card-title>Ingreso</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Usuario</ion-label>
-        <ion-input type="text" [(ngModel)]="username"></ion-input>
+    <ion-card-content class="form">
+      <ion-item class="input">
+        <ion-input class="input" label="Usuario" label-placement="floating" fill="outline" placeholder="Ej: ig.peralta"></ion-input>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
+        <ion-item class="input">
+          <ion-input class="input" label="Contraseña" label-placement="floating" fill="outline" type="password" [(ngModel)]="password">
+            <ion-input-password-toggle *ngIf="password" slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </ion-item>
       <ion-button expand="block" (click)="login()">Login</ion-button>
-      <a routerLink="/recover-password">Recuperar contraseña</a>
+      <ion-button href="/recover-password" size="small" fill="clear">¿Olvidaste tu Contraseña?</ion-button>
     </ion-card-content>
   </ion-card>
 </ion-content>

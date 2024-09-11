@@ -29,5 +29,8 @@ export class LoginPage implements OnInit {
       console.log('Login failed');
     }
   }
+  goToRecoverPassword() : void{
+    this.router.navigateByUrl('/recover-password')
+  }
 
 }
