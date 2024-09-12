@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { UserData } from 'src/app/_utils/interfaces/user-data.interface';
 import { LocalStorageService } from '../local-storage/local-storage.service';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionService {
 
-  private _user = new BehaviorSubject<UserData | null>(null);
+  private _user = new BehaviorSubject<User | null>(null);
 
   constructor(private readonly storage: LocalStorageService) {
     this.status();
   }
 
-  set user(user: UserData | null) {
+  set user(user: User | null) {
     this._user.next(user);
+    if (user)
+      this.storage.setItem('user', user);
+    else
+      this.storage.removeItem('user');
   }
 
-  get user(): Observable<UserData | null> {
+  get user(): Observable<User | null> {
     return this._user.asObservable();
   }
 

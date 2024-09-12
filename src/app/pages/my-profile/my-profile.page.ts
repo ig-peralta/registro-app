@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserData } from 'src/app/_utils/interfaces/user-data.interface';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SessionService } from 'src/app/services/session/session.service';
 
@@ -11,7 +11,7 @@ import { SessionService } from 'src/app/services/session/session.service';
 })
 export class MyProfilePage implements OnInit {
 
-  user: UserData | null = null;
+  user: User | null = null;
   name: string = '';
   email: string = '';
   educationLevel: string = '';
@@ -23,7 +23,7 @@ export class MyProfilePage implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.session.user.subscribe((user: UserData | null) => {
+    this.session.user.subscribe((user: User | null) => {
       this.name = user?.name || '';
       this.email = user?.email || '';
       this.educationLevel = user?.educationLevel || '';

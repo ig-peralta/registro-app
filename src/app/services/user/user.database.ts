@@ -1,8 +1,7 @@
-import { User } from "src/app/_utils/interfaces/user.interface";
 import { EducationLevel } from "../../_utils/enums/education-level.enum";
 
 
-export const usersDb: User[] = [
+export const usersDb: any[] = [ // TODO: Change any[] to User[]
   {
     id: 0,
     name: 'John',

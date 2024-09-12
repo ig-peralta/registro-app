@@ -10,18 +10,14 @@ export class UserService {
 
   constructor() {}
 
-  create(user: User): void {
-    this.users.push(user);
-  }
-
-  getByEmail(email: string): User | null {
+  getByEmail(email: string): any | null { //TODO: Change any to User Entity
     const user = this.users.find(user => user.email === email);
     if (!user)
       return null;
     return user;
   }
 
-  getByUsername(username: string): User | null {
+  getByUsername(username: string): any | null { //TODO: Change any to User Entity
     const user = this.users.find(user => user.username === username);
     if (!user)
       return null;

@@ -17,15 +17,16 @@ export class RecoverPasswordPage {
 
   constructor(private readonly auth: AuthService) {}
 
-  getQuestion() {
+  getQuestion(): void {
     console.log()
-    this.securityQuestion = this.auth.getSecurityQuestion(this.email) || '';
-    if (this.securityQuestion) {
+    const question = this.auth.getSecurityQuestion(this.email);
+    if (question) {
       this.submitted = true;
+      this.securityQuestion = question;
     }
   }
 
-  recover() {
+  recover(): void {
     const password = this.auth.recoverPassword(this.email, this.answer);
     if (password)
       this.password = password;
