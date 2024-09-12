@@ -21,8 +21,6 @@ export class AuthService {
       return false;
     if (user.password !== password)
       return false;
-    delete user.password;
-    delete user.securityAnswer;
     this.session.user = user as UserData;
     this.storage.setItem('user', user as UserData);
     return true;

@@ -13,7 +13,7 @@ export class UserService {
   create(user: User): void {
     this.users.push(user);
   }
-
+ 
   getByEmail(email: string): User | null {
     const user = this.users.find(user => user.email === email);
     if (!user)
