@@ -1,0 +1,20 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button tab="home" (click)="goHome()" >
+      <ion-icon name="start" name="home"></ion-icon>
+      Inicio
+    </ion-tab-button>
+    <ion-tab-button tab="my-class" (click)="goMyClass()">
+      <ion-icon name="book-outline"></ion-icon>
+      Mi clase
+    </ion-tab-button>
+    <ion-tab-button tab="my-profile" (click)="goMyProfile()">
+      <ion-icon name="person-circle-outline"></ion-icon>
+      Mis datos
+    </ion-tab-button>
+    <ion-tab-button  (click)="logout()">
+      <ion-icon name="exit-outline"></ion-icon>
+      Cerrar sesion
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

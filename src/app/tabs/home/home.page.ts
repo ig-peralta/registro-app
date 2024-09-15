@@ -15,7 +15,6 @@ export class HomePage implements OnInit {
   surname: string = '';
   constructor(
     private readonly session: SessionService,
-    private readonly router: Router,
     private readonly auth: AuthService
   ) { }
 
@@ -29,6 +28,5 @@ export class HomePage implements OnInit {
 
   logout() {
     this.auth.logout();
-    this.router.navigate(['/login']);
   }
 }

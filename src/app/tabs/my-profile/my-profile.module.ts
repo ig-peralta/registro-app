@@ -13,7 +13,7 @@ import { MyProfilePage } from './my-profile.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    MyProfilePageRoutingModule
+    MyProfilePageRoutingModule,
   ],
   declarations: [MyProfilePage]
 })
