@@ -11,7 +11,7 @@ export class SessionService {
   private _user = new BehaviorSubject<User | null>(null);
 
   constructor(private readonly storage: LocalStorageService) {
-    this.status();
+    this.checkUser();
   }
 
   set user(user: User | null) {
@@ -26,9 +26,13 @@ export class SessionService {
     return this._user.asObservable();
   }
 
-  status(): void {
+  checkUser(): void {
     const user = this.storage.getItem('user');
     if (user)
       this._user.next(user);
+  }
+
+  status(): UserData | null {
+    return this._user.getValue();
   }
 }

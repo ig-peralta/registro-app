@@ -13,6 +13,7 @@ export class MyProfilePage implements OnInit {
 
   user: User | null = null;
   name: string = '';
+  surname: string = '';
   email: string = '';
   educationLevel: string = '';
 
@@ -25,6 +26,7 @@ export class MyProfilePage implements OnInit {
   ngOnInit() {
     this.session.user.subscribe((user: User | null) => {
       this.name = user?.name || '';
+      this.surname = user?.name || '';
       this.email = user?.email || '';
       this.educationLevel = user?.educationLevel || '';
     })
