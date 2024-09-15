@@ -24,7 +24,7 @@
     login() {
       if (this.auth.login(this.username, this.password)) {
         console.log('Login successful');
-        this.router.navigateByUrl('/my-profile');
+        this.router.navigateByUrl('/home');
       } else {
         console.log('Login failed');
       }
