@@ -16,6 +16,15 @@ const routes: Routes = [
     path: 'recover-password',
     loadChildren: () => import('./pages/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
   },
+  {
+    path: 'successful-pass',
+    loadChildren: () => import('./pages/successful-pass/successful-pass.module').then( m => m.SuccessfulPassPageModule)
+  },
+  {
+    path: 'wrong-pass',
+    loadChildren: () => import('./pages/wrong-pass/wrong-pass.module').then( m => m.WrongPassPageModule)
+  },
+
 ];
 
 @NgModule({
