@@ -13,13 +13,25 @@
       <ion-title class="text-center fs-2 mb-3 text-dark">Mis datos personales</ion-title>
     </div>
     <ion-list>
-      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3" value="{{ name }}"></ion-input>
-      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3" value="{{ surname }}"></ion-input>
-      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3" value="{{ securityQuestion }}"></ion-input>
-      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3" value="value"></ion-input>
-      <ion-input label="Contraseña" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3" value="value"></ion-input>
-      <ion-input label="Repetir contraseña" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3" value="value"></ion-input>
+      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        value="{{ name }}"></ion-input>
+      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        value="{{ surname }}"></ion-input>
+      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        value="{{ securityQuestion }}"></ion-input>
+      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        value="value"></ion-input>
+      <ion-input label="Contraseña" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        value="value"></ion-input>
+      <ion-input label="Repetir contraseña" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        value="value"></ion-input>
+      <ion-select label="Nivel educacional" label-placement="floating" fill="outline">
+        <ion-select-option value="apple">Apple</ion-select-option>
+        <ion-select-option value="banana">Banana</ion-select-option>
+        <ion-select-option value="orange">Orange</ion-select-option>
+      </ion-select>
     </ion-list>
-    <ion-button shape="round" expand="full" class="fs-6 mb-2"><ion-icon name="create-outline"></ion-icon>Cambiar datos</ion-button>
+    <ion-button shape="round" expand="full" class="fs-6 mb-2"><ion-icon name="create-outline"></ion-icon>Cambiar
+      datos</ion-button>
   </ion-card>
 </ion-content>
