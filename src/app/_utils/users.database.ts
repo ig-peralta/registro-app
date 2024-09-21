@@ -1,12 +1,11 @@
-import { User } from "src/app/_utils/interfaces/user.interface";
-import { EducationLevel } from "../../_utils/enums/education-level.enum";
-
+import { User } from "../models/user.model";
+import { EducationLevel } from "./enums/education-level.enum";
 
 export const usersDb: User[] = [
   {
     id: 0,
     name: 'John',
-    surname: 'Doe',
+    lastname: 'Doe',
     birthdate: new Date(),
     educationLevel: EducationLevel.SuperiorIncompleta,
     username: 'john',
@@ -18,7 +17,7 @@ export const usersDb: User[] = [
   {
     id: 1,
     name: 'Jane',
-    surname: 'Doe',
+    lastname: 'Doe',
     birthdate: new Date(),
     educationLevel: EducationLevel.MediaCompleta,
     username: 'jane',
@@ -30,7 +29,7 @@ export const usersDb: User[] = [
   {
     id: 2,
     name: 'Foo',
-    surname: 'Bar',
+    lastname: 'Bar',
     birthdate: new Date(),
     educationLevel: EducationLevel.SuperiorIncompleta,
     username: 'foo',
@@ -42,7 +41,7 @@ export const usersDb: User[] = [
   {
     id: 3,
     name: 'Bar',
-    surname: 'Foo',
+    lastname: 'Foo',
     birthdate: new Date(),
     educationLevel: EducationLevel.SuperiorCompleta,
     username: 'bar',

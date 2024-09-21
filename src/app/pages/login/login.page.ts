@@ -1,36 +1,48 @@
-  import { Component, OnInit } from '@angular/core';
-  import { Router } from '@angular/router';
-  import { AuthService } from 'src/app/services/auth/auth.service';
+import { Component, inject } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Navigation, Router } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
+})
+export class LoginPage {
+  auth = inject(AuthService);
+  router = inject(Router);
+  toasts = inject(ToastController);
 
-  @Component({
-    selector: 'app-login',
-    templateUrl: './login.page.html',
-    styleUrls: ['./login.page.scss'],
-  })
-  export class LoginPage implements OnInit {
+  nav: Navigation | null = this.router.getCurrentNavigation();
+  loginForm = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required)
+  });
 
-    username: string = '';
-    password: string = '';
-
-    constructor(
-      private readonly auth: AuthService,
-      private readonly router: Router
-    ) {}
-
-    ngOnInit() {
-    }
-
-    login() {
-      if (this.auth.login(this.username, this.password)) {
-        console.log('Login successful');
-        this.router.navigateByUrl('/home');
-      } else {
-        console.log('Login failed');
-      }
-    }
-    goToRecoverPassword() : void{
-      this.router.navigateByUrl('/recover-password')
-    }
-
+  get username() {
+    return this.loginForm.get('username');
   }
+
+  get password() {
+    return this.loginForm.get('password');
+  }
+
+  login(): void {
+    const username = this.username?.value;
+    const password = this.password?.value;
+    if (!username || !password) return;
+
+    const error = this.auth.login(username, password);
+    if (error) {
+      this.toasts.create({
+        message: error,
+        duration: 2000
+      }).then(toast => toast.present());
+    }
+  }
+
+  goToRecoverPassword(): void{
+    this.router.navigateByUrl('/recover-password')
+  }
+}
