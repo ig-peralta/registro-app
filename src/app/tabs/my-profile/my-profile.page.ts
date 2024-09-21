@@ -36,4 +36,9 @@ export class MyProfilePage implements OnInit {
     this.auth.logout();
     this.router.navigate(['/login']);
   }
+
+  goChangePassword(){
+    this.router.navigate(['/change-password'])
+  }
+  
 }
