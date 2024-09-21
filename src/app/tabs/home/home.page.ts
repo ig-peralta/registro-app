@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { UserData } from 'src/app/_utils/interfaces/user-data.interface';
+import { Component, OnInit, inject } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { trigger, style, animate, transition } from '@angular/animations';
+import { NavigationService } from 'src/app/services/navigation/navigation.service';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user.model';
 
 
 @Component({
@@ -33,19 +34,28 @@ import { trigger, style, animate, transition } from '@angular/animations';
 })
 
 export class HomePage implements OnInit {
+  session = inject(SessionService);
+  auth = inject(AuthService);
+  router = inject(Router);
+  nav = inject(NavigationService);
+
   name: string = '';
-  surname: string = '';
-  constructor(
-    private readonly session: SessionService,
-    private readonly auth: AuthService
-  ) { }
+  lastname: string = '';
 
   ngOnInit() {
-    this.session.user.subscribe((user: UserData | null) => {
+    this.session.user.subscribe((user: User | null) => {
       this.name = user?.name || '';
-      this.surname = user?.surname || '';
-
+      this.lastname = user?.lastname || '';
     })
+    // this.getStateData();
+  }
+
+  // we did this to prove that we can get the data from the state
+  getStateData() {
+    const user = this.nav.getState()['user'];
+    const name = user?.name || '';
+    const lastname = user?.lastname || '';
+    console.log('data from state', name, lastname);
   }
 
   logout() {
