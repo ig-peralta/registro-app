@@ -14,13 +14,13 @@
     </div>
     <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
       <ion-list class="mb-3">
-        <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline"  formControlName="name" class="mb-3"
           value="{{ name }}"></ion-input>
-        <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" formControlName="lastname" class="mb-3"
           value="{{ surname }}"></ion-input>
-        <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline"  formControlName="securityQuestion" class="mb-3"
           value="{{ securityQuestion }}"></ion-input>
-        <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" class="mb-3"
+        <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" formControlName="securityAnswer" class="mb-3"
           value="value"></ion-input>
         <ion-select label="Nivel educacional" label-placement="floating" fill="outline">
           <ion-select-option value="apple">Apple</ion-select-option>
