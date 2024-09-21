@@ -23,7 +23,11 @@ const routes: Routes = [
   {
     path: 'wrong-pass',
     loadChildren: () => import('./pages/wrong-pass/wrong-pass.module').then( m => m.WrongPassPageModule)
+  },  {
+    path: 'change-password',
+    loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
+
 
 ];
 
