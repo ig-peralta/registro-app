@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-recover-password',
@@ -15,7 +15,10 @@ export class RecoverPasswordPage {
   submitted: boolean = false;
   password: string = '';
 
-  constructor(private readonly auth: AuthService) {}
+  constructor(
+      private readonly auth: AuthService,
+      private readonly router: Router
+    ) { }
 
   getQuestion() {
     console.log()
@@ -29,7 +32,7 @@ export class RecoverPasswordPage {
     const password = this.auth.recoverPassword(this.email, this.answer);
     if (password)
       this.password = password;
-  }
+   }
 
 
 }

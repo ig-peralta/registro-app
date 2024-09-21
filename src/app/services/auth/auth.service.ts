@@ -3,13 +3,17 @@ import { UserService } from '../user/user.service';
 import { SessionService } from '../session/session.service';
 import { UserData } from 'src/app/_utils/interfaces/user-data.interface';
 import { User } from 'src/app/_utils/interfaces/user.interface';
+import { LocalStorageService } from '../local-storage/local-storage.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   constructor(
     private readonly user: UserService,
-    private readonly session: SessionService
+    private readonly session: SessionService,
+    private readonly storage: LocalStorageService,
+    private readonly router: Router
   ) {}
 
 
@@ -19,13 +23,15 @@ export class AuthService {
       return false;
     if (user.password !== password)
       return false;
-    delete user.password;
     this.session.user = user as UserData;
+    this.storage.setItem('user', user as UserData);
     return true;
   }
 
   logout() {
     this.session.user = null;
+    this.storage.removeItem('user');
+    this.router.navigateByUrl('login');
   }
 
   recoverPassword(email: string, answer: string): string | null {

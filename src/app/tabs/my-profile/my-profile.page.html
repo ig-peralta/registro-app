@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border mb-3">
+  <ion-toolbar color="secondary">
+    <div class="text-center">
+      <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
+    </div>
+    <ion-title class="text-center fs-2 mb-3">Sistema de asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="p-3">
+    <div class="d-flex flex-column align-items-center mx-4 mt-1">
+      <ion-title class="text-center fs-2 mb-3 text-dark">Mis datos personales</ion-title>
+    </div>
+    <form [formGroup]="updateUserForm" (ngSubmit)="updateUser()">
+      <ion-list class="mb-3">
+        <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline"  formControlName="name" class="mb-3"
+          value="{{ name }}"></ion-input>
+        <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" formControlName="lastname" class="mb-3"
+          value="{{ surname }}"></ion-input>
+        <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline"  formControlName="securityQuestion" class="mb-3"
+          value="{{ securityQuestion }}"></ion-input>
+        <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" formControlName="securityAnswer" class="mb-3"
+          value="value"></ion-input>
+        <ion-select label="Nivel educacional" label-placement="floating" fill="outline">
+          <ion-select-option value="apple">Apple</ion-select-option>
+          <ion-select-option value="banana">Banana</ion-select-option>
+          <ion-select-option value="orange">Orange</ion-select-option>
+        </ion-select>
+      </ion-list>
+      <ion-button shape="round" expand="full" class="fs-6 mb-3"><ion-icon name="create-outline"></ion-icon>Cambiar
+        datos</ion-button>
+    </form>
+    <ion-button shape="round" expand="full" class="fs-6 mb-2" fill="outline" color="danger"
+      (click)="goChangePassword()"><ion-icon name="key-outline"></ion-icon>
+      Cambiar
+      contraseña</ion-button>
+  </ion-card>
+</ion-content>

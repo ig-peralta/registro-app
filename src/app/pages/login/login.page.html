@@ -1,19 +1,26 @@
-<ion-content [fullscreen]="true">
-  <ion-card>
+<ion-header class="ion-no-border mb-3">
+  <ion-toolbar color="secondary">
+    <div class="text-center">
+      <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
+    </div>
+    <ion-title class="text-center fs-2 mb-3">Sistema de asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="p-2"> 
     <ion-card-header>
-      <ion-card-title>Ingreso</ion-card-title>
+      <ion-card-title class="text-center fs-2">Ingreso</ion-card-title>
     </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label position="floating">Usuario</ion-label>
-        <ion-input type="text" [(ngModel)]="username"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Password</ion-label>
-        <ion-input type="password" [(ngModel)]="password"></ion-input>
-      </ion-item>
-      <ion-button expand="block" (click)="login()">Login</ion-button>
-      <a routerLink="/recover-password">Recuperar contraseña</a>
+    <ion-card-content class="">
+      <ion-input label="Usuario" [clearInput]="true" label-placement="floating" fill="outline" placeholder="Ej: ig.peralta" class="mb-3" [(ngModel)]="username"></ion-input>
+      <ion-input label="Contraseña" label-placement="floating" fill="outline" type="password" class="mb-3" [(ngModel)]="password">
+        <ion-input-password-toggle *ngIf="password" slot="end"></ion-input-password-toggle>
+      </ion-input>
+      <div class="text-center">
+        <ion-button shape="round" expand="full" (click)="login()" class="fs-6 mb-2">Iniciar sesión</ion-button>
+        <ion-button href="/recover-password" size="small" fill="clear" class="fs-6 text-dark">¿Olvidaste tu Contraseña?</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
 </ion-content>

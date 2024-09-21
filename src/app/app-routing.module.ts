@@ -1,32 +1,34 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './tabs/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    path: 'login',
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
-  },
-  {
-    path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'recover-password',
     loadChildren: () => import('./pages/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
   },
   {
-    path: 'my-profile',
-    loadChildren: () => import('./pages/my-profile/my-profile.module').then( m => m.MyProfilePageModule)
+    path: 'successful-pass',
+    loadChildren: () => import('./pages/successful-pass/successful-pass.module').then( m => m.SuccessfulPassPageModule)
   },
   {
-    path: 'my-profile',
-    loadChildren: () => import('./pages/my-profile/my-profile.module').then( m => m.MyProfilePageModule)
+    path: 'wrong-pass',
+    loadChildren: () => import('./pages/wrong-pass/wrong-pass.module').then( m => m.WrongPassPageModule)
+  },  {
+    path: 'change-password',
+    loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule)
   },
+
+
 ];
 
 @NgModule({
