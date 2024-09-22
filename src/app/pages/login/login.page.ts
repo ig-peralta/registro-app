@@ -45,6 +45,7 @@ export class LoginPage {
         duration: 2000
       }).then(toast => toast.present());
     }
+    // redirect occurs in the service because I don't want to bring the user data here :P
   }
 
   goToRecoverPassword(): void{

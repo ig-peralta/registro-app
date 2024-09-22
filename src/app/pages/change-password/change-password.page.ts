@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
@@ -13,6 +14,7 @@ export class ChangePasswordPage implements OnInit {
   auth = inject(AuthService);
   nav = inject(NavigationService);
   toasts = inject(ToastController);
+  router = inject(Router);
 
   userId: number = 0;
   changePasswordForm = new FormGroup({
@@ -59,17 +61,18 @@ export class ChangePasswordPage implements OnInit {
       }).then(toast => toast.present());
       return;
     }
-    const user = this.auth.changePassword({
+    const error = this.auth.changePassword({
       userId: this.userId,
       oldPassword: this.oldPassword,
       newPassword:  this.newPassword,
     });
-    if (!user) {
+    if (error) {
       this.toasts.create({
-        message: 'Contraseña Incorrecta',
+        message: error,
         duration: 2000
       }).then(toast => toast.present());
+    } else {
+      this.router.navigateByUrl('/tabs/home');
     }
-    console.log(user);
   }
 }

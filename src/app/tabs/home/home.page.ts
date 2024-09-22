@@ -5,6 +5,7 @@ import { trigger, style, animate, transition } from '@angular/animations';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
+import { ScannerService } from 'src/app/services/scanner/scanner.service';
 
 
 @Component({
@@ -38,15 +39,18 @@ export class HomePage implements OnInit {
   auth = inject(AuthService);
   router = inject(Router);
   nav = inject(NavigationService);
+  scanner = inject(ScannerService);
 
   name: string = '';
   lastname: string = '';
+  scannerLoading: boolean = true
 
   ngOnInit() {
     this.session.user.subscribe((user: User | null) => {
       this.name = user?.name || '';
       this.lastname = user?.lastname || '';
     })
+    this.scanner.loading.subscribe(state => this.scannerLoading = state);
     // this.getStateData();
   }
 
@@ -60,5 +64,6 @@ export class HomePage implements OnInit {
 
   logout() {
     this.auth.logout();
+    this.router.navigateByUrl('/login');
   }
 }

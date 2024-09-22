@@ -28,6 +28,16 @@ const routes: Routes = [
     path: 'change-password',
     loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule),
     canActivate: [authGuard]
+  },
+  {
+    path: 'successful-pass',
+    loadChildren: () => import('./pages/successful-pass/successful-pass.module').then( m => m.SuccessfulPassPageModule),
+    canActivate: [loginGuard]
+  },
+  {
+    path: 'wrong-pass',
+    loadChildren: () => import('./pages/wrong-pass/wrong-pass.module').then( m => m.WrongPassPageModule),
+    canActivate: [loginGuard]
   }
 ];
 
