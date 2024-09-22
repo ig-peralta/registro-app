@@ -1,44 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ScannerService } from '../services/scanner/scanner.service';
 
 @Component({
   selector: 'app-tabs',
   templateUrl: './tabs.page.html',
   styleUrls: ['./tabs.page.scss'],
 })
-export class TabsPage  implements OnInit {
-  flags = {
-    home: false,
-    myClass: false,
-    myProfile: false
-  }
-
-  constructor(
-    private readonly auth: AuthService,
-    private readonly router: Router
-  ) {}
-
-  ngOnInit() {
-    const url = this.router.url;
-    if (url == '/home') this.flags.home = true;
-    if (url == '/my-class') this.flags.myClass = true;
-    if (url == '/my-profile') this.flags.myProfile = true;
-  }
+export class TabsPage {
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly scannerState = inject(ScannerService);
 
   logout() {
     this.auth.logout();
   }
 
   goHome() {
-    this.router.navigateByUrl('/home');
+    this.scannerState.scanning = true
+    this.router.navigateByUrl('tabs/home');
   }
 
   goMyClass() {
-    this.router.navigateByUrl('/my-class');
+    this.router.navigateByUrl('tabs/my-class');
   }
 
   goMyProfile() {
-    this.router.navigateByUrl('/my-profile');
+    this.router.navigateByUrl('tabs/my-profile');
   }
 }

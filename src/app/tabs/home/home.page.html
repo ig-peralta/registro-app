@@ -10,8 +10,12 @@
   <ion-card>
     <div class="mx-4 mt-3">
       <ion-title class="text-center fs-2 mb-4 text-dark">¡Bienvenido!</ion-title>
-      <h3 class="text-center text-dark mb-4">{{ name }} {{ surname }}</h3>
+      <h3 class="text-center text-dark mb-4">{{ name }} {{ lastname }}</h3>
       <h6 class="text-center text-dark">Escanea el código QR para registrar tu asistencia a clase</h6>
     </div>
+    <div class="spinner d-flex justify-content-center align-items-center" *ngIf="scannerLoading">
+      <ion-spinner></ion-spinner>
+    </div>
+    <app-scanner></app-scanner>
   </ion-card>
 </ion-content>
