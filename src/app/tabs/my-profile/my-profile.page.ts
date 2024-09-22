@@ -82,8 +82,4 @@ export class MyProfilePage implements OnInit {
     this.nav.redirectWithData('change-password', {userId: this.userId});
   }
 
-  goChangePassword(){
-    this.router.navigate(['/change-password'])
-  }
-  
 }
