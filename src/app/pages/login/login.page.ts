@@ -21,19 +21,24 @@ export class LoginPage {
   });
 
   get username() {
-    return this.loginForm.get('username');
+    return this.loginForm.get('username')?.value;
   }
 
   get password() {
-    return this.loginForm.get('password');
+    return this.loginForm.get('password')?.value;
+  }
+
+  get usernameError() {
+    return this.loginForm.get('username')?.hasError('required');
+  }
+
+  get passwordError() {
+    return this.loginForm.get('password')?.hasError('required');
   }
 
   login(): void {
-    const username = this.username?.value;
-    const password = this.password?.value;
-    if (!username || !password) return;
-
-    const error = this.auth.login(username, password);
+    if (!this.username || !this.password) return;
+    const error = this.auth.login(this.username, this.password);
     if (error) {
       this.toasts.create({
         message: error,

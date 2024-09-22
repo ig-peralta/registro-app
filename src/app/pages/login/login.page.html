@@ -16,10 +16,10 @@
       <form [formGroup]="loginForm" (ngSubmit)="login()">
         <ion-input label="Usuario" [clearInput]="true" label-placement="floating" fill="outline" placeholder="Ej: ig.peralta" class="mb-3" formControlName="username"></ion-input>
         <ion-input label="Contraseña" label-placement="floating" fill="outline" type="password" class="mb-3" formControlName="password">
-          <ion-input-password-toggle *ngIf="password?.value" slot="end"></ion-input-password-toggle>
+          <ion-input-password-toggle *ngIf="password" slot="end"></ion-input-password-toggle>
         </ion-input>
         <div class="text-center">
-          <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2" [disabled]="!username?.value || !password?.value">Iniciar sesión</ion-button>
+          <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2" [disabled]="passwordError || usernameError">Iniciar sesión</ion-button>
           <ion-button href="/recover-password" size="small" fill="clear" class="fs-6 text-dark">¿Olvidaste tu Contraseña?</ion-button>
         </div>
       </form>

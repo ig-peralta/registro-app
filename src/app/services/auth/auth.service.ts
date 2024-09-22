@@ -3,6 +3,8 @@ import { SessionService } from '../session/session.service';
 import { Router } from '@angular/router';
 import { UsersService } from '../users/users.service';
 import { NavigationService } from '../navigation/navigation.service';
+import { ChangePasswordDto } from 'src/app/_utils/dto/change-password.dto';
+import { User } from 'src/app/models/user.model';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -41,4 +43,15 @@ export class AuthService {
     return user.securityQuestion;
   }
 
+  changePassword(dto : ChangePasswordDto): User | null {
+    const user = this.users.getById(dto.userId);
+    if (!user) // just in case, this would not happen in a normal user flow
+      return null;
+    if (user.password !== dto.oldPassword)
+      return null; // this should be the only real way of this failing
+    const newUser = this.users.updateUser(dto.userId, { password: dto.newPassword });
+    this.session.user = newUser
+    this.router.navigateByUrl('tabs/home');
+    return newUser
+  }
 }

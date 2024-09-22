@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EducationLevel } from 'src/app/_utils/enums/education-level.enum';
 import { usersDb } from 'src/app/_utils/users.database';
 import { User } from 'src/app/models/user.model';
 
@@ -12,6 +13,12 @@ export class UsersService {
 
   getAll(): User[] {
     return this.users;
+  }
+
+  getById(id: number): User | null {
+    const user = this.users.find(user => user.id === id);
+    if (!user) return null;
+    return user;
   }
 
   getByEmail(email: string): User | null {

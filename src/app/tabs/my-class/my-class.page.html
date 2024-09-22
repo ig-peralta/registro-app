@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-card class="p-3">
+  <ion-card class="p-3" *ngIf="scanned">
     <div class="d-flex flex-column align-items-center mx-4 mt-1">
       <ion-title class="text-center fs-4 mb-3 text-dark">Datos de la Asignatura</ion-title>
     </div>
@@ -39,5 +39,13 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+  </ion-card>
+  <ion-card class="p-3" *ngIf="!scanned">
+    <div class="d-flex flex-column align-items-center mx-4 mt-1">
+      <ion-title class="text-center fs-4 mb-3 text-dark">Escanea el código QR</ion-title>
+    </div>
+    <div class="d-flex flex-column align-items-center mx-4 mt-1">
+      <ion-button shape="round" expand="full" class="fs-6 mb-3" (click)="goToHome()"><ion-icon name="qr-code-outline"></ion-icon>Escanear código QR</ion-button>
+    </div>
   </ion-card>
 </ion-content>

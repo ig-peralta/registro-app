@@ -21,10 +21,14 @@ const routes: Routes = [
   },
   {
     path: 'recover-password',
-    loadChildren: () => import('./pages/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule)
+    loadChildren: () => import('./pages/recover-password/recover-password.module').then( m => m.RecoverPasswordPageModule),
+    canActivate: [loginGuard]
   },
-
-
+  {
+    path: 'change-password',
+    loadChildren: () => import('./pages/change-password/change-password.module').then( m => m.ChangePasswordPageModule),
+    canActivate: [authGuard]
+  }
 ];
 
 @NgModule({
