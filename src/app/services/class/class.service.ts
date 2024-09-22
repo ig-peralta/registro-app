@@ -10,4 +10,8 @@ export class ClassService {
   set class(value: any | null) {
     this._class.next(value);
   }
+
+  get class() {
+    return this._class.asObservable();
+  }
 }
