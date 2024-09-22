@@ -15,6 +15,7 @@ export class TabsPage {
 
   logout() {
     this.auth.logout();
+    this.router.navigateByUrl('tabs/home');
   }
 
   goHome() {
