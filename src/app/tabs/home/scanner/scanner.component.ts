@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import jsQR, { QRCode } from 'jsqr';
 
 @Component({
@@ -6,7 +6,7 @@ import jsQR, { QRCode } from 'jsqr';
   templateUrl: './scanner.component.html',
   styleUrls: ['./scanner.component.scss'],
 })
-export class ScannerComponent  implements OnInit {
+export class ScannerComponent implements OnInit, AfterViewInit {
   @ViewChild('video') private video!: ElementRef;
   @ViewChild('canvas') private canvas!: ElementRef;
 
@@ -15,18 +15,27 @@ export class ScannerComponent  implements OnInit {
   asistencia: any = {};
 
   ngOnInit() {
+    // Si necesitas hacer algo aquí antes de inicializar las vistas.
+  }
+
+  ngAfterViewInit() {
+    // Inicia el escaneo aquí ya que las vistas ya están listas.
     this.comenzarEscaneoQR();
   }
 
   public async comenzarEscaneoQR() {
-    const mediaProvider: MediaStream = await navigator.mediaDevices.getUserMedia({
-      video: {facingMode: 'environment'}
-    });
-    this.video.nativeElement.srcObject = mediaProvider;
-    this.video.nativeElement.setAttribute('playsinline', 'true');
-    this.video.nativeElement.play();
-    this.escaneando = true;
-    requestAnimationFrame(this.verificarVideo.bind(this));
+    try {
+      const mediaProvider: MediaProvider = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: 'environment' } // Usa 'environment' para la cámara trasera
+      });
+      this.video.nativeElement.srcObject = mediaProvider;
+      this.video.nativeElement.setAttribute('playsinline', 'true');
+      this.video.nativeElement.play();
+      this.escaneando = true;
+      requestAnimationFrame(this.verificarVideo.bind(this));
+    } catch (err) {
+      console.error('Error al acceder a la cámara: ', err);
+    }
   }
 
   async verificarVideo() {
@@ -65,6 +74,9 @@ export class ScannerComponent  implements OnInit {
 
   public detenerEscaneoQR(): void {
     this.escaneando = false;
+    const stream = this.video.nativeElement.srcObject as MediaStream;
+    const tracks = stream.getTracks();
+    tracks.forEach(track => track.stop()); // Detener todas las pistas de la cámara
+    this.video.nativeElement.srcObject = null;
   }
-
 }
