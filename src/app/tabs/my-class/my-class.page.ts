@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { Class } from 'src/app/_utils/interfaces/class.interface';
+import { ClassService } from 'src/app/services/class/class.service';
 
 @Component({
   selector: 'app-my-class',
@@ -9,19 +10,16 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MyClassPage implements OnInit {
   private readonly router = inject(Router);
+  private readonly classService = inject(ClassService);
 
-  private _scanned = new BehaviorSubject<boolean>(false);
-  private _class = new BehaviorSubject<any | null>(null);
+  class: Class | null = null;
 
-  ngOnInit() {
-  }
-
-  set scanned(value: boolean) {
-    this._scanned.next(value);
-  }
-
-  set class(value: any | null) {
-    this._class.next(value);
+  ngOnInit(): void {
+    this.classService.class.subscribe((value: Class | null) => {
+      if (value) {
+        this.class = value;
+      }
+    });
   }
 
   goToHome(): void {

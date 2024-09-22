@@ -1,29 +1,27 @@
-import { Component, ElementRef, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, AfterViewInit, inject } from '@angular/core';
+import { Router } from '@angular/router';
 import jsQR, { QRCode } from 'jsqr';
+import { ClassService } from 'src/app/services/class/class.service';
 
 @Component({
   selector: 'app-scanner',
   templateUrl: './scanner.component.html',
   styleUrls: ['./scanner.component.scss'],
 })
-export class ScannerComponent implements OnInit, AfterViewInit {
+export class ScannerComponent implements AfterViewInit {
+  classService = inject(ClassService);
+  router = inject(Router);
+
   @ViewChild('video') private video!: ElementRef;
   @ViewChild('canvas') private canvas!: ElementRef;
-
-  public escaneando = false;
-  public datosQR: string = '';
-  asistencia: any = {};
-
-  ngOnInit() {
-    // Si necesitas hacer algo aquí antes de inicializar las vistas.
-  }
+  scanning: boolean = false;
 
   ngAfterViewInit() {
     // Inicia el escaneo aquí ya que las vistas ya están listas.
-    this.comenzarEscaneoQR();
+    this.startScanning();
   }
 
-  public async comenzarEscaneoQR() {
+  public async startScanning() {
     try {
       const mediaProvider: MediaProvider = await navigator.mediaDevices.getUserMedia({
         video: { facingMode: 'environment' } // Usa 'environment' para la cámara trasera
@@ -31,23 +29,23 @@ export class ScannerComponent implements OnInit, AfterViewInit {
       this.video.nativeElement.srcObject = mediaProvider;
       this.video.nativeElement.setAttribute('playsinline', 'true');
       this.video.nativeElement.play();
-      this.escaneando = true;
-      requestAnimationFrame(this.verificarVideo.bind(this));
+      this.scanning = true;
+      requestAnimationFrame(this.verifyMediaSource.bind(this));
     } catch (err) {
       console.error('Error al acceder a la cámara: ', err);
     }
   }
 
-  async verificarVideo() {
+  async verifyMediaSource() {
     if (this.video.nativeElement.readyState === this.video.nativeElement.HAVE_ENOUGH_DATA) {
-      if (this.obtenerDatosQR() || !this.escaneando) return;
-      requestAnimationFrame(this.verificarVideo.bind(this));
+      if (this.retrieveQrData() || !this.scanning) return;
+      requestAnimationFrame(this.verifyMediaSource.bind(this));
     } else {
-      requestAnimationFrame(this.verificarVideo.bind(this));
+      requestAnimationFrame(this.verifyMediaSource.bind(this));
     }
   }
 
-  public obtenerDatosQR(): boolean {
+  public retrieveQrData(): boolean {
     const w: number = this.video.nativeElement.videoWidth;
     const h: number = this.video.nativeElement.videoHeight;
     this.canvas.nativeElement.width = w;
@@ -58,25 +56,16 @@ export class ScannerComponent implements OnInit, AfterViewInit {
     let qrCode: QRCode | null = jsQR(img.data, w, h, { inversionAttempts: 'dontInvert' });
     if (qrCode) {
       if (qrCode.data !== '') {
-        this.escaneando = false;
-        this.mostrarDatosQROrdenados(qrCode.data);
+        this.scanning = false;
+        this.setClass(qrCode.data);
         return true;
       }
     }
     return false;
   }
 
-  public mostrarDatosQROrdenados(datosQR: string): void {
-    this.datosQR = datosQR;
-    this.asistencia = JSON.parse(datosQR);
-    console.log(this.asistencia);
-  }
-
-  public detenerEscaneoQR(): void {
-    this.escaneando = false;
-    const stream = this.video.nativeElement.srcObject as MediaStream;
-    const tracks = stream.getTracks();
-    tracks.forEach(track => track.stop()); // Detener todas las pistas de la cámara
-    this.video.nativeElement.srcObject = null;
+  public setClass(qrData: string): void {
+    this.classService.class = JSON.parse(qrData);
+    this.router.navigateByUrl('/tabs/my-class');
   }
 }
