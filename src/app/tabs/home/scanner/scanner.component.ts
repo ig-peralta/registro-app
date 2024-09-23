@@ -2,6 +2,8 @@ import { Component, ElementRef, ViewChild, inject, OnInit } from '@angular/core'
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import jsQR, { QRCode } from 'jsqr';
+import { assertClass } from 'src/app/_utils/custom.asserts';
+import { Class } from 'src/app/_utils/interfaces/class.interface';
 import { ClassService } from 'src/app/services/class/class.service';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
 
@@ -86,6 +88,19 @@ export class ScannerComponent implements OnInit {
   }
 
   setClass(qrData: string): void {
+    console.log(JSON.parse(qrData))
+    try{
+      const parsedData = JSON.parse(qrData) as Class;
+      assertClass(parsedData)
+    } catch (err){
+      this.toasts.create({
+        message: 'QR Invalido',
+        duration: 2000
+      }).then(toast => toast.present());
+      this.scannerState.scanning=false
+      setTimeout(() => this.scannerState.scanning = true, 2000)
+      return;
+    }
     this.classService.class = JSON.parse(qrData);
     this.scannerState.scanning = false;
     this.router.navigateByUrl('/tabs/my-class');
