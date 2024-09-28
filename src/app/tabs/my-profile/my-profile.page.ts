@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { EducationLevel } from 'src/app/_utils/enums/education-level.enum';
 import { User } from 'src/app/models/user.model';
@@ -11,6 +11,7 @@ import { UsersService } from 'src/app/services/users/users.service';
   selector: 'app-my-profile',
   templateUrl: './my-profile.page.html',
   styleUrls: ['./my-profile.page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyProfilePage implements OnInit {
   private readonly session = inject(SessionService);
@@ -21,11 +22,14 @@ export class MyProfilePage implements OnInit {
 
   userId: number = 0;
   user: User | null = null;
+  username: string = '';
   name: string = '';
   lastname: string = '';
+  email: string = '';
   educationLevel: string = '';
   securityQuestion: string ='';
   securityAnswer: string = '';
+  birthdate: Date = new Date();
   educationLevels = Object.values(EducationLevel).slice(0, 6);
 
   ngOnInit(): void {
@@ -39,13 +43,15 @@ export class MyProfilePage implements OnInit {
   setUserData(): void {
     this.session.user.subscribe((user: User | null) => {
       this.userId = user?.id || 0;
+      this.username = user?.username || '';
       this.name = user?.name || '';
+      this.email = user?.email || '';
       this.lastname = user?.lastname || '';
       if (user?.educationLevel)
         this.educationLevel = EducationLevel[user.educationLevel] || '';
       this.securityQuestion = user?.securityQuestion || '';
       this.securityAnswer = user?.securityAnswer || '';
-      console.log(user);
+      this.birthdate = user?.birthdate || new Date();
     });
   }
 
@@ -53,7 +59,7 @@ export class MyProfilePage implements OnInit {
 
   updateUser(): void {
     // XD
-    if (!this.name || !this.lastname || !this.educationLevel || !this.securityQuestion || !this.securityAnswer) {
+    if (!this.username || !this.birthdate || !this.email || !this.username || !this.birthdate || !this.email || !this.name || !this.lastname || !this.educationLevel || !this.securityQuestion || !this.securityAnswer) {
       this.toast.create({
         message: 'No puede haber campos vacíos',
         duration: 3000,
@@ -61,16 +67,23 @@ export class MyProfilePage implements OnInit {
       return;
     }
     const payload = {
+      username: this.username,
       name: this.name,
       lastname: this.lastname,
+      email: this.email,
       educationLevel: EducationLevel[this.educationLevel as keyof typeof EducationLevel] || 0,
       securityQuestion: this.securityQuestion,
+      birthdate: this.birthdate,
       securityAnswer: this.securityAnswer,
     };
     const user = this.users.updateUser(this.userId, payload);
     if (user) {
       this.session.user = user;
       this.setUpdateUserForm();
+      this.toast.create({
+        message: 'Datos actualizados con éxito',
+        duration: 3000,
+      }).then(toast => toast.present());
     }
   }
 
