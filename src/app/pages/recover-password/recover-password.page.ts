@@ -45,13 +45,15 @@ export class RecoverPasswordPage {
   getQuestion(): void {
     if (!this.email) return;
     this.securityQuestion = this.auth.getSecurityQuestion(this.email) || '';
-    if (this.securityQuestion)
+    if (this.securityQuestion) {
       this.submitted = true;
-    else
+    } else {
       this.toasts.create({
         message: 'Correo no registrado',
         duration: 2000
       }).then(toast => toast.present());
+      this.router.navigateByUrl('/wrong-pass');
+    }
   }
 
   recover(): void {
