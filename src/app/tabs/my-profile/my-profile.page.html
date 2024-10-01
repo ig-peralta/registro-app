@@ -1,51 +1,51 @@
-<ion-header class="ion-no-border mb-3">
+<ion-header class="ion-no-border mb-3" [@pageAnimation]>
   <ion-toolbar color="secondary">
-    <div class="text-center">
+    <div class="text-center animate-item">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-3">Sistema de asistencia</ion-title>
+    <ion-title class="text-center fs-2 mb-3 animate-item">Sistema de asistencia</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="p-3">
+<ion-content [@pageAnimation]>
+  <ion-card class="p-3 animate-item">
     <div class="d-flex flex-column align-items-center mx-4 mt-1">
-      <ion-title class="text-center fs-2 mb-3 text-dark">Mis datos personales</ion-title>
+      <ion-title class="text-center fs-2 mb-3 text-dark animate-item">Mis datos personales</ion-title>
     </div>
     <ion-list class="mb-3">
-      <ion-input label="Cuenta" [clearInput]="true" label-placement="floating" fill="outline"  [(ngModel)]="username" class="mb-3"
+      <ion-input label="Cuenta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="username" class="mb-3 animate-item"
         value="{{ username }}"></ion-input>
-      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline"  [(ngModel)]="name" class="mb-3"
+      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="name" class="mb-3 animate-item"
         value="{{ name }}"></ion-input>
-      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="lastname" class="mb-3"
+      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="lastname" class="mb-3 animate-item"
         value="{{ lastname }}"></ion-input>
-      <ion-input label="Correo" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="email" class="mb-3"
+      <ion-input label="Correo" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="email" class="mb-3 animate-item"
         value="{{ email }}"></ion-input>
-      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline"  [(ngModel)]="securityQuestion" class="mb-3"
+      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="securityQuestion" class="mb-3 animate-item"
         value="{{ securityQuestion }}"></ion-input>
-      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="securityAnswer" class="mb-3"
+      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="securityAnswer" class="mb-3 animate-item"
         value="{{ securityAnswer }}"></ion-input>
-      <ion-select label="Nivel educacional" label-placement="floating" fill="outline" [(ngModel)]="educationLevel" class="mb-3">
+      <ion-select label="Nivel educacional" label-placement="floating" fill="outline" [(ngModel)]="educationLevel" class="mb-3 animate-item">
         <div *ngFor="let edLevel of educationLevels">
           <ion-select-option value="{{ edLevel }}">{{ edLevel }}</ion-select-option>
         </div>
       </ion-select>
-      <!-- TODO: bind user birthdate to a date picker (angular material) -->
-      <mat-form-field class="w-100">
-        <mat-label>Fecha de nacimiento</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="birthdate" disabled style="color: #797979;">
+      <mat-form-field class="w-100 animate-item">
+        <mat-label style="color: #242323;">Fecha de nacimiento</mat-label>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="birthdate" disabled style="color: #3b3b3b;">
         <mat-datepicker-toggle matIconSuffix [for]="picker" disabled="false"></mat-datepicker-toggle>
         <mat-datepicker #picker disabled="false"></mat-datepicker>
       </mat-form-field>
     </ion-list>
-    <ion-button shape="round" expand="full" class="fs-6 mb-3" (click)="updateUser()">
+    <ion-button shape="round" expand="full" class="fs-6 mb-3 animate-item" (click)="updateUser()"
+      [@pulseAnimation]="pulseState" (@pulseAnimation.done)="resetAnimations()"
+      [@shakeAnimation]="shakeState" (@shakeAnimation.done)="resetAnimations()">
       <ion-icon name="create-outline"></ion-icon>
       Cambiar datos
     </ion-button>
-    <ion-button shape="round" expand="full" class="fs-6 mb-2" fill="outline" color="danger"
+    <ion-button shape="round" expand="full" class="fs-6 mb-2 animate-item" fill="outline" color="danger"
       (click)="goChangePassword()"><ion-icon name="key-outline"></ion-icon>
-      Cambiar
-      contraseña
+      Cambiar contraseña
     </ion-button>
   </ion-card>
 </ion-content>

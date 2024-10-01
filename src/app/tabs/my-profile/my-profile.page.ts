@@ -6,11 +6,40 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { UsersService } from 'src/app/services/users/users.service';
+import { trigger, state, style, animate, transition, query, stagger } from '@angular/animations';
 
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.page.html',
   styleUrls: ['./my-profile.page.scss'],
+  animations: [
+    trigger('pageAnimation', [
+      transition(':enter', [
+        query('.animate-item', [
+          style({ opacity: 0, transform: 'translateY(50px)' }),
+          stagger(100, [
+            animate('0.5s ease-out', style({ opacity: 1, transform: 'translateY(0)' }))
+          ])
+        ], { optional: true })
+      ])
+    ]),
+    trigger('pulseAnimation', [
+      state('pulse', style({ transform: 'scale(1.05)' })),
+      transition('* => pulse', [
+        animate('0.3s ease-in-out', style({ transform: 'scale(1.05)' })),
+        animate('0.3s ease-in-out', style({ transform: 'scale(1)' }))
+      ])
+    ]),
+    trigger('shakeAnimation', [
+      state('shake', style({ transform: 'translate3d(0, 0, 0)' })),
+      transition('* => shake', [
+        animate('0.5s', style({ transform: 'translate3d(-10px, 0, 0)' })),
+        animate('0.5s', style({ transform: 'translate3d(10px, 0, 0)' })),
+        animate('0.5s', style({ transform: 'translate3d(-10px, 0, 0)' })),
+        animate('0.5s', style({ transform: 'translate3d(0, 0, 0)' }))
+      ])
+    ])
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MyProfilePage implements OnInit {
@@ -31,6 +60,8 @@ export class MyProfilePage implements OnInit {
   securityAnswer: string = '';
   birthdate: Date = new Date();
   educationLevels = Object.values(EducationLevel).slice(0, 6);
+  pulseState: string = '';
+  shakeState: string = '';
 
   ngOnInit(): void {
     this.setUserData();
@@ -94,5 +125,8 @@ export class MyProfilePage implements OnInit {
   goChangePassword(){
     this.nav.redirectWithData('change-password', {userId: this.userId});
   }
-
+  resetAnimations() {
+    this.pulseState = '';
+    this.shakeState = '';
+  }
 }
