@@ -1,3 +1,4 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -9,6 +10,17 @@ import { NavigationService } from 'src/app/services/navigation/navigation.servic
   selector: 'app-change-password',
   templateUrl: './change-password.page.html',
   styleUrls: ['./change-password.page.scss'],
+  animations: [
+    trigger('shakeAnimation', [
+      state('shake', style({ transform: 'translate3d(0, 0, 0)' })),
+      transition('* => shake', [
+        animate('0.05s', style({ transform: 'translate3d(-2px, 0, 0)' })),
+        animate('0.05s', style({ transform: 'translate3d(2px, 0, 0)' })),
+        animate('0.05s', style({ transform: 'translate3d(-2px, 0, 0)' })),
+        animate('0.05s', style({ transform: 'translate3d(0, 0, 0)' }))
+      ])
+    ])
+  ]
 })
 export class ChangePasswordPage implements OnInit {
   auth = inject(AuthService);
@@ -17,6 +29,8 @@ export class ChangePasswordPage implements OnInit {
   router = inject(Router);
 
   userId: number = 0;
+  shakeState: string = '';
+
   changePasswordForm = new FormGroup({
     oldPassword: new FormControl('', Validators.required),
     newPassword: new FormControl('', Validators.required),
@@ -28,6 +42,7 @@ export class ChangePasswordPage implements OnInit {
     console.log(this.userId);
   }
 
+  // ???????? need to refactor this 
   get oldPassword() {
     return this.changePasswordForm.get('oldPassword')?.value;
   }
@@ -53,12 +68,20 @@ export class ChangePasswordPage implements OnInit {
   }
 
   changePassword(): void {
-    if (!this.oldPassword || !this.newPassword) return;
+    if (!this.oldPassword || !this.newPassword) {
+      this.toasts.create({
+        message: 'Debe llenar los campos',
+        duration: 2000
+      }).then(toast => toast.present());
+      this.shakeState = 'shake'
+      return
+    };
     if (this.newPassword !== this.confirmPassword) {
       this.toasts.create({
         message: 'Contraseñas no coinciden',
         duration: 2000
       }).then(toast => toast.present());
+      this.shakeState = 'shake'
       return;
     }
     const error = this.auth.changePassword({
@@ -71,8 +94,13 @@ export class ChangePasswordPage implements OnInit {
         message: error,
         duration: 2000
       }).then(toast => toast.present());
+      this.shakeState = 'shake'
     } else {
       this.router.navigateByUrl('/tabs/home');
     }
+  }
+
+  resetAnimation(): void {
+    this.shakeState="";
   }
 }

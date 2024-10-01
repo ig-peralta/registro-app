@@ -1,14 +1,14 @@
-<ion-header class="ion-no-border mb-3">
-  <ion-toolbar color="secondary">
-    <div class="text-center">
+<ion-header class="ion-no-border mb-3" [@pageAnimation]="animateState">
+  <ion-toolbar color="secondary ">
+    <div class="text-center animate-item">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-3">Sistema de asistencia</ion-title>
+    <ion-title class="text-center fs-2 mb-3 animate-item">Sistema de asistencia</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-card class="p-3" *ngIf="class">
-    <div class="d-flex flex-column align-items-center mx-4 mt-1">
+<ion-content [@pageAnimation]="animateState">
+  <ion-card class="p-3 animate-item" *ngIf="class">
+    <div class="d-flex flex-column align-items-center mx-4">
       <ion-title class="text-center fs-4 mb-3 text-dark">Datos de la Asignatura</ion-title>
     </div>
     <ion-grid>
@@ -40,7 +40,7 @@
       </ion-row>
     </ion-grid>
   </ion-card>
-  <ion-card class="p-3" *ngIf="!class">
+  <ion-card class="p-3 animate-item" *ngIf="!class">
     <div class="d-flex flex-column align-items-center mx-4 mt-1">
       <ion-title class="text-center fs-4 mb-3 text-dark">Escanea el código QR</ion-title>
     </div>
