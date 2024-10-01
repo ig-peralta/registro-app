@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { ToastController, ViewWillEnter, ViewWillLeave } from '@ionic/angular';
 import { EducationLevel } from 'src/app/_utils/enums/education-level.enum';
 import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
@@ -14,7 +14,7 @@ import { trigger, state, style, animate, transition, query, stagger } from '@ang
   styleUrls: ['./my-profile.page.scss'],
   animations: [
     trigger('pageAnimation', [
-      transition(':enter', [
+      transition('* => animate', [
         query('.animate-item', [
           style({ opacity: 0, transform: 'translateY(50px)' }),
           stagger(100, [
@@ -23,26 +23,18 @@ import { trigger, state, style, animate, transition, query, stagger } from '@ang
         ], { optional: true })
       ])
     ]),
-    trigger('pulseAnimation', [
-      state('pulse', style({ transform: 'scale(1.05)' })),
-      transition('* => pulse', [
-        animate('0.3s ease-in-out', style({ transform: 'scale(1.05)' })),
-        animate('0.3s ease-in-out', style({ transform: 'scale(1)' }))
-      ])
-    ]),
     trigger('shakeAnimation', [
       state('shake', style({ transform: 'translate3d(0, 0, 0)' })),
       transition('* => shake', [
-        animate('0.5s', style({ transform: 'translate3d(-10px, 0, 0)' })),
-        animate('0.5s', style({ transform: 'translate3d(10px, 0, 0)' })),
-        animate('0.5s', style({ transform: 'translate3d(-10px, 0, 0)' })),
-        animate('0.5s', style({ transform: 'translate3d(0, 0, 0)' }))
+        animate('0.05s', style({ transform: 'translate3d(-2px, 0, 0)' })),
+        animate('0.05s', style({ transform: 'translate3d(2px, 0, 0)' })),
+        animate('0.05s', style({ transform: 'translate3d(-2px, 0, 0)' })),
+        animate('0.05s', style({ transform: 'translate3d(0, 0, 0)' }))
       ])
     ])
   ],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MyProfilePage implements OnInit {
+export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
   private readonly session = inject(SessionService);
   private readonly auth = inject(AuthService);
   private readonly nav = inject(NavigationService);
@@ -60,12 +52,21 @@ export class MyProfilePage implements OnInit {
   securityAnswer: string = '';
   birthdate: Date = new Date();
   educationLevels = Object.values(EducationLevel).slice(0, 6);
-  pulseState: string = '';
   shakeState: string = '';
+  animateState: string = '';
 
   ngOnInit(): void {
     this.setUserData();
     this.setUpdateUserForm();
+    this.animateState = "animate";
+  }
+
+  ionViewWillEnter(): void {
+    this.animateState = "animate";
+  }
+
+  ionViewWillLeave(): void {
+    this.animateState = "";
   }
 
   // TODO: code review and refactor all this class, there has be a better way to do this
@@ -90,11 +91,13 @@ export class MyProfilePage implements OnInit {
 
   updateUser(): void {
     // XD
+
     if (!this.username || !this.birthdate || !this.email || !this.username || !this.birthdate || !this.email || !this.name || !this.lastname || !this.educationLevel || !this.securityQuestion || !this.securityAnswer) {
       this.toast.create({
         message: 'No puede haber campos vacíos',
         duration: 3000,
       }).then(toast => toast.present());
+      this.shakeState = "shake"
       return;
     }
     const payload = {
@@ -125,8 +128,8 @@ export class MyProfilePage implements OnInit {
   goChangePassword(){
     this.nav.redirectWithData('change-password', {userId: this.userId});
   }
+
   resetAnimations() {
-    this.pulseState = '';
     this.shakeState = '';
   }
 }
