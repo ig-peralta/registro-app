@@ -25,7 +25,7 @@
           <ion-label>Hora de inicio:</ion-label><br>
           <ion-label>Hora de término:</ion-label><br>
         </ion-col>
-        <ion-col size="6" class="text-end">
+        <ion-col size="6" class="text-end" *ngIf="class">
           <ion-label >{{ class.sede }}</ion-label><br>
           <ion-label >{{ class.idAsignatura }}</ion-label><br>
           <ion-label >{{ class.seccion }}</ion-label><br>
