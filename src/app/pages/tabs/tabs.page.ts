@@ -2,7 +2,7 @@ import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { bookOutline, exitOutline, home, personCircleOutline } from 'ionicons/icons';
+import { bookOutline, exitOutline, home, personCircleOutline, chatbubblesOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
 
@@ -27,6 +27,7 @@ export class TabsPage {
       addIcons({ bookOutline });
       addIcons({ personCircleOutline });
       addIcons({ exitOutline });
+      addIcons({ chatbubblesOutline });
     }
 
     logout() {
@@ -45,5 +46,9 @@ export class TabsPage {
 
     goMyProfile() {
         this.router.navigateByUrl('tabs/my-profile');
+    }
+
+    goForum() {
+        this.router.navigateByUrl('tabs/forum');
     }
 }

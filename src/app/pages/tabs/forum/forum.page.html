@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="secondary">
+    <div class="text-center">
+      <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
+    </div>
+    <ion-title class="text-center fs-2 mb-2">Sistema de asistencia</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-title class="text-center fs-4 mt-4 text-dark">Ingresa tu publicación</ion-title>
+  <ion-card class="p-2">
+    <div class="d-flex align-items-center">
+      <h6 class="text-dark mb-0 me-2">Titulo</h6>
+      <ion-input class="mb-0 reduced-input" label-placement="floating" fill="outline" placeholder="Enter text">
+      </ion-input>
+    </div>
+    <div>
+      <h6 class="text-dark mt-2 mb-1">Cuerpo</h6>
+      <ion-textarea class="mb-2" fill="outline" [autoGrow]="true">
+      </ion-textarea>
+    </div>
+    <div class="text-center">
+      <ion-button class="fs-6 mb-1 me-4">
+        Limpiar
+      </ion-button>
+      <ion-button class="fs-6 mb-1">
+        Guardar
+      </ion-button>
+    </div>
+  </ion-card>
+  <ion-title class="text-center fs-4 text-dark mt-3">Publicaciones recientes</ion-title>
+  <ion-card class="p-2">
+    <div class="text-start">
+      <ion-title color="success" class="mb-0">N publicación</ion-title>
+      <ion-title color="primary" class="mb-2">Example Tittle</ion-title>
+    </div>
+    <ion-textarea class="mb-2" fill="outline" [autoGrow]="true" value="hola">
+    </ion-textarea>
+    <ion-button></ion-button>
+    <ion-button></ion-button>
+  </ion-card>
+</ion-content>
