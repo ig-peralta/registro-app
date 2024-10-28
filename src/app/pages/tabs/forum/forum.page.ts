@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonTextarea, IonButton } from '@ionic/angular/standalone';
-import { pencilOutline } from 'ionicons/icons';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonTextarea, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { pencilOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 
 @Component({
@@ -12,11 +12,12 @@ import { addIcons } from 'ionicons';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle,
             IonToolbar, CommonModule, FormsModule,
-            IonCard, IonInput, IonTextarea, IonButton ]
+            IonCard, IonInput, IonTextarea, IonButton,
+            IonIcon ]
 })
 export class ForumPage implements OnInit {
 
-  constructor() { addIcons({ pencilOutline }); }
+  constructor() { addIcons({ pencilOutline, trashOutline }); }
 
   ngOnInit() {
   }
