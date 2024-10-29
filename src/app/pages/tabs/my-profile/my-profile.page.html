@@ -13,19 +13,22 @@
       <ion-title class="text-center fs-2 mb-3 text-dark animate-item">Mis datos personales</ion-title>
     </div>
     <ion-list class="mb-3">
-      <ion-input label="Cuenta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="username" class="mb-3 animate-item"
-        value="{{ username }}"></ion-input>
-      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="name" class="mb-3 animate-item"
-        value="{{ name }}"></ion-input>
-      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="lastname" class="mb-3 animate-item"
-        value="{{ lastname }}"></ion-input>
-      <ion-input label="Correo" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="email" class="mb-3 animate-item"
-        value="{{ email }}"></ion-input>
-      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="securityQuestion" class="mb-3 animate-item"
-        value="{{ securityQuestion }}"></ion-input>
-      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="securityAnswer" class="mb-3 animate-item"
-        value="{{ securityAnswer }}"></ion-input>
-      <ion-select label="Nivel educacional" label-placement="floating" fill="outline" [(ngModel)]="educationLevel" class="mb-3 animate-item">
+      <ion-input label="Cuenta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="username"
+        class="mb-3 animate-item" value="{{ username }}"></ion-input>
+      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="name"
+        class="mb-3 animate-item" value="{{ name }}"></ion-input>
+      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="lastname"
+        class="mb-3 animate-item" value="{{ lastname }}"></ion-input>
+      <ion-input label="Correo" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="email"
+        class="mb-3 animate-item" value="{{ email }}"></ion-input>
+      <ion-input label="Dirección" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="email"
+        class="mb-3 animate-item" value=""></ion-input>
+      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline"
+        [(ngModel)]="securityQuestion" class="mb-3 animate-item" value="{{ securityQuestion }}"></ion-input>
+      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline"
+        [(ngModel)]="securityAnswer" class="mb-3 animate-item" value="{{ securityAnswer }}"></ion-input>
+      <ion-select label="Nivel educacional" label-placement="floating" fill="outline" [(ngModel)]="educationLevel"
+        class="mb-3 animate-item">
         <div *ngFor="let edLevel of educationLevels">
           <ion-select-option value="{{ edLevel }}">{{ edLevel }}</ion-select-option>
         </div>

@@ -42,5 +42,9 @@ export const routes: Routes = [
     path: 'wrong-pass',
     component: WrongPassPage,
     canActivate: [loginGuard]
+  },  {
+    path: 'map',
+    loadComponent: () => import('./pages/map/map.page').then( m => m.MapPage)
   }
+
 ];
