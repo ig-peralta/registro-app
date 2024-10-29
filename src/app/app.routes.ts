@@ -45,6 +45,10 @@ export const routes: Routes = [
   },  {
     path: 'map',
     loadComponent: () => import('./pages/map/map.page').then( m => m.MapPage)
+  },
+  {
+    path: 'theme',
+    loadComponent: () => import('./pages/theme/theme.page').then( m => m.ThemePage)
   }
 
 ];

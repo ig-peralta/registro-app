@@ -5,8 +5,8 @@ import { IonInputPasswordToggle, ToastController } from '@ionic/angular/standalo
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { addIcons } from "ionicons";
-import { logoTwitter, logoInstagram, logoLinkedin } from "ionicons/icons";
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonInput, IonButton, IonFooter, IonIcon } from "@ionic/angular/standalone";
+import { logoTwitter, logoInstagram, logoLinkedin, globe, colorPalette, chevronUpCircle } from "ionicons/icons";
+import { IonHeader, IonModal, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonInput, IonButton, IonFooter, IonIcon, IonFabButton, IonFab, IonFabList,IonList, IonItem, IonLabel } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -46,7 +46,8 @@ import { CommonModule } from '@angular/common';
       IonContent, IonCard, IonCardHeader,
       IonCardTitle, IonCardContent, IonInput,
       IonButton, IonFooter, IonIcon,
-      ReactiveFormsModule, CommonModule, IonInputPasswordToggle
+      ReactiveFormsModule, CommonModule, IonInputPasswordToggle, 
+      IonFabButton, IonFab, IonFabList, IonModal, IonList, IonItem, IonLabel
     ]
 })
 export class LoginPage {
@@ -96,6 +97,6 @@ export class LoginPage {
     }
 
     constructor() {
-        addIcons({ logoTwitter, logoInstagram, logoLinkedin });
+        addIcons({ logoTwitter, logoInstagram, logoLinkedin, colorPalette, globe, chevronUpCircle });
     }
 }

@@ -6,14 +6,26 @@
     <ion-title class="text-center fs-2 mb-2">Sistema de asistencia</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content [@fadeInOut]>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="secondary">
+      <ion-icon name="chevron-up-circle"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-list side="top">
+      <ion-fab-button color="medium" href="/theme">
+        <ion-icon name="color-palette"></ion-icon>
+      </ion-fab-button>
+      <ion-fab-button color="medium" id="open-modal">
+        <ion-icon name="globe"></ion-icon>
+      </ion-fab-button>
+    </ion-fab-list>
+  </ion-fab>
   <div class="h-100 d-flex flex-column justify-content-evenly content">
     <ion-card class="p-2" [@fadeInOut]>
       <ion-card-header>
         <ion-card-title class="text-center fs-2">Ingreso</ion-card-title>
       </ion-card-header>
-      <ion-card-content class="">
+      <ion-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
           <ion-input label="Usuario" [clearInput]="true" label-placement="floating" fill="outline"
             placeholder="Ej: ig.peralta" class="mb-3" formControlName="username" [@fadeInOut]></ion-input>
@@ -24,13 +36,39 @@
           <div class="text-center">
             <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2"
               [disabled]="passwordError || usernameError">Iniciar sesión</ion-button>
-            <ion-button href="/recover-password" size="small" fill="clear" class="fs-6 text-dark" [@fadeInOut]>¿Olvidaste tu
+            <ion-button href="/recover-password" size="small" fill="clear" class="fs-6 text-dark "
+              [@fadeInOut]>¿Olvidaste tu
               Contraseña?</ion-button>
+              <ion-button href="/map" size="small" fill="clear" class="fs-6 text-dark"
+              [@fadeInOut]>Mi ruta a DUOC</ion-button>
           </div>
         </form>
       </ion-card-content>
     </ion-card>
   </div>
+  <ion-modal
+    trigger="open-modal"
+    [initialBreakpoint]="0.25"
+    [breakpoints]="[0, 0.25, 0.5, 0.75]"
+    handleBehavior="cycle">
+    <ng-template>
+      <ion-content class="ion-padding">
+        <div class="ion-margin-top">
+          <ion-list [inset]="true">
+            <ion-item [button]="true">
+              <ion-label class="text-center">English</ion-label>
+            </ion-item>
+            <ion-item [button]="true">
+              <ion-label class="text-center">Español</ion-label>
+            </ion-item>
+            <ion-item [button]="true">
+              <ion-label class="text-center">Mapudungun</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
 </ion-content>
 
 <ion-footer collapse="fade" [@slideInOut]>
