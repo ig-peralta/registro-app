@@ -8,9 +8,9 @@
 </ion-header>
 
 <ion-content>
-  <ion-title class="text-center fs-4 mt-4 text-dark">Ingresa tu publicación</ion-title>
+  <ion-title class="text-center fs-4 mt-3 text-dark">Ingresa tu publicación</ion-title>
   <ion-card class="p-2">
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center mt-2">
       <h6 class="text-dark mb-0 me-2">Titulo</h6>
       <ion-input class="mb-0 reduced-input" label-placement="floating" fill="outline" placeholder="Enter text">
       </ion-input>
@@ -30,16 +30,23 @@
     </div>
   </ion-card>
   <ion-title class="text-center fs-4 text-dark mt-3">Publicaciones recientes</ion-title>
-  <ion-card class="p-2">
-    <div class="text-start">
-      <ion-title color="success" style="margin-bottom: -7px;">N publicación</ion-title>
-      <ion-title color="primary" class="mb-2">Example Tittle</ion-title>
-    </div>
-    <ion-textarea class="mb-2" fill="outline" [autoGrow]="true" value="hola">
-    </ion-textarea>
-    <div class="text-end">
-      <ion-button class="me-2"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-      <ion-button color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
-    </div>
-  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let item of items; let index">
+      <ion-card class="p-2 w-100">
+        <div class="text-start mt-1">
+          <h5 style="margin-bottom: 1px; color: #68da04;">N publicación</h5>
+          <h5 class="mb-2 text-primary">Example Tittle</h5>
+        </div>
+        <ion-textarea class="mb-2" fill="outline" [autoGrow]="true" value="hola" disabled="true">
+        </ion-textarea>
+        <div class="text-end">
+          <ion-button class="me-2"><ion-icon name="pencil-outline"></ion-icon></ion-button>
+          <ion-button color="danger"><ion-icon name="trash-outline"></ion-icon></ion-button>
+        </div>
+      </ion-card>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>
