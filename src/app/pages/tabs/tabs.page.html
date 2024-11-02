@@ -1,25 +1,24 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home" (click)="goHome()" >
-      <ion-icon name="start" name="home"></ion-icon>
-      Inicio
+    <ion-tab-button tab="home" (click)="goHome()">
+      <ion-icon name="home"></ion-icon>
+      {{ 'tabs.home' | translate }}
     </ion-tab-button>
     <ion-tab-button tab="my-class" (click)="goMyClass()">
       <ion-icon name="book-outline"></ion-icon>
-      Mi clase
+      {{ 'tabs.myClass' | translate }}
     </ion-tab-button>
     <ion-tab-button tab="forum" (click)="goForum()">
       <ion-icon name="chatbubbles-outline"></ion-icon>
-      Foro
+      {{ 'tabs.forum' | translate }}
     </ion-tab-button>
     <ion-tab-button tab="my-profile" (click)="goMyProfile()">
       <ion-icon name="person-circle-outline"></ion-icon>
-      Mis datos
+      {{ 'tabs.myProfile' | translate }}
     </ion-tab-button>
-    <ion-tab-button  (click)="logout()">
+    <ion-tab-button (click)="logout()">
       <ion-icon name="exit-outline"></ion-icon>
-      Cerrar sesion
+      {{ 'tabs.logout' | translate }}
     </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>
-

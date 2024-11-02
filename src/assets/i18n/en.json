@@ -1,0 +1,97 @@
+{
+  "app": {
+      "title": "Attendance System"
+  },
+  "login": {
+      "title": "Login",
+      "username": "Username",
+      "username_placeholder": "e.g., ig.peralta",
+      "password": "Password",
+      "submit": "Login",
+      "forgot_password": "Forgot your password?",
+      "my_route": "My route to DUOC"
+  },
+  "language": {
+      "english": "English",
+      "spanish": "Spanish",
+      "mapudungun": "Mapudungun"
+  },
+  "rc": {
+      "recover": "Recover password",
+      "mail": "Enter your email",
+      "answer": "Write your answer here",
+      "correo": "Email"
+  },
+  "home": {
+      "password_title": "Your password is:",
+      "login_button": "Log In"
+  },
+  "error": {
+      "message": "An error has occurred. Please try again."
+  },
+  "route": {
+      "header": "Are you late? Calculate your route to DUOC",
+      "duoc": "DUOC",
+      "here": "Here",
+      "route": "Route"
+  },
+  "changePassword": {
+      "header": "Change Password",
+      "currentPassword": "Current Password",
+      "newPassword": "New Password",
+      "confirmPassword": "Repeat Password",
+      "submit": "Change Password"
+  },
+  "welcome": {
+      "header": "Welcome!",
+      "name": "Name",
+      "lastname": "Last Name",
+      "qrInstruction": "Scan the QR code to register your attendance in class"
+  },
+  "subjectData": {
+      "header": "Subject Data",
+      "sede": "Campus:",
+      "sigla": "Code:",
+      "seccion": "Section:",
+      "nombreAsignatura": "Subject Name:",
+      "nombreProfesor": "Professor Name:",
+      "dia": "Day:",
+      "bloqueInicio": "Start Block:",
+      "bloqueTermino": "End Block:",
+      "horaInicio": "Start Time:",
+      "horaFin": "End Time:",
+      "qrInstruction": "Scan the QR code",
+      "scanButton": "Scan QR Code"
+  },
+  "publication": {
+      "header": "Enter your publication",
+      "title": "Title",
+      "body": "Body",
+      "clear": "Clear",
+      "save": "Save",
+      "recentPublications": "Recent Publications",
+      "publicationNumber": "Publication No.",
+      "exampleTitle": "Example Title"
+  },
+  "personalData": {
+      "header": "My Personal Data",
+      "account": "Account",
+      "name": "Name",
+      "lastname": "Last Name",
+      "email": "Email",
+      "address": "Address",
+      "securityQuestion": "Security Question",
+      "securityAnswer": "Security Answer",
+      "educationLevel": "Educational Level",
+      "birthdate": "Date of Birth",
+      "updateData": "Update Data",
+      "changePassword": "Change Password"
+  },
+  "tabs": {
+    "home": "Home",
+    "myClass": "My Class",
+    "forum": "Forum",
+    "myProfile": "My Data",
+    "logout": "Log Out"
+}
+}

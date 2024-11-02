@@ -9,6 +9,9 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonSpinner } from
 import { CommonModule } from '@angular/common';
 import { ScannerComponent } from './scanner/scanner.component';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-home',
@@ -18,7 +21,7 @@ import { ScannerService } from 'src/app/services/scanner/scanner.service';
   imports: [
     ScannerComponent, CommonModule, IonHeader,
     IonToolbar, IonTitle, IonContent,
-    IonCard, IonSpinner
+    IonCard, IonSpinner, TranslateModule
   ]
 })
 
@@ -35,9 +38,11 @@ export class HomePage implements OnInit {
     lastname: string = '';
     scannerLoading: boolean = true
 
-
-    constructor(private animationController: AnimationController) { }
-
+    constructor(private translate: TranslateService, private animationController: AnimationController) {
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
+    }
+    
     ngOnInit() {
         this.session.user.subscribe((user: User | null) => {
             this.name = user?.name || '';

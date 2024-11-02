@@ -3,15 +3,15 @@
     <div class="text-center">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="scrolling-title" #titulo>Sistema de asistencia</ion-title>
+    <ion-title class="scrolling-title" #titulo>{{ 'app.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-card>
     <div class="mx-4 mt-3">
-      <ion-title class="text-center fs-2 mb-4 text-dark">¡Bienvenido!</ion-title>
+      <ion-title class="text-center fs-2 mb-4 text-dark">{{ 'welcome.header' | translate }}</ion-title>
       <h3 class="text-center text-dark mb-4">{{ name }} {{ lastname }}</h3>
-      <h6 class="text-center text-dark">Escanea el código QR para registrar tu asistencia a clase</h6>
+      <h6 class="text-center text-dark">{{ 'welcome.qrInstruction' | translate }}</h6>
     </div>
     <div class="spinner d-flex justify-content-center align-items-center" *ngIf="scannerLoading">
       <ion-spinner></ion-spinner>

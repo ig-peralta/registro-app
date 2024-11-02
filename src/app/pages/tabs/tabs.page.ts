@@ -5,6 +5,8 @@ import { addIcons } from 'ionicons';
 import { bookOutline, exitOutline, home, personCircleOutline, chatbubblesOutline } from 'ionicons/icons';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-tabs',
@@ -13,7 +15,7 @@ import { ScannerService } from 'src/app/services/scanner/scanner.service';
     standalone: true,
     imports: [
       IonTabs, IonTabBar, IonTabButton,
-      IonIcon, IonLabel
+      IonIcon, IonLabel, TranslateModule
     ],
 })
 export class TabsPage {
@@ -22,12 +24,14 @@ export class TabsPage {
     private readonly router = inject(Router);
     private readonly scannerState = inject(ScannerService);
 
-    constructor() {
-      addIcons({ home });
-      addIcons({ bookOutline });
-      addIcons({ personCircleOutline });
-      addIcons({ exitOutline });
-      addIcons({ chatbubblesOutline });
+    constructor(private translate: TranslateService) {
+        addIcons({ home });
+        addIcons({ bookOutline });
+        addIcons({ personCircleOutline });
+        addIcons({ exitOutline });
+        addIcons({ chatbubblesOutline });
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
 
     logout() {

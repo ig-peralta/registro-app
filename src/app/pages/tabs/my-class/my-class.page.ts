@@ -9,6 +9,8 @@ import { CommonModule } from '@angular/common';
 import { ScannerComponent } from '../home/scanner/scanner.component';
 import { addIcons } from "ionicons";
 import { qrCodeOutline } from "ionicons/icons";
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-my-class',
@@ -24,7 +26,7 @@ import { qrCodeOutline } from "ionicons/icons";
       IonToolbar,IonTitle,IonContent,
       IonCard,IonGrid,IonRow,
       IonCol,IonLabel,IonButton,
-      IonIcon
+      IonIcon, TranslateModule
     ],
     animations: [
         trigger('pageAnimation', [
@@ -67,7 +69,9 @@ export class MyClassPage implements OnInit, ViewWillEnter, ViewWillLeave {
         this.router.navigateByUrl('/tabs/home');
     }
 
-    constructor() {
+    constructor(private translate: TranslateService) {
         addIcons({ qrCodeOutline });
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
 }

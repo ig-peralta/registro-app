@@ -8,6 +8,8 @@ import { addIcons } from "ionicons";
 import { logoTwitter, logoInstagram, logoLinkedin, globe, colorPalette, chevronUpCircle } from "ionicons/icons";
 import { IonHeader, IonModal, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonInput, IonButton, IonFooter, IonIcon, IonFabButton, IonFab, IonFabList,IonList, IonItem, IonLabel } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core'; 
 
 @Component({
     selector: 'app-login',
@@ -47,7 +49,8 @@ import { CommonModule } from '@angular/common';
       IonCardTitle, IonCardContent, IonInput,
       IonButton, IonFooter, IonIcon,
       ReactiveFormsModule, CommonModule, IonInputPasswordToggle, 
-      IonFabButton, IonFab, IonFabList, IonModal, IonList, IonItem, IonLabel
+      IonFabButton, IonFab, IonFabList, IonModal, IonList, IonItem, 
+      IonLabel, TranslateModule
     ]
 })
 export class LoginPage {
@@ -96,7 +99,14 @@ export class LoginPage {
         this.pulseState = '';
     }
 
-    constructor() {
+    constructor(private translate: TranslateService) { // Removido TranslationService
         addIcons({ logoTwitter, logoInstagram, logoLinkedin, colorPalette, globe, chevronUpCircle });
+        this.translate.setDefaultLang('es');
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
+    changeLanguage(lang: string) {
+        this.translate.use(lang);
+        localStorage.setItem('lang', lang); // Guarda el idioma preferido
+      }
 }

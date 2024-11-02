@@ -3,9 +3,10 @@
     <div class="text-center">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-2">Sistema de asistencia</ion-title>
+    <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title> <!-- Título traducido -->
   </ion-toolbar>
 </ion-header>
+
 <ion-content [@fadeInOut]>
   <ion-fab slot="fixed" vertical="bottom" horizontal="end">
     <ion-fab-button color="secondary">
@@ -20,32 +21,33 @@
       </ion-fab-button>
     </ion-fab-list>
   </ion-fab>
+
   <div class="h-100 d-flex flex-column justify-content-evenly content">
     <ion-card class="p-2" [@fadeInOut]>
       <ion-card-header>
-        <ion-card-title class="text-center fs-2">Ingreso</ion-card-title>
+        <ion-card-title class="text-center fs-2">{{ 'login.title' | translate }}</ion-card-title> <!-- Título de ingreso traducido -->
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <ion-input label="Usuario" [clearInput]="true" label-placement="floating" fill="outline"
-            placeholder="Ej: ig.peralta" class="mb-3" formControlName="username" [@fadeInOut]></ion-input>
-          <ion-input label="Contraseña" label-placement="floating" fill="outline" type="password" class="mb-3"
+          <ion-input label="{{ 'login.username' | translate }}" [clearInput]="true" label-placement="floating" fill="outline"
+            placeholder="{{ 'login.username_placeholder' | translate }}" class="mb-3" formControlName="username" [@fadeInOut]></ion-input>
+          <ion-input label="{{ 'login.password' | translate }}" label-placement="floating" fill="outline" type="password" class="mb-3"
             formControlName="password" [@fadeInOut]>
             <ion-input-password-toggle *ngIf="password" slot="end"></ion-input-password-toggle>
           </ion-input>
           <div class="text-center">
             <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2"
-              [disabled]="passwordError || usernameError">Iniciar sesión</ion-button>
+              [disabled]="passwordError || usernameError">{{ 'login.submit' | translate }}</ion-button> <!-- Botón de inicio de sesión traducido -->
             <ion-button href="/recover-password" size="small" fill="clear" class="fs-6 text-dark "
-              [@fadeInOut]>¿Olvidaste tu
-              Contraseña?</ion-button>
-              <ion-button href="/map" size="small" fill="clear" class="fs-6 text-dark"
-              [@fadeInOut]>Mi ruta a DUOC</ion-button>
+              [@fadeInOut]>{{ 'login.forgot_password' | translate }}</ion-button> <!-- Botón de olvidar contraseña traducido -->
+            <ion-button href="/map" size="small" fill="clear" class="fs-6 text-dark"
+              [@fadeInOut]>{{ 'login.my_route' | translate }}</ion-button> <!-- Botón de mi ruta traducido -->
           </div>
         </form>
       </ion-card-content>
     </ion-card>
   </div>
+
   <ion-modal
     trigger="open-modal"
     [initialBreakpoint]="0.25"
@@ -55,14 +57,14 @@
       <ion-content class="ion-padding">
         <div class="ion-margin-top">
           <ion-list [inset]="true">
-            <ion-item [button]="true">
-              <ion-label class="text-center">English</ion-label>
+            <ion-item (click)="changeLanguage('en')" [button]="true"> <!-- Cambio de idioma -->
+              <ion-label class="text-center">{{ 'language.english' | translate }}</ion-label>
             </ion-item>
-            <ion-item [button]="true">
-              <ion-label class="text-center">Español</ion-label>
+            <ion-item (click)="changeLanguage('es')" [button]="true"> <!-- Cambio de idioma -->
+              <ion-label class="text-center">{{ 'language.spanish' | translate }}</ion-label>
             </ion-item>
-            <ion-item [button]="true">
-              <ion-label class="text-center">Mapudungun</ion-label>
+            <ion-item (click)="changeLanguage('mapudungun')" [button]="true"> <!-- Cambio de idioma -->
+              <ion-label class="text-center">{{ 'language.mapudungun' | translate }}</ion-label>
             </ion-item>
           </ion-list>
         </div>
@@ -75,7 +77,6 @@
   <ion-toolbar color="dark" class="text-center">
     <img src="assets/images/acreditacion.png" alt="" class="mb-2 mt-3 acreditacion">
     <div class="mb-2 d-flex gap-5 justify-content-center">
-      <!-- TODO: in the future this icons have to open the respective mobile applications or the browser-->
       <a href="https://x.com/DuocUC" [@fadeInOut]>
         <ion-icon name="logo-twitter" size="large"></ion-icon>
       </a>

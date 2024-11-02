@@ -5,6 +5,9 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonText
 import { pencilOutline, trashOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-forum',
@@ -15,15 +18,18 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
             IonToolbar, CommonModule, FormsModule,
             IonCard, IonInput, IonTextarea, IonButton,
             IonIcon, IonList, IonInfiniteScroll,IonInfiniteScrollContent,
-            IonItem ]
+            IonItem, TranslateModule ]
 })
 export class ForumPage implements OnInit {
   
   items: string[] = []; 
 
-  constructor() { 
+  constructor(private translate: TranslateService) {
     addIcons({ pencilOutline, trashOutline }); 
+    const lang = localStorage.getItem('lang') || 'es';
+    this.translate.use(lang);
   }
+
 
   ngOnInit() {
     this.generateItems();

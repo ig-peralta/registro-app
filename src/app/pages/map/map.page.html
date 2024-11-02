@@ -5,22 +5,36 @@
       </ion-buttons>
       <div class="text-center flex-grow-1">
         <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
-        <ion-title class="text-center fs-2 mb-2">Sistema de asistencia </ion-title>
+        <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title>
       </div>
   </ion-toolbar>
 </ion-header>
+
 <ion-content>
-  <h3 class="text-center mt-2">¿Vas atrasado? Calcula tu ruta a DUOC</h3>
+  <h3 class="text-center mt-2">{{ 'route.header' | translate }}</h3>
   <div class="text-center mb-2">
-    <ion-button class="fs-6 mb-1 me-3">
-      DUOC
-    </ion-button>
-    <ion-button class="fs-6 mb-1 me-3">
-      Aquí
-    </ion-button>
-    <ion-button class="fs-6 mb-1">
-      Ruta
-    </ion-button>
+    <ion-button class="fs-6 mb-1 me-3">{{ 'route.duoc' | translate }}</ion-button>
+    <ion-button class="fs-6 mb-1 me-3">{{ 'route.here' | translate }}</ion-button>
+    <ion-button class="fs-6 mb-1">{{ 'route.route' | translate }}</ion-button>
   </div>
   <h3 class="text-center">This shit work</h3>
 </ion-content>
+
+<ion-footer collapse="fade">
+  <ion-toolbar color="dark" class="text-center">
+    <img src="assets/images/acreditacion.png" alt="" class="mb-2 mt-3 acreditacion">
+    <div class="mb-2 d-flex gap-5 justify-content-center">
+      <!-- Redes sociales -->
+      <a href="https://x.com/DuocUC">
+        <ion-icon name="logo-twitter" size="large"></ion-icon>
+      </a>
+      <a href="https://www.instagram.com/duocuc_cl/">
+        <ion-icon name="logo-instagram" size="large"></ion-icon>
+      </a>
+      <a href="https://www.linkedin.com/company/duocuc/">
+        <ion-icon name="logo-linkedin" size="large"></ion-icon>
+      </a>
+    </div>
+  </ion-toolbar>
+</ion-footer>
+

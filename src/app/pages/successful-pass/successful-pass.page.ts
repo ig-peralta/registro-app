@@ -4,6 +4,9 @@ import { NavigationService } from 'src/app/services/navigation/navigation.servic
 import { addIcons } from "ionicons";
 import { logoTwitter, logoInstagram, logoLinkedin } from "ionicons/icons";
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonButton, IonFooter, IonIcon } from "@ionic/angular/standalone";
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
+
 
 @Component({
     selector: 'app-successful-pass',
@@ -13,7 +16,7 @@ import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonButton, IonFoo
     imports: [
         IonHeader, IonToolbar, IonTitle,
         IonContent, IonCard, IonButton,
-        IonFooter, IonIcon
+        IonFooter, IonIcon, TranslateModule
     ]
 })
 export class SuccessfulPassPage implements OnInit {
@@ -30,7 +33,9 @@ export class SuccessfulPassPage implements OnInit {
         this.router.navigateByUrl('/login');
     }
 
-    constructor() {
+    constructor(private translate: TranslateService) {
         addIcons({ logoTwitter, logoInstagram, logoLinkedin });
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
 }

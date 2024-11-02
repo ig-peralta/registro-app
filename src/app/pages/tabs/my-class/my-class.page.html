@@ -3,49 +3,49 @@
     <div class="text-center animate-item">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-2 animate-item">Sistema de asistencia</ion-title>
+    <ion-title class="text-center fs-2 mb-2 animate-item">{{ 'app.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content [@pageAnimation]="animateState">
   <ion-card class="p-3 animate-item" *ngIf="class">
     <div class="d-flex flex-column align-items-center mx-4">
-      <ion-title class="text-center fs-4 mb-3 text-dark">Datos de la Asignatura</ion-title>
+      <ion-title class="text-center fs-4 mb-3 text-dark">{{ 'subjectData.header' | translate }}</ion-title>
     </div>
     <ion-grid>
       <ion-row>
         <ion-col size="6" class="text-start">
-          <ion-label>Sede:</ion-label><br>
-          <ion-label>Sigla:</ion-label><br>
-          <ion-label>Sección:</ion-label><br>
-          <ion-label>Nombre asignatura:</ion-label><br>
-          <ion-label>Nombre profesor:</ion-label><br>
-          <ion-label>Día:</ion-label><br>
-          <ion-label>Bloque de inicio:</ion-label><br>
-          <ion-label>Bloque de término:</ion-label><br>
-          <ion-label>Hora de inicio:</ion-label><br>
-          <ion-label>Hora de término:</ion-label><br>
+          <ion-label>{{ 'subjectData.sede' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.sigla' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.seccion' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.nombreAsignatura' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.nombreProfesor' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.dia' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.bloqueInicio' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.bloqueTermino' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.horaInicio' | translate }}</ion-label><br>
+          <ion-label>{{ 'subjectData.horaFin' | translate }}</ion-label><br>
         </ion-col>
         <ion-col size="6" class="text-end" *ngIf="class">
-          <ion-label >{{ class.sede }}</ion-label><br>
-          <ion-label >{{ class.idAsignatura }}</ion-label><br>
-          <ion-label >{{ class.seccion }}</ion-label><br>
-          <ion-label >{{ class.nombreAsignatura }}</ion-label><br>
-          <ion-label >{{ class.nombreProfesor }}</ion-label><br>
-          <ion-label >{{ class.dia }}</ion-label><br>
-          <ion-label >{{ class.bloqueInicio }}</ion-label><br>
-          <ion-label >{{ class.bloqueTermino }}</ion-label><br>
-          <ion-label >{{ class.horaInicio }}</ion-label><br>
-          <ion-label >{{ class.horaFin }}</ion-label><br>
+          <ion-label>{{ class.sede }}</ion-label><br>
+          <ion-label>{{ class.idAsignatura }}</ion-label><br>
+          <ion-label>{{ class.seccion }}</ion-label><br>
+          <ion-label>{{ class.nombreAsignatura }}</ion-label><br>
+          <ion-label>{{ class.nombreProfesor }}</ion-label><br>
+          <ion-label>{{ class.dia }}</ion-label><br>
+          <ion-label>{{ class.bloqueInicio }}</ion-label><br>
+          <ion-label>{{ class.bloqueTermino }}</ion-label><br>
+          <ion-label>{{ class.horaInicio }}</ion-label><br>
+          <ion-label>{{ class.horaFin }}</ion-label><br>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
   <ion-card class="p-3 animate-item" *ngIf="!class">
     <div class="d-flex flex-column align-items-center mx-4 mt-1">
-      <ion-title class="text-center fs-4 mb-3 text-dark">Escanea el código QR</ion-title>
+      <ion-title class="text-center fs-4 mb-3 text-dark">{{ 'subjectData.qrInstruction' | translate }}</ion-title>
     </div>
     <div class="d-flex flex-column align-items-center mx-4 mt-1">
-      <ion-button shape="round" expand="full" class="fs-6 mb-3" (click)="goToHome()"><ion-icon name="qr-code-outline"></ion-icon>Escanear código QR</ion-button>
+      <ion-button shape="round" expand="full" class="fs-6 mb-3" (click)="goToHome()"><ion-icon name="qr-code-outline"></ion-icon>{{ 'subjectData.scanButton' | translate }}</ion-button>
     </div>
   </ion-card>
 </ion-content>

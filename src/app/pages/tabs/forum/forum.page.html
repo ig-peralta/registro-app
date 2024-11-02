@@ -3,39 +3,35 @@
     <div class="text-center">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-2">Sistema de asistencia</ion-title>
+    <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-title class="text-center fs-4 mt-3 text-dark">Ingresa tu publicación</ion-title>
+  <ion-title class="text-center fs-4 mt-3 text-dark">{{ 'publication.header' | translate }}</ion-title>
   <ion-card class="p-2">
     <div class="d-flex align-items-center mt-2">
-      <h6 class="text-dark mb-0 me-2">Titulo</h6>
-      <ion-input class="mb-0 reduced-input" label-placement="floating" fill="outline" placeholder="Enter text">
+      <h6 class="text-dark mb-0 me-2">{{ 'publication.title' | translate }}</h6>
+      <ion-input class="mb-0 reduced-input" label-placement="floating" fill="outline" placeholder="{{ 'publication.title' | translate }}">
       </ion-input>
     </div>
     <div>
-      <h6 class="text-dark mt-2 mb-1">Cuerpo</h6>
+      <h6 class="text-dark mt-2 mb-1">{{ 'publication.body' | translate }}</h6>
       <ion-textarea class="mb-2" fill="outline" [autoGrow]="true">
       </ion-textarea>
     </div>
     <div class="text-center">
-      <ion-button class="fs-6 mb-1 me-3">
-        Limpiar
-      </ion-button>
-      <ion-button class="fs-6 mb-1">
-        Guardar
-      </ion-button>
+      <ion-button class="fs-6 mb-1 me-3">{{ 'publication.clear' | translate }}</ion-button>
+      <ion-button class="fs-6 mb-1">{{ 'publication.save' | translate }}</ion-button>
     </div>
   </ion-card>
-  <ion-title class="text-center fs-4 text-dark mt-3">Publicaciones recientes</ion-title>
+  <ion-title class="text-center fs-4 text-dark mt-3">{{ 'publication.recentPublications' | translate }}</ion-title>
   <ion-list>
     <ion-item *ngFor="let item of items; let index">
       <ion-card class="p-2 w-100">
         <div class="text-start mt-1">
-          <h5 style="margin-bottom: 1px; color: #68da04;">N publicación</h5>
-          <h5 class="mb-2 text-primary">Example Tittle</h5>
+          <h5 style="margin-bottom: 1px; color: #68da04;">{{ 'publication.publicationNumber' | translate }}</h5>
+          <h5 class="mb-2 text-primary">{{ 'publication.exampleTitle' | translate }}</h5>
         </div>
         <ion-textarea class="mb-2" fill="outline" [autoGrow]="true" value="hola" disabled="true">
         </ion-textarea>

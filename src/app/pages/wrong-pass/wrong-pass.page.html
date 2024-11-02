@@ -5,7 +5,7 @@
       </ion-buttons>
       <div class="text-center flex-grow-1">
         <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
-        <ion-title class="text-center fs-2 mb-2">Sistema de asistencia</ion-title>
+        <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title>
       </div>
   </ion-toolbar>
 </ion-header>
@@ -15,7 +15,7 @@
     <ion-card class="p-2">
       <div class="d-flex flex-column align-items-center mx-4 mt-3">
         <ion-text class="text-center text-dark">
-          <h4>¡Lo sentimos pero los datos ingresados no son correcto!</h4>
+          <h4>{{ 'error.message' | translate }}</h4>
         </ion-text>
       </div>
       <div class="text-center">
@@ -29,7 +29,7 @@
   <ion-toolbar color="dark" class="text-center">
     <img src="assets/images/acreditacion.png" alt="" class="mb-2 mt-3 acreditacion">
     <div class="mb-2 d-flex gap-5 justify-content-center">
-      <!-- TODO: in the future this icons have to open the respective mobile applications or the browser-->
+      <!-- Redes sociales -->
       <a href="https://x.com/DuocUC">
         <ion-icon name="logo-twitter" size="large"></ion-icon>
       </a>

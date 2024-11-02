@@ -15,6 +15,8 @@ import { FormsModule } from '@angular/forms';
 import { addIcons } from "ionicons";
 import { createOutline, keyOutline } from "ionicons/icons";
 import { MatNativeDateModule } from '@angular/material/core';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-my-profile',
@@ -31,7 +33,7 @@ import { MatNativeDateModule } from '@angular/material/core';
       IonToolbar, IonTitle, IonContent,
       IonCard, IonList, IonInput,
       IonSelect, IonSelectOption, IonButton,
-      IonIcon, MatNativeDateModule
+      IonIcon, MatNativeDateModule,  TranslateModule
     ],
     providers: [MatDatepickerModule],
     animations: [
@@ -155,7 +157,9 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
         this.shakeState = '';
     }
 
-    constructor() {
+    constructor(private translate: TranslateService) {
         addIcons({ createOutline, keyOutline });
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
 }

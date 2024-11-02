@@ -8,6 +8,8 @@ import { addIcons } from "ionicons";
 import { logoTwitter, logoInstagram, logoLinkedin } from "ionicons/icons";
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonInput, IonButton, IonFooter, IonIcon } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-recover-password',
@@ -20,7 +22,7 @@ import { CommonModule } from '@angular/common';
         IonCard, IonCardHeader, IonCardTitle,
         IonCardContent, IonInput, IonButton,
         IonFooter, IonIcon, ReactiveFormsModule,
-        CommonModule
+        CommonModule, TranslateModule
     ]
 })
 export class RecoverPasswordPage {
@@ -78,7 +80,9 @@ export class RecoverPasswordPage {
             this.router.navigateByUrl('/wrong-pass');
     }
 
-    constructor() {
+    constructor(private translate: TranslateService) {
         addIcons({ logoTwitter, logoInstagram, logoLinkedin });
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
 }

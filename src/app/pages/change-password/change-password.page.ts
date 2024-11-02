@@ -9,6 +9,8 @@ import { addIcons } from "ionicons";
 import { createOutline } from "ionicons/icons";
 import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent, IonCard, IonList, IonInput, IonButton, IonIcon } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-change-password',
@@ -31,7 +33,8 @@ import { CommonModule } from '@angular/common';
         IonBackButton, IonTitle, IonContent,
         IonCard, IonList, IonInput,
         IonButton, IonIcon, CommonModule,
-        ReactiveFormsModule, IonInputPasswordToggle
+        ReactiveFormsModule, IonInputPasswordToggle, 
+        TranslateModule
     ]
 })
 export class ChangePasswordPage implements OnInit {
@@ -115,8 +118,11 @@ export class ChangePasswordPage implements OnInit {
     resetAnimation(): void {
         this.shakeState = "";
     }
-
-    constructor() {
+    
+    constructor(private translate: TranslateService) {
         addIcons({ createOutline });
+        const lang = localStorage.getItem('lang') || 'es';
+        this.translate.use(lang);
     }
+
 }

@@ -3,38 +3,40 @@
     <div class="text-center animate-item">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-2 animate-item">Sistema de asistencia</ion-title>
+    <ion-title class="text-center fs-2 mb-2 animate-item">{{ 'app.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [@pageAnimation]="animateState">
   <ion-card class="p-3 animate-item">
     <div class="d-flex flex-column align-items-center mx-4 mt-1">
-      <ion-title class="text-center fs-2 mb-3 text-dark animate-item">Mis datos personales</ion-title>
+      <ion-title class="text-center fs-2 mb-3 text-dark animate-item">{{ 'personalData.header' | translate
+        }}</ion-title>
     </div>
     <ion-list class="mb-3">
-      <ion-input label="Cuenta" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="username"
-        class="mb-3 animate-item" value="{{ username }}"></ion-input>
-      <ion-input label="Nombre" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="name"
-        class="mb-3 animate-item" value="{{ name }}"></ion-input>
-      <ion-input label="Apellido" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="lastname"
-        class="mb-3 animate-item" value="{{ lastname }}"></ion-input>
-      <ion-input label="Correo" [clearInput]="true" label-placement="floating" fill="outline" [(ngModel)]="email"
-        class="mb-3 animate-item" value="{{ email }}"></ion-input>
-      <ion-input label="Dirección" [clearInput]="true" label-placement="floating" fill="outline" 
-        class="mb-3 animate-item" value=""></ion-input>
-      <ion-input label="Pregunta secreta" [clearInput]="true" label-placement="floating" fill="outline"
-        [(ngModel)]="securityQuestion" class="mb-3 animate-item" value="{{ securityQuestion }}"></ion-input>
-      <ion-input label="Respuesta secreta" [clearInput]="true" label-placement="floating" fill="outline"
-        [(ngModel)]="securityAnswer" class="mb-3 animate-item" value="{{ securityAnswer }}"></ion-input>
-      <ion-select label="Nivel educacional" label-placement="floating" fill="outline" [(ngModel)]="educationLevel"
-        class="mb-3 animate-item">
+      <ion-input label="{{ 'personalData.account' | translate }}" [clearInput]="true" label-placement="floating"
+        fill="outline" [(ngModel)]="username" class="mb-3 animate-item" value="{{ username }}"></ion-input>
+      <ion-input label="{{ 'personalData.name' | translate }}" [clearInput]="true" label-placement="floating"
+        fill="outline" [(ngModel)]="name" class="mb-3 animate-item" value="{{ name }}"></ion-input>
+      <ion-input label="{{ 'personalData.lastname' | translate }}" [clearInput]="true" label-placement="floating"
+        fill="outline" [(ngModel)]="lastname" class="mb-3 animate-item" value="{{ lastname }}"></ion-input>
+      <ion-input label="{{ 'personalData.email' | translate }}" [clearInput]="true" label-placement="floating"
+        fill="outline" [(ngModel)]="email" class="mb-3 animate-item" value="{{ email }}"></ion-input>
+      <ion-input label="{{ 'personalData.address' | translate }}" [clearInput]="true" label-placement="floating"
+        fill="outline" class="mb-3 animate-item" value=""></ion-input>
+      <ion-input label="{{ 'personalData.securityQuestion' | translate }}" [clearInput]="true"
+        label-placement="floating" fill="outline" [(ngModel)]="securityQuestion" class="mb-3 animate-item"
+        value="{{ securityQuestion }}"></ion-input>
+      <ion-input label="{{ 'personalData.securityAnswer' | translate }}" [clearInput]="true" label-placement="floating"
+        fill="outline" [(ngModel)]="securityAnswer" class="mb-3 animate-item" value="{{ securityAnswer }}"></ion-input>
+      <ion-select label="{{ 'personalData.educationLevel' | translate }}" label-placement="floating" fill="outline"
+        [(ngModel)]="educationLevel" class="mb-3 animate-item">
         <div *ngFor="let edLevel of educationLevels">
           <ion-select-option value="{{ edLevel }}">{{ edLevel }}</ion-select-option>
         </div>
       </ion-select>
       <mat-form-field class="w-100 animate-item">
-        <mat-label style="color: #242323;">Fecha de nacimiento</mat-label>
+        <mat-label style="color: #242323;">{{ 'personalData.birthdate' | translate }}</mat-label>
         <input matInput [matDatepicker]="picker" [(ngModel)]="birthdate" disabled style="color: #3b3b3b;">
         <mat-datepicker-toggle matIconSuffix [for]="picker" disabled="false"></mat-datepicker-toggle>
         <mat-datepicker #picker disabled="false"></mat-datepicker>
@@ -43,11 +45,12 @@
     <ion-button shape="round" expand="full" class="fs-6 mb-3 animate-item" (click)="updateUser()"
       [@shakeAnimation]="shakeState" (@shakeAnimation.done)="resetAnimations()">
       <ion-icon name="create-outline"></ion-icon>
-      Cambiar datos
+      {{ 'personalData.updateData' | translate }}
     </ion-button>
     <ion-button shape="round" expand="full" class="fs-6 mb-2 animate-item" fill="outline" color="danger"
-      (click)="goChangePassword()"><ion-icon name="key-outline"></ion-icon>
-      Cambiar contraseña
+      (click)="goChangePassword()">
+      <ion-icon name="key-outline"></ion-icon>
+      {{ 'personalData.changePassword' | translate }}
     </ion-button>
   </ion-card>
 </ion-content>

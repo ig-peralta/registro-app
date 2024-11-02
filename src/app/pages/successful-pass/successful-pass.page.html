@@ -2,7 +2,7 @@
   <ion-toolbar color="secondary"> 
       <div class="text-center flex-grow-1">
         <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
-        <ion-title class="text-center fs-2 mb-2">Sistema de asistencia</ion-title>
+        <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title>
       </div>
   </ion-toolbar>
 </ion-header>
@@ -11,13 +11,13 @@
   <div class="h-100 d-flex flex-column justify-content-evenly content">
     <ion-card class="p-2">
       <div class="d-flex flex-column align-items-center mx-4 mt-3">
-        <ion-title class="text-center fs-2 mb-3 text-dark">Tu contraseña es: </ion-title>
+        <ion-title class="text-center fs-2 mb-3 text-dark">{{ 'home.password_title' | translate }}</ion-title>
         <h3 class="text-dark mb-1">{{password}}</h3>
       </div>
       <div class="text-center">
         <img src="assets/images/pass.jpg" alt="" class="mt-2 mb-3">
       </div>
-      <ion-button shape="round" expand="full" class="fs-6" type="submit" (click)="goToLogin()">Iniciar Sesión</ion-button>
+      <ion-button shape="round" expand="full" class="fs-6" type="submit" (click)="goToLogin()">{{ 'home.login_button' | translate }}</ion-button>
     </ion-card>
   </div>
 </ion-content>
