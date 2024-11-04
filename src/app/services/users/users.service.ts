@@ -38,23 +38,34 @@ export class UsersService {
   async createTestUsers() {
     const users: User[] = testUsers;
     for (const user of users) {
-      await this.save(user);
+      const parsedUser: any = {...user};
+      parsedUser.birthdate = user.birthdate.toISOString();
+      await this.save(parsedUser);
     }
   }
 
   async findAll(): Promise<User[]> {
-    const users: User[] = (await this.db.query('SELECT * FROM USER;')).values as User[];
+    const rawUsers: any[] = (await this.db.query('SELECT * FROM USER;')).values as any[];
+    const users: User[] = [];
+    for (const user of rawUsers) {
+      user.birthdate = new Date(user.birthdate);
+      users.push(user as User);
+    }
     return users;
   }
 
   async findOne(username: string): Promise<User | undefined> {
-    const users: User[] = (await this.db.query('SELECT * FROM USER WHERE username=?;', [username])).values as User[];
-    return users[0];
+    const users: any[] = (await this.db.query('SELECT * FROM USER WHERE username=?;', [username])).values as any[];
+    const user = users[0];
+    user.birthdate = new Date(user.birthdate);
+    return user;
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
-    const users: User[] = (await this.db.query('SELECT * FROM USER WHERE email=?;', [email])).values as User[];
-    return users[0];
+    const users: any[] = (await this.db.query('SELECT * FROM USER WHERE email=?;', [email])).values as any[];
+    const user = users[0];
+    user.birthdate = new Date(user.birthdate);
+    return user as User;
   }
 
   async changePassword(username: string, newPassword: string): Promise<User | null> {
@@ -70,7 +81,7 @@ export class UsersService {
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
       'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [user.username, user.email, user.password, user.name, user.lastname,
-      user.birthdate, user.educationLevel, user.securityQuestion, user.securityAnswer]);
+      user.birthdate.toISOString(), user.educationLevel, user.securityQuestion, user.securityAnswer]);
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;
