@@ -30,7 +30,7 @@ export class ForumPage implements OnInit {
 
   constructor(private translate: TranslateService, 
               private postsService: PostsService,
-              private toastController: ToastController) { // Añadir el ToastController
+              private toastController: ToastController) { 
     addIcons({ pencilOutline, trashOutline }); 
     const lang = localStorage.getItem('lang') || 'es';
     this.translate.use(lang);
@@ -41,29 +41,41 @@ export class ForumPage implements OnInit {
   }
 
   private async loadPosts() {
-    this.items = await this.postsService.getAll(); 
+    try {
+      this.items = await this.postsService.getAll(); 
+    } catch (error) {
+      this.presentToast('Error al cargar las publicaciones. Intenta nuevamente.'); 
+    }
   }
 
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
-      if (this.newPost.id === 0) {
-        // Generar un nuevo ID para el post
-        const newId = this.items.length ? Math.max(...this.items.map(item => item.id)) + 1 : 1; // Asigna un ID único
-        this.newPost.id = newId; // Asignar el nuevo ID al post
-        const createdPost = await this.postsService.create(this.newPost);
-        this.items.push(createdPost); 
-      } else {
-        await this.updatePost();
+      try {
+        if (this.newPost.id === 0) {
+          // Generar un nuevo ID para el post
+          const newId = this.items.length ? Math.max(...this.items.map(item => item.id)) + 1 : 1; 
+          this.newPost.id = newId; 
+          const createdPost = await this.postsService.create(this.newPost);
+          this.items.push(createdPost); 
+        } else {
+          await this.updatePost();
+        }
+        this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+      } catch (error) {
+        this.presentToast('Error al crear la publicación. Intenta nuevamente.'); 
       }
-      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
     } else {
-      this.presentToast('El título y el contenido no pueden estar vacíos.'); // Mensaje de error
+      this.presentToast('El título y el contenido no pueden estar vacíos.'); 
     }
   }
 
   async deletePost(id: number) {
-    await this.postsService.delete(id);
-    this.items = this.items.filter(post => post.id !== id); 
+    try {
+      await this.postsService.delete(id);
+      this.items = this.items.filter(post => post.id !== id); 
+    } catch (error) {
+      this.presentToast('Error al eliminar la publicación. Intenta nuevamente.'); 
+    }
   }
 
   editPost(post: Post) {
@@ -72,18 +84,21 @@ export class ForumPage implements OnInit {
 
   async updatePost() {
     if (this.newPost.title && this.newPost.content) {
-      await this.postsService.update(this.newPost);
-      const index = this.items.findIndex(item => item.id === this.newPost.id);
-      if (index !== -1) {
-        this.items[index] = { ...this.newPost };
+      try {
+        await this.postsService.update(this.newPost);
+        const index = this.items.findIndex(item => item.id === this.newPost.id);
+        if (index !== -1) {
+          this.items[index] = { ...this.newPost };
+        }
+        this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+      } catch (error) {
+        this.presentToast('Error al actualizar la publicación. Intenta nuevamente.'); 
       }
-      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
     } else {
-      this.presentToast('El título y el contenido no pueden estar vacíos.'); // Mensaje de error
+      this.presentToast('El título y el contenido no pueden estar vacíos.'); 
     }
   }
 
-  // Función para mostrar el toast
   async presentToast(message: string) {
     const toast = await this.toastController.create({
       message: message,
