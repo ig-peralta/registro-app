@@ -41,7 +41,6 @@ export class ForumPage implements OnInit {
     this.items = await this.postsService.getAll(); 
   }
 
-  // Crear una nueva publicación
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
       const createdPost = await this.postsService.create(this.newPost);
@@ -50,7 +49,6 @@ export class ForumPage implements OnInit {
     }
   }
 
-  // Eliminar una publicación
   async deletePost(id: number) {
     await this.postsService.delete(id);
     this.items = this.items.filter(post => post.id !== id); 
