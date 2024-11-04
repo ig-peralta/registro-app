@@ -7,7 +7,8 @@ import { addIcons } from 'ionicons';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { PostsService } from 'src/app/services/posts/posts.service'; 
+import { Post } from 'src/app/_utils/interfaces/post.interface';
 
 @Component({
   selector: 'app-forum',
@@ -17,33 +18,58 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [IonContent, IonHeader, IonTitle,
             IonToolbar, CommonModule, FormsModule,
             IonCard, IonInput, IonTextarea, IonButton,
-            IonIcon, IonList, IonInfiniteScroll,IonInfiniteScrollContent,
-            IonItem, TranslateModule ]
+            IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent,
+            IonItem, TranslateModule]
 })
 export class ForumPage implements OnInit {
   
-  items: string[] = []; 
+  items: Post[] = [];
+  newPost: Post = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
 
-  constructor(private translate: TranslateService) {
+  constructor(private translate: TranslateService, private postsService: PostsService) {
     addIcons({ pencilOutline, trashOutline }); 
     const lang = localStorage.getItem('lang') || 'es';
     this.translate.use(lang);
   }
 
-
   ngOnInit() {
-    this.generateItems();
+    this.loadPosts(); 
   }
 
-  private generateItems() {
-    const count = this.items.length + 1; 
-    for (let i = 0; i < 50; i++) {
-      this.items.push(`Item ${count + i}`);
+ 
+  private async loadPosts() {
+    this.items = await this.postsService.getAll(); 
+  }
+
+  // Crear una nueva publicación
+  async createPost() {
+    if (this.newPost.title && this.newPost.content) {
+      const createdPost = await this.postsService.create(this.newPost);
+      this.items.push(createdPost); 
+      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+    }
+  }
+
+  // Eliminar una publicación
+  async deletePost(id: number) {
+    await this.postsService.delete(id);
+    this.items = this.items.filter(post => post.id !== id); 
+  }
+
+
+  editPost(post: Post) {
+    this.newPost = { ...post };
+  }
+  async updatePost() {
+    if (this.newPost.title && this.newPost.content) {
+      await this.postsService.update(this.newPost);
+      const index = this.items.findIndex(item => item.id === this.newPost.id);
+      this.items[index] = { ...this.newPost }; 
+      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
     }
   }
 
   onIonInfinite(ev: InfiniteScrollCustomEvent) { 
-    this.generateItems();
     setTimeout(() => {
       ev.target.complete();
     }, 500);

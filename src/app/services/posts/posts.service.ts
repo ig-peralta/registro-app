@@ -39,6 +39,6 @@ export class PostsService {
   }
 
   async delete(id: number): Promise<void> {
-    await lastValueFrom(this.http.delete(this.apiUrl + '/post/' + id, this.httpOptions));
+    await lastValueFrom(this.http.delete(this.apiUrl + '/posts/' + id, this.httpOptions));
   }
 }
