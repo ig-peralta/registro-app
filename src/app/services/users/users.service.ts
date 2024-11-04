@@ -58,7 +58,7 @@ export class UsersService {
     const users: any[] = (await this.db.query('SELECT * FROM USER WHERE username=?;', [username])).values as any[];
     const user = users[0];
     user.birthdate = new Date(user.birthdate);
-    return user;
+    return user as User;
   }
 
   async findOneByEmail(email: string): Promise<User | undefined> {
@@ -78,10 +78,12 @@ export class UsersService {
   }
 
   async save(user: User): Promise<User | null> {
+    const parsedUser: any = {...user};
+    parsedUser.birthdate = user.birthdate.toISOString();
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
       'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
-    await this.db.run(insertStatement, [user.username, user.email, user.password, user.name, user.lastname,
-      user.birthdate.toISOString(), user.educationLevel, user.securityQuestion, user.securityAnswer]);
+    await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
+      parsedUser.parsedUser.toISOString(), parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;
