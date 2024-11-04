@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { SqliteService } from '../database/sqlite.service';
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
-import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/app/_utils/interfaces/user.interface';
+import { testUsers } from 'src/app/_utils/test-users';
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
@@ -28,19 +28,17 @@ export class UsersService {
   ]
   dbName = 'registro-app-db';
   db!: SQLiteDBConnection;
-  users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  datosQR: BehaviorSubject<string> = new BehaviorSubject('');
 
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
     this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
   }
 
-  async createTestUsers() {}
-
-  async setUsers() {
-    const users: User[] = (await this.db.query('SELECT * FROM USER;')).values as User[];
-    this.users.next(users);
+  async createTestUsers() {
+    const users: User[] = testUsers;
+    for (const user of users) {
+      await this.save(user);
+    }
   }
 
   async findAll(): Promise<User[]> {
@@ -60,7 +58,6 @@ export class UsersService {
 
   async changePassword(username: string, newPassword: string): Promise<User | null> {
     await this.db.run('UPDATE USER SET password=? WHERE username=?;', [newPassword, username]);
-    await this.setUsers();
     const user = await this.findOne(username);
     if (user)
       return user;
@@ -73,7 +70,6 @@ export class UsersService {
       'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [user.username, user.email, user.password, user.name, user.lastname,
       user.birthdate, user.educationLevel, user.securityQuestion, user.securityAnswer]);
-    await this.setUsers();
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;
@@ -83,6 +79,5 @@ export class UsersService {
 
   async delete(username: string) {
     await this.db.run('DELETE FROM USER WHERE username=?', [username]);
-    await this.setUsers();
   }
 }

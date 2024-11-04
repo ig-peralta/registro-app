@@ -1,8 +1,7 @@
-import { User } from "../models/user.model";
+import { User } from "./interfaces/user.interface";
 
-export const usersDb: User[] = [
+export const testUsers: User[] = [
   {
-    id: 0,
     name: 'John',
     lastname: 'Doe',
     birthdate: new Date(),
@@ -14,7 +13,6 @@ export const usersDb: User[] = [
     securityAnswer: 'rex',
   },
   {
-    id: 1,
     name: 'Jane',
     lastname: 'Doe',
     birthdate: new Date(),
@@ -26,7 +24,6 @@ export const usersDb: User[] = [
     securityAnswer: 'lima',
   },
   {
-    id: 2,
     name: 'Foo',
     lastname: 'Bar',
     birthdate: new Date(),
@@ -38,7 +35,6 @@ export const usersDb: User[] = [
     securityAnswer: 'ceviche',
   },
   {
-    id: 3,
     name: 'Bar',
     lastname: 'Foo',
     birthdate: new Date(),
