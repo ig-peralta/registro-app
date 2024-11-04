@@ -22,7 +22,9 @@ export class AppComponent implements OnInit {
   private readonly users = inject(UsersService);
 
   async ngOnInit() {
-    this.users.initDb();
-    this.users.createTestUsers();
+    await this.users.initDb();
+    await this.users.createTestUsers();
+    console.log('users created');
+    console.log(await this.users.findAll());
   }
 }
