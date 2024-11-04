@@ -98,6 +98,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
 
     setUserData(): void {
         this.session.user.subscribe((user: User | null) => {
+            console.log(user);
             this.username = user?.username || '';
             this.name = user?.name || '';
             this.email = user?.email || '';
