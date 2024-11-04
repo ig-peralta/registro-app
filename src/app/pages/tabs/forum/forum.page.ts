@@ -15,11 +15,13 @@ import { Post } from 'src/app/_utils/interfaces/post.interface';
   templateUrl: './forum.page.html',
   styleUrls: ['./forum.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle,
-            IonToolbar, CommonModule, FormsModule,
-            IonCard, IonInput, IonTextarea, IonButton,
-            IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent,
-            IonItem, TranslateModule]
+  imports: [
+    IonContent, IonHeader, IonTitle,
+    IonToolbar, CommonModule, FormsModule,
+    IonCard, IonInput, IonTextarea, IonButton,
+    IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent,
+    IonItem, TranslateModule
+  ]
 })
 export class ForumPage implements OnInit {
   
@@ -36,16 +38,21 @@ export class ForumPage implements OnInit {
     this.loadPosts(); 
   }
 
- 
   private async loadPosts() {
     this.items = await this.postsService.getAll(); 
   }
 
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
-      const createdPost = await this.postsService.create(this.newPost);
-      this.items.push(createdPost); 
-      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+      // Solo crea un nuevo post si el id es 0 (indica que es un nuevo post)
+      if (this.newPost.id === 0) {
+        const createdPost = await this.postsService.create(this.newPost);
+        this.items.push(createdPost); 
+      } else {
+        // Si el id no es 0, significa que estamos actualizando un post existente
+        await this.updatePost(); // Llama a la función de actualización
+      }
+      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; // Reinicia el nuevo post
     }
   }
 
@@ -54,16 +61,18 @@ export class ForumPage implements OnInit {
     this.items = this.items.filter(post => post.id !== id); 
   }
 
-
   editPost(post: Post) {
     this.newPost = { ...post };
   }
+
   async updatePost() {
     if (this.newPost.title && this.newPost.content) {
       await this.postsService.update(this.newPost);
       const index = this.items.findIndex(item => item.id === this.newPost.id);
-      this.items[index] = { ...this.newPost }; 
-      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+      if (index !== -1) {
+        this.items[index] = { ...this.newPost }; // Actualiza el post existente en el array
+      }
+      this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; // Reinicia el nuevo post
     }
   }
 
