@@ -17,9 +17,7 @@ import { UsersService } from './services/users/users.service';
 export class AppComponent {
   constructor(
     private translate: TranslateService,
-    private readonly users: UsersService
   ) {
     translate.use('es');
-    this.users.initDb();
   }
 }
