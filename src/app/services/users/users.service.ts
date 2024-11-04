@@ -32,6 +32,7 @@ export class UsersService {
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
     this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
+    this.createTestUsers();
   }
 
   async createTestUsers() {
