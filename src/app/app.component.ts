@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { UsersService } from './services/users/users.service';
 
 @Component({
   selector: 'app-root',
@@ -14,7 +15,11 @@ import { TranslateModule } from '@ngx-translate/core';
   ],
 })
 export class AppComponent {
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private readonly users: UsersService
+  ) {
     translate.use('es');
+    this.users.initDb();
   }
 }
