@@ -1,2 +1,129 @@
-// For information on how to create your own theme, please see:
-// http://ionicframework.com/docs/theming/
+// variables.scss
+
+:root {
+  // Colores principales
+  --ion-color-primary: #3880ff; // Azul por defecto
+  --ion-color-secondary: #0cd1e5; // Cian por defecto
+  --ion-color-tertiary: #7044ff; // Morado por defecto
+  --ion-color-success: #10dc60; // Verde éxito
+  --ion-color-warning: #ffce00; // Amarillo de advertencia
+  --ion-color-danger: #f04141; // Rojo de error
+  --ion-color-light: #f4f5f8; // Color claro
+  --ion-color-dark: #222428; // Color oscuro
+
+  // Colores de fondo
+  --ion-background-color: #ffffff; // Fondo por defecto
+  --ion-background-color-dark: #121212; // Fondo oscuro
+}
+
+// Tema Claro
+.claro {
+  --ion-color-primary: #3880ff; // Azul
+  --ion-color-secondary: #0cd1e5; // Cian
+  --ion-color-tertiary: #7044ff; // Morado
+  --ion-color-success: #10dc60; // Verde
+  --ion-color-warning: #ffce00; // Amarillo
+  --ion-color-danger: #f04141; // Rojo
+  --ion-color-light: #f4f5f8; // Claro
+  --ion-color-dark: #222428; // Oscuro
+  --ion-background-color: #ffffff; // Fondo claro
+  --ion-text-color: #000000; // Texto oscuro
+}
+
+// Tema Oscuro
+.oscuro {
+  --ion-color-primary: #bb86fc; // Morado claro
+  --ion-color-secondary: #03dac6; // Cian claro
+  --ion-color-tertiary: #3700b3; // Morado oscuro
+  --ion-color-success: #03dac5; // Verde
+  --ion-color-warning: #ffbb33; // Amarillo suave
+  --ion-color-danger: #cf6679; // Rojo suave
+  --ion-color-light: #303030; // Gris claro
+  --ion-color-dark: #ffffff; // Texto blanco
+  --ion-background-color: #121212; // Fondo oscuro
+  --ion-text-color: #e0e0e0; // Texto claro
+}
+
+// Tema Verde
+.verde {
+  --ion-color-primary: #4caf50; // Verde
+  --ion-color-secondary: #81c784; // Verde claro
+  --ion-color-tertiary: #388e3c; // Verde oscuro
+  --ion-color-success: #a5d6a7; // Verde éxito
+  --ion-color-warning: #ffb74d; // Amarillo
+  --ion-color-danger: #e57373; // Rojo
+  --ion-color-light: #c8e6c9; // Claro
+  --ion-color-dark: #2e7d32; // Oscuro
+  --ion-background-color: #f1f8e9; // Fondo claro
+  --ion-text-color: #1b5e20; // Texto oscuro
+}
+
+// Tema Rojo
+.rojo {
+  --ion-color-primary: #f44336; // Rojo
+  --ion-color-secondary: #ef5350; // Rojo claro
+  --ion-color-tertiary: #d32f2f; // Rojo oscuro
+  --ion-color-success: #81c784; // Verde éxito
+  --ion-color-warning: #ffb74d; // Amarillo
+  --ion-color-danger: #e57373; // Rojo claro
+  --ion-color-light: #ffcdd2; // Claro
+  --ion-color-dark: #b71c1c; // Oscuro
+  --ion-background-color: #ffebee; // Fondo claro
+  --ion-text-color: #b71c1c; // Texto oscuro
+}
+
+// Tema Azul
+.azul {
+  --ion-color-primary: #2196f3; // Azul
+  --ion-color-secondary: #64b5f6; // Azul claro
+  --ion-color-tertiary: #1976d2; // Azul oscuro
+  --ion-color-success: #81c784; // Verde éxito
+  --ion-color-warning: #ffb74d; // Amarillo
+  --ion-color-danger: #f44336; // Rojo
+  --ion-color-light: #bbdefb; // Claro
+  --ion-color-dark: #0d47a1; // Oscuro
+  --ion-background-color: #e3f2fd; // Fondo claro
+  --ion-text-color: #0d47a1; // Texto oscuro
+}
+
+// Tema Amarillo
+.amarillo {
+  --ion-color-primary: #ffeb3b; // Amarillo
+  --ion-color-secondary: #fff176; // Amarillo claro
+  --ion-color-tertiary: #fbc02d; // Amarillo oscuro
+  --ion-color-success: #81c784; // Verde éxito
+  --ion-color-warning: #ffb74d; // Amarillo
+  --ion-color-danger: #f44336; // Rojo
+  --ion-color-light: #fff9c4; // Claro
+  --ion-color-dark: #f57f17; // Oscuro
+  --ion-background-color: #fffde7; // Fondo claro
+  --ion-text-color: #f57f17; // Texto oscuro
+}
+
+// Tema Facebook
+.facebook {
+  --ion-color-primary: #3b5998; // Azul de Facebook
+  --ion-color-secondary: #8b9dc3; // Azul claro
+  --ion-color-tertiary: #3b5998; // Mismo azul
+  --ion-color-success: #4caf50; // Verde éxito
+  --ion-color-warning: #ffb74d; // Amarillo
+  --ion-color-danger: #f44336; // Rojo
+  --ion-color-light: #e7f3ff; // Claro
+  --ion-color-dark: #000000; // Oscuro
+  --ion-background-color: #f0f2f5; // Fondo claro
+  --ion-text-color: #ffffff; // Texto claro
+}
+
+// Tema Instagram
+.instagram {
+  --ion-color-primary: #e1306c; // Rosa de Instagram
+  --ion-color-secondary: #f56040; // Naranja
+  --ion-color-tertiary: #ffdd00; // Amarillo
+  --ion-color-success: #10dc60; // Verde éxito
+  --ion-color-warning: #ffb74d; // Amarillo
+  --ion-color-danger: #f44336; // Rojo
+  --ion-color-light: #f9d5e5; // Claro
+  --ion-color-dark: #000000; // Oscuro
+  --ion-background-color: #fff; // Fondo blanco
+  --ion-text-color: #000; // Texto negro
+}
