@@ -10,7 +10,7 @@ export class UsersService {
 
   userUpgrades = [
     {
-      toVersion: 1,
+      toVersion: 2,
       statements: [`
         CREATE TABLE IF NOT EXISTS USER (
           username TEXT PRIMARY KEY NOT NULL,
@@ -32,7 +32,7 @@ export class UsersService {
 
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
-    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
+    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 2, false);
     await this.createTestUsers();
   }
 
