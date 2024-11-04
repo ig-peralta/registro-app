@@ -39,7 +39,7 @@ export class UsersService {
     const users: User[] = testUsers;
     for (const user of users) {
       const parsedUser: any = {...user};
-      parsedUser.birthdate = user.birthdate.toISOString();
+      parsedUser.birthdate = user.birthdate.toString();
       await this.save(parsedUser);
     }
   }
@@ -79,11 +79,11 @@ export class UsersService {
 
   async save(user: User): Promise<User | null> {
     const parsedUser: any = {...user};
-    parsedUser.birthdate = user.birthdate.toISOString();
+    parsedUser.birthdate = user.birthdate.toString();
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
       'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
-      parsedUser.parsedUser.toISOString(), parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
+      parsedUser.birthdate, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;
