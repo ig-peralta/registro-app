@@ -18,6 +18,7 @@ export class UsersService {
           password TEXT NOT NULL,
           name TEXT NOT NULL,
           lastname TEXT NOT NULL,
+          address TEXT NOT NULL,
           birthdate TEXT NOT NULL,
           education_level INTEGER NOT NULL,
           security_question TEXT NOT NULL,
@@ -83,7 +84,7 @@ export class UsersService {
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
       'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
-      parsedUser.birthdate, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
+      parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;

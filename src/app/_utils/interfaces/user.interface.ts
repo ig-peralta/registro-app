@@ -5,6 +5,7 @@ export interface User {
   name: string;
   lastname: string;
   birthdate: Date;
+  address: string;
   educationLevel: number;
   securityQuestion: string;
   securityAnswer: string;

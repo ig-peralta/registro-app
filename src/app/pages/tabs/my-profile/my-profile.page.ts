@@ -71,6 +71,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     name: string = '';
     lastname: string = '';
     email: string = '';
+    address: string = '';
     educationLevel: string = '';
     securityQuestion: string = '';
     securityAnswer: string = '';
@@ -108,6 +109,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             this.securityQuestion = user?.securityQuestion || '';
             this.securityAnswer = user?.securityAnswer || '';
             this.birthdate = user?.birthdate || new Date();
+            this.address = user?.address || '';
         });
     }
 
@@ -128,6 +130,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             lastname: this.lastname,
             password: this.user?.password || '',
             email: this.email,
+            address: this.address,
             educationLevel: EducationLevel[this.educationLevel as keyof typeof EducationLevel] || 0,
             securityQuestion: this.securityQuestion,
             birthdate: this.birthdate,
