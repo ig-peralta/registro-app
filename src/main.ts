@@ -30,7 +30,6 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideAnimationsAsync(),
     provideHttpClient(),
-    // Importa el módulo de traducción
     importProvidersFrom(TranslateModule.forRoot(translateModuleConfig)),
   ],
 });
