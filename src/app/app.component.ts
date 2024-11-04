@@ -1,8 +1,7 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { UsersService } from './services/users/users.service';
 
 @Component({
   selector: 'app-root',
@@ -14,17 +13,8 @@ import { UsersService } from './services/users/users.service';
     TranslateModule
   ],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor(private translate: TranslateService) {
     translate.use('es');
-  }
-
-  private readonly users = inject(UsersService);
-
-  async ngOnInit() {
-    await this.users.initDb();
-    await this.users.createTestUsers();
-    console.log('users created');
-    console.log(await this.users.findAll());
   }
 }
