@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { SqliteService } from '../database/sqlite.service';
 import { SQLiteDBConnection } from '@capacitor-community/sqlite';
 import { User } from 'src/app/_utils/interfaces/user.interface';
@@ -6,6 +6,8 @@ import { testUsers } from 'src/app/_utils/test-users';
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
+  private readonly sqlite = inject(SqliteService);
+
   userUpgrades = [
     {
       toVersion: 1,
@@ -26,12 +28,6 @@ export class UsersService {
   ]
   dbName = 'registro-app-db';
   db!: SQLiteDBConnection;
-
-  constructor(private readonly sqlite: SqliteService) {
-    this.initDb();
-    this.createTestUsers();
-    console.log('UsersService initialized');
-  }
 
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
