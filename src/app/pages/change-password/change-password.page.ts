@@ -33,7 +33,7 @@ import { TranslateModule } from '@ngx-translate/core';
         IonBackButton, IonTitle, IonContent,
         IonCard, IonList, IonInput,
         IonButton, IonIcon, CommonModule,
-        ReactiveFormsModule, IonInputPasswordToggle, 
+        ReactiveFormsModule, IonInputPasswordToggle,
         TranslateModule
     ]
 })
@@ -43,7 +43,7 @@ export class ChangePasswordPage implements OnInit {
     toasts = inject(ToastController);
     router = inject(Router);
 
-    userId: number = 0;
+    username: string = '';
     shakeState: string = '';
 
     changePasswordForm = new FormGroup({
@@ -53,8 +53,7 @@ export class ChangePasswordPage implements OnInit {
     });
 
     ngOnInit() {
-        this.userId = this.nav.getState().userId;
-        console.log(this.userId);
+        this.username = this.nav.getState().username;
     }
 
     // ???????? need to refactor this
@@ -82,7 +81,7 @@ export class ChangePasswordPage implements OnInit {
         return this.changePasswordForm.get('confirmPassword')?.hasError('required');
     }
 
-    changePassword(): void {
+    async changePassword(): Promise<void> {
         if (!this.oldPassword || !this.newPassword) {
             this.toasts.create({
                 message: 'Debe llenar los campos',
@@ -99,8 +98,8 @@ export class ChangePasswordPage implements OnInit {
             this.shakeState = 'shake'
             return;
         }
-        const error = this.auth.changePassword({
-            userId: this.userId,
+        const error = await this.auth.changePassword({
+            username: this.username,
             oldPassword: this.oldPassword,
             newPassword: this.newPassword,
         });
@@ -118,7 +117,7 @@ export class ChangePasswordPage implements OnInit {
     resetAnimation(): void {
         this.shakeState = "";
     }
-    
+
     constructor(private translate: TranslateService) {
         addIcons({ createOutline });
         const lang = localStorage.getItem('lang') || 'es';
