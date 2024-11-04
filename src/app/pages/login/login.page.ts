@@ -80,9 +80,9 @@ export class LoginPage {
         return this.loginForm.get('password')?.hasError('required');
     }
 
-    login(): void {
+    async login(): Promise<void> {
         if (!this.username || !this.password) return;
-        const error = this.auth.login(this.username, this.password);
+        const error = await this.auth.login(this.username, this.password);
         if (error) {
             this.toasts.create({
                 message: error,

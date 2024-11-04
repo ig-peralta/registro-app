@@ -4,13 +4,13 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { AnimationController } from '@ionic/angular/standalone';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/models/user.model';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonSpinner } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { ScannerComponent } from './scanner/scanner.component';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 
 
 @Component({
