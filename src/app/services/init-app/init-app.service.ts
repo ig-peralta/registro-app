@@ -27,12 +27,8 @@ export class InitAppService {
         });
       });
     } catch(error: any) {
-      log('init services', error);
+      console.log(error);
     };
   }
-}
-
-function log(arg0: string, error: any) {
-    throw new Error('Function not implemented.');
 }
 

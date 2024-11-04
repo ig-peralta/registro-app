@@ -5,14 +5,13 @@ import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, importProvidersFrom } from '@angular/core';
 import { translateConfig } from './translate.config';
 import { defineCustomElements as jeepSqlite } from 'jeep-sqlite/loader';
 import { Capacitor } from '@capacitor/core';
 import { InitAppService } from './app/services/init-app/init-app.service';
 import { IonicModule } from '@ionic/angular';
-import { SqliteService } from './app/services/database/sqlite.service';
 
 const platform = Capacitor.getPlatform();
 if(platform === "web") {
