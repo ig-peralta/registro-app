@@ -13,6 +13,12 @@ export class AuthService {
   // had to make it like this because they are forcing us to use state, BIG SAD
   async login(username: string, password: string): Promise<string | null> {
     const user = await this.users.findOne(username);
+    console.log('all users');
+    console.log(await this.users.findAll());
+    console.log('user found');
+    console.log(user);
+    console.log('password');
+    console.log(user?.password);
     // you can separate this statements into two if you want to tell the user that the username is incorrect
     if (!user || user.password !== password)
       return 'Usuario o contraseña incorrectos';
