@@ -82,7 +82,7 @@ export class UsersService {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
-      'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
+      'birthdate, address, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
       parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
     const newUser = await this.findOne(user.username);
