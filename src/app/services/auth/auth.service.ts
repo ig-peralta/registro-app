@@ -11,8 +11,8 @@ export class AuthService {
   private readonly nav = inject(NavigationService);
 
   // had to make it like this because they are forcing us to use state, BIG SAD
-  login(username: string, password: string): string | null {
-    const user = this.users.getByUsername(username);
+  async login(username: string, password: string): Promise<string | null> {
+    const user = await this.users.findOne(username);
     // you can separate this statements into two if you want to tell the user that the username is incorrect
     if (!user || user.password !== password)
       return 'Usuario o contraseña incorrectos';
@@ -25,27 +25,27 @@ export class AuthService {
     this.session.user = null;
   }
 
-  recoverPassword(email: string, answer: string): string | null {
-    const user = this.users.getByEmail(email);
+  async recoverPassword(email: string, answer: string): Promise<string | null> {
+    const user = await this.users.findOneByEmail(email);
     if (!user || user.securityAnswer !== answer)
       return null;
     return user.password;
   }
 
-  getSecurityQuestion(email: string): string | null {
-    const user = this.users.getByEmail(email);
+  async getSecurityQuestion(email: string): Promise<string | null> {
+    const user = await this.users.findOneByEmail(email);
     if (!user)
       return null;
     return user.securityQuestion;
   }
 
-  changePassword(dto : ChangePasswordDto): string | null {
-    const user = this.users.getById(dto.userId);
+  async changePassword(dto : ChangePasswordDto): Promise<string | null> {
+    const user = await this.users.findOne(dto.username);
     if (!user) // just in case, this would not happen in a normal user flow
       return 'Usuario no encontrado';
     if (user.password !== dto.oldPassword)
       return 'Contraseña incorrecta'; // this should be the only real way of this failing
-    this.users.updateUser(dto.userId, { password: dto.newPassword });
+    await this.users.changePassword(dto.username, dto.newPassword);
     return null
   }
 }

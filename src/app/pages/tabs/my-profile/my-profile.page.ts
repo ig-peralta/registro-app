@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { IonButton, IonCard, IonContent, IonHeader, IonInput, IonList, IonSelect, IonSelectOption, IonTitle, IonToolbar, ToastController, ViewWillEnter, ViewWillLeave, IonIcon } from '@ionic/angular/standalone';
 import { EducationLevel } from 'src/app/_utils/enums/education-level.enum';
-import { User } from 'src/app/models/user.model';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { SessionService } from 'src/app/services/session/session.service';
@@ -17,6 +16,7 @@ import { createOutline, keyOutline } from "ionicons/icons";
 import { MatNativeDateModule } from '@angular/material/core';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 
 @Component({
     selector: 'app-my-profile',
@@ -98,7 +98,6 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
 
     setUserData(): void {
         this.session.user.subscribe((user: User | null) => {
-            this.userId = user?.id || 0;
             this.username = user?.username || '';
             this.name = user?.name || '';
             this.email = user?.email || '';
@@ -113,9 +112,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
 
     setUpdateUserForm(): void { }
 
-    updateUser(): void {
-        // XD
-
+    async updateUser() {
         if (!this.username || !this.birthdate || !this.email || !this.username || !this.birthdate || !this.email || !this.name || !this.lastname || !this.educationLevel || !this.securityQuestion || !this.securityAnswer) {
             this.toast.create({
                 message: 'No puede haber campos vacíos',
@@ -124,17 +121,18 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             this.shakeState = "shake"
             return;
         }
-        const payload = {
+        const payload: User = {
             username: this.username,
             name: this.name,
             lastname: this.lastname,
+            password: this.user?.password || '',
             email: this.email,
             educationLevel: EducationLevel[this.educationLevel as keyof typeof EducationLevel] || 0,
             securityQuestion: this.securityQuestion,
             birthdate: this.birthdate,
             securityAnswer: this.securityAnswer,
         };
-        const user = this.users.updateUser(this.userId, payload);
+        const user = await this.users.save(payload);
         if (user) {
             this.session.user = user;
             this.setUpdateUserForm();
@@ -150,7 +148,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     }
 
     goChangePassword() {
-        this.nav.redirectWithData('change-password', { userId: this.userId });
+        this.nav.redirectWithData('change-password', { email: this.user?.email });
     }
 
     resetAnimations() {

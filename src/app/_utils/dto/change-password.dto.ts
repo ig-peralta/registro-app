@@ -1,5 +1,5 @@
 export interface ChangePasswordDto {
-  userId: number,
+  username: string,
   oldPassword: string,
   newPassword: string,
 }

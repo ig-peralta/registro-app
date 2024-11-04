@@ -42,24 +42,17 @@ export class HomePage implements OnInit {
         const lang = localStorage.getItem('lang') || 'es';
         this.translate.use(lang);
     }
-    
+
     ngOnInit() {
         this.session.user.subscribe((user: User | null) => {
             this.name = user?.name || '';
             this.lastname = user?.lastname || '';
         })
         this.scanner.loading.subscribe(state => this.scannerLoading = state);
-        // this.getStateData();
     }
+
     ngAfterViewInit() {
         this.animateTitle();
-    }
-    // we did this to prove that we can get the data from the state
-    getStateData() {
-        const user = this.nav.getState()['user'];
-        const name = user?.name || '';
-        const lastname = user?.lastname || '';
-        console.log('data from state', name, lastname);
     }
 
     logout() {

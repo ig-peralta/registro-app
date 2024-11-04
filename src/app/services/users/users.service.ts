@@ -1,45 +1,88 @@
-import { Injectable } from '@angular/core';
-import { EducationLevel } from 'src/app/_utils/enums/education-level.enum';
-import { usersDb } from 'src/app/_utils/users.database';
-import { User } from 'src/app/models/user.model';
+import { Injectable, inject } from '@angular/core';
+import { SqliteService } from '../database/sqlite.service';
+import { SQLiteDBConnection } from '@capacitor-community/sqlite';
+import { BehaviorSubject } from 'rxjs';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 
 @Injectable({providedIn: 'root'})
 export class UsersService {
-  users: User[] = usersDb;
+  private readonly sqlite = inject(SqliteService);
 
-  create(user: User): void {
-    this.users.push(user);
-  }
-
-  getAll(): User[] {
-    return this.users;
-  }
-
-  getById(id: number): User | null {
-    const user = this.users.find(user => user.id === id);
-    if (!user) return null;
-    return user;
-  }
-
-  getByEmail(email: string): User | null {
-    const user = this.users.find(user => user.email === email);
-    if (!user) return null;
-    return user;
-  }
-
-  getByUsername(username: string): User | null {
-    const user = this.users.find(user => user.username === username);
-    if (!user) return null;
-    return user;
-  }
-
-  updateUser(id: number, data: Partial<User>): User | null {
-    const user = this.users.find(user => user.id === id);
-    if (!user) return null;
-    for (const key in data) {
-      // HACK wtf??
-      (user as any)[key as keyof User] = data[key as keyof User]!
+  userUpgrades = [
+    {
+      toVersion: 1,
+      statements: [`
+        CREATE TABLE IF NOT EXISTS USER (
+          username TEXT PRIMARY KEY NOT NULL,
+          email TEXT NOT NULL UNIQUE,
+          password TEXT NOT NULL,
+          name TEXT NOT NULL,
+          lastname TEXT NOT NULL,
+          birthdate TEXT NOT NULL,
+          education_level INTEGER NOT NULL,
+          security_question TEXT NOT NULL,
+          security_answer TEXT NOT NULL
+        );
+      `]
     }
-    return user
+  ]
+  dbName = 'registro-app-db';
+  db!: SQLiteDBConnection;
+  users: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  datosQR: BehaviorSubject<string> = new BehaviorSubject('');
+
+  async initDb() {
+    await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
+    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
+  }
+
+  async createTestUsers() {}
+
+  async setUsers() {
+    const users: User[] = (await this.db.query('SELECT * FROM USER;')).values as User[];
+    this.users.next(users);
+  }
+
+  async findAll(): Promise<User[]> {
+    const users: User[] = (await this.db.query('SELECT * FROM USER;')).values as User[];
+    return users;
+  }
+
+  async findOne(username: string): Promise<User | undefined> {
+    const users: User[] = (await this.db.query('SELECT * FROM USER WHERE username=?;', [username])).values as User[];
+    return users[0];
+  }
+
+  async findOneByEmail(email: string): Promise<User | undefined> {
+    const users: User[] = (await this.db.query('SELECT * FROM USER WHERE email=?;', [email])).values as User[];
+    return users[0];
+  }
+
+  async changePassword(username: string, newPassword: string): Promise<User | null> {
+    await this.db.run('UPDATE USER SET password=? WHERE username=?;', [newPassword, username]);
+    await this.setUsers();
+    const user = await this.findOne(username);
+    if (user)
+      return user;
+    else
+      return null;
+  }
+
+  async save(user: User): Promise<User | null> {
+    const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
+      'birthdate, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
+    await this.db.run(insertStatement, [user.username, user.email, user.password, user.name, user.lastname,
+      user.birthdate, user.educationLevel, user.securityQuestion, user.securityAnswer]);
+    await this.setUsers();
+    const newUser = await this.findOne(user.username);
+    if (newUser)
+      return newUser;
+    else
+      return null;
+  }
+
+  async delete(username: string) {
+    await this.db.run('DELETE FROM USER WHERE username=?', [username]);
+    await this.setUsers();
   }
 }

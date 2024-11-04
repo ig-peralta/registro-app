@@ -20,7 +20,7 @@ export class MapPage implements OnInit {
     addIcons({ logoTwitter, logoInstagram, logoLinkedin });
     const lang = localStorage.getItem('lang') || 'es';
     this.translate.use(lang);
-}
+  }
 
   ngOnInit() {
   }

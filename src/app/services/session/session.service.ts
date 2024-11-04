@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LocalStorageService } from '../local-storage/local-storage.service';
-import { User } from 'src/app/models/user.model';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root'

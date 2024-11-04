@@ -16,14 +16,12 @@ import { addIcons } from 'ionicons';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButtons, IonBackButton, TranslateModule, IonFooter, IonIcon ]
 })
 export class ThemePage implements OnInit {
-
   constructor(private translate: TranslateService) {
     addIcons({ logoTwitter, logoInstagram, logoLinkedin });
     const lang = localStorage.getItem('lang') || 'es';
     this.translate.use(lang);
-}
+  }
 
   ngOnInit() {
   }
-
 }

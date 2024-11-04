@@ -9,7 +9,7 @@ import { logoTwitter, logoInstagram, logoLinkedin, globe, colorPalette, chevronU
 import { IonHeader, IonModal, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonInput, IonButton, IonFooter, IonIcon, IonFabButton, IonFab, IonFabList,IonList, IonItem, IonLabel } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { TranslateModule } from '@ngx-translate/core'; 
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
     selector: 'app-login',
@@ -48,8 +48,8 @@ import { TranslateModule } from '@ngx-translate/core';
       IonContent, IonCard, IonCardHeader,
       IonCardTitle, IonCardContent, IonInput,
       IonButton, IonFooter, IonIcon,
-      ReactiveFormsModule, CommonModule, IonInputPasswordToggle, 
-      IonFabButton, IonFab, IonFabList, IonModal, IonList, IonItem, 
+      ReactiveFormsModule, CommonModule, IonInputPasswordToggle,
+      IonFabButton, IonFab, IonFabList, IonModal, IonList, IonItem,
       IonLabel, TranslateModule
     ]
 })
@@ -89,7 +89,6 @@ export class LoginPage {
                 duration: 2000
             }).then(toast => toast.present());
         }
-        // redirect occurs in the service because I don't want to bring the user data here :P
     }
 
     goToRecoverPassword(): void {
@@ -105,8 +104,9 @@ export class LoginPage {
         const lang = localStorage.getItem('lang') || 'es';
         this.translate.use(lang);
     }
+
     changeLanguage(lang: string) {
         this.translate.use(lang);
         localStorage.setItem('lang', lang); // Guarda el idioma preferido
-      }
+    }
 }

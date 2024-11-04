@@ -8,14 +8,13 @@ import { TranslateModule } from '@ngx-translate/core';
   templateUrl: 'app.component.html',
   standalone: true,
   imports: [
-    IonApp, 
+    IonApp,
     IonRouterOutlet,
     TranslateModule
   ],
 })
 export class AppComponent {
   constructor(private translate: TranslateService) {
-    // El idioma por defecto ya está configurado en el main.ts como 'es'
-    translate.use('es'); // Puedes cambiar 'es' por el idioma que necesites
+    translate.use('es');
   }
 }

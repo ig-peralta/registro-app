@@ -57,9 +57,9 @@ export class RecoverPasswordPage {
         return this.answerForm.get('answer')?.hasError('required');
     }
 
-    getQuestion(): void {
+    async getQuestion(): Promise<void> {
         if (!this.email) return;
-        this.securityQuestion = this.auth.getSecurityQuestion(this.email) || '';
+        this.securityQuestion = await this.auth.getSecurityQuestion(this.email) || '';
         if (this.securityQuestion) {
             this.submitted = true;
         } else {
@@ -71,9 +71,9 @@ export class RecoverPasswordPage {
         }
     }
 
-    recover(): void {
+    async recover(): Promise<void> {
         if (!this.email || !this.answer) return;
-        const password = this.auth.recoverPassword(this.email, this.answer);
+        const password = await this.auth.recoverPassword(this.email, this.answer);
         if (password)
             this.nav.redirectWithData('successful-pass', { password });
         else

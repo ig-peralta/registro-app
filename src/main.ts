@@ -4,24 +4,10 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { TranslateLoader, TranslateModule, TranslateModuleConfig } from '@ngx-translate/core';
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { HttpClient, provideHttpClient } from '@angular/common/http';
+import { TranslateModule } from '@ngx-translate/core';
+import { provideHttpClient } from '@angular/common/http';
 import { importProvidersFrom } from '@angular/core';
-
-// Función para crear el cargador de traducción
-export function HttpLoaderFactory(http: HttpClient) {
-  return new TranslateHttpLoader(http, './assets/i18n/', '.json'); 
-}
-
-const translateModuleConfig: TranslateModuleConfig = {
-  defaultLanguage: 'es', 
-  loader: {
-    provide: TranslateLoader,
-    useFactory: HttpLoaderFactory,
-    deps: [HttpClient]
-  }
-};
+import { translateConfig } from './translate.config';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -30,7 +16,6 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideAnimationsAsync(),
     provideHttpClient(),
-    // Importa el módulo de traducción
-    importProvidersFrom(TranslateModule.forRoot(translateModuleConfig)),
+    importProvidersFrom(TranslateModule.forRoot(translateConfig)),
   ],
 });
