@@ -31,7 +31,7 @@
           <h5 style="margin-bottom: 1px; color: #68da04;">N° {{ item.id }} - {{ item.name }} {{ item.lastname }}</h5>
           <h5 class="mb-2 text-primary">{{ item.title }}</h5>
         </div>
-        <ion-textarea class="mb-2" fill="outline" [autoGrow]="true" [value]="item.content" disabled="true"></ion-textarea>
+        <ion-textarea class="mb-2 text-dark" fill="outline" [autoGrow]="true" [value]="item.content" disabled="true"></ion-textarea>
         <div class="text-end">
           <ion-button class="me-2" (click)="editPost(item)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
           <ion-button color="danger" (click)="deletePost(item.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
