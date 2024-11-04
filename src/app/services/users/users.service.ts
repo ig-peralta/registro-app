@@ -10,7 +10,7 @@ export class UsersService {
 
   userUpgrades = [
     {
-      toVersion: 2,
+      toVersion: 1,
       statements: [`
         CREATE TABLE IF NOT EXISTS USER (
           username TEXT PRIMARY KEY NOT NULL,
@@ -32,7 +32,7 @@ export class UsersService {
 
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
-    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 2, false);
+    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
     await this.createTestUsers();
   }
 
@@ -82,7 +82,7 @@ export class UsersService {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
-      'birthdate, address, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?);';
+      'birthdate, address, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
       parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
     const newUser = await this.findOne(user.username);
