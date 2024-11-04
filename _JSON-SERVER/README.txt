@@ -4,4 +4,4 @@ npm install -g json-server
 
 2. Para ejecutar json-server:
 
-json-server --watch posts.json
+json-server --watch publicaciones.json
