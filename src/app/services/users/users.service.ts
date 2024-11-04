@@ -18,6 +18,22 @@ export class UsersService {
           password TEXT NOT NULL,
           name TEXT NOT NULL,
           lastname TEXT NOT NULL,
+          birthdate TEXT NOT NULL,
+          education_level INTEGER NOT NULL,
+          security_question TEXT NOT NULL,
+          security_answer TEXT NOT NULL
+        );
+      `]
+    },
+    {
+      toVersion: 2,
+      statements: [`
+        CREATE TABLE IF NOT EXISTS USER (
+          username TEXT PRIMARY KEY NOT NULL,
+          email TEXT NOT NULL UNIQUE,
+          password TEXT NOT NULL,
+          name TEXT NOT NULL,
+          lastname TEXT NOT NULL,
           address TEXT NOT NULL,
           birthdate TEXT NOT NULL,
           education_level INTEGER NOT NULL,
@@ -32,7 +48,7 @@ export class UsersService {
 
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
-    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
+    this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 2, false);
     await this.createTestUsers();
   }
 
