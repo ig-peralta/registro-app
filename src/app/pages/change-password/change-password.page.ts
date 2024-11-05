@@ -11,6 +11,7 @@ import { IonHeader, IonToolbar, IonButtons, IonBackButton, IonTitle, IonContent,
 import { CommonModule } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ChangePasswordDto } from 'src/app/_utils/dto/change-password.dto';
 
 @Component({
     selector: 'app-change-password',
@@ -102,7 +103,7 @@ export class ChangePasswordPage implements OnInit {
             username: this.username,
             oldPassword: this.oldPassword,
             newPassword: this.newPassword,
-        });
+        } as ChangePasswordDto);
         if (error) {
             this.toasts.create({
                 message: error,

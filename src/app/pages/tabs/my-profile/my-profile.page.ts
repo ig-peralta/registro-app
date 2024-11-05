@@ -65,7 +65,6 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     private readonly users = inject(UsersService);
     private readonly toast = inject(ToastController);
 
-    userId: number = 0;
     user: User | null = null;
     username: string = '';
     name: string = '';
@@ -99,6 +98,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
 
     setUserData(): void {
         this.session.user.subscribe((user: User | null) => {
+            this.user = user;
             console.log(user);
             this.username = user?.username || '';
             this.name = user?.name || '';
