@@ -12,25 +12,22 @@
 
 <ion-content [fullscreen]="true">
   <h3 class="text-center mt-2">{{ 'route.header' | translate }}</h3>
-  
-  <!-- Map Container -->
   <div id="mapId" style="height: 100%;"></div>
-
-  <div class="text-center mb-2">
-    <ion-button class="fs-6 mb-1 me-3" (click)="goToDUOC()">{{ 'route.duoc' | translate }}</ion-button>
-    <ion-button class="fs-6 mb-1 me-3" (click)="goToMyPosition()">{{ 'route.here' | translate }}</ion-button>
-    <ion-button class="fs-6 mb-1" (click)="showRouteToDuoc()">{{ 'route.route' | translate }}</ion-button>
-  </div>
-
-  <!-- Display Distance -->
-  <p class="text-center">{{ distance }}</p>
 </ion-content>
 
 <ion-footer collapse="fade">
   <ion-toolbar color="dark" class="text-center">
-    <img src="assets/images/acreditacion.png" alt="" class="mb-2 mt-3 acreditacion">
+    <div class="text-center mt-2">
+      <ion-button class="fs-6 mb-1 me-3" (click)="goToDUOC()">{{ 'route.duoc' | translate }}</ion-button>
+      <ion-button class="fs-6 mb-1 me-3" (click)="goToMyPosition()">{{ 'route.here' | translate }}</ion-button>
+      <ion-button class="fs-6 mb-1" (click)="showRouteToDuoc()">{{ 'route.route' | translate }}</ion-button>
+    </div>
+
+    <p class="text-center">{{ distance }}</p>
+    <img src="assets/images/acreditacion.png" alt="" class="mb-2 acreditacion">
+    
     <div class="mb-2 d-flex gap-5 justify-content-center">
-      <!-- Redes sociales -->
+
       <a href="https://x.com/DuocUC">
         <ion-icon name="logo-twitter" size="large"></ion-icon>
       </a>

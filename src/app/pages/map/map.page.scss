@@ -21,7 +21,8 @@
     color: white;
   }
   #mapId {
-    height: 100%; // Ensure this is tall enough to display the map
-    width: 100%;
+    height: 70vh; /* Ajusta el tamaño del mapa para que ocupe el 70% del alto de la pantalla */
+    margin-bottom: 1rem; /* Agrega un poco de espacio debajo del mapa */
   }
+  
   
