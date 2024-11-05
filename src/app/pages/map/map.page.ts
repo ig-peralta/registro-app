@@ -37,7 +37,7 @@ export class MapPage implements OnInit {
     await this.geo.getCurrentPosition().then((position: { lat: number, lng: number } | null) => {
       if (position) {
         // Configuramos el centro del mapa y el nivel de zoom
-        this.map = L.map('mapId').setView([position.lat, position.lng], 15);
+        this.map = L.map('mapId').setView([position.lat, position.lng], 50);
 
         // Cargamos el mapa de OpenStreetMap
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,13 +55,13 @@ export class MapPage implements OnInit {
   }
 
   goToDUOC() {
-    this.goToPosition(-33.44703, -70.65762, 15, 'Instituto DUOC Padre Alonso de Ovalle');
+    this.goToPosition(-33.44703, -70.65762, 50, 'Instituto DUOC Padre Alonso de Ovalle');
   }
 
   async goToMyPosition() {
     this.geo.getCurrentPosition().then((position: { lat: number, lng: number } | null) => {
       if (position) {
-        this.goToPosition(position.lat, position.lng, 15, 'Mi ubicación');
+        this.goToPosition(position.lat, position.lng, 50, 'Mi ubicación');
       }
     });
   }
@@ -92,7 +92,7 @@ export class MapPage implements OnInit {
   showRouteToDuoc() {
     this.geo.getCurrentPosition().then((position: { lat: number, lng: number } | null) => {
       if (position) {
-        this.goToPosition(position.lat, position.lng, 15, 'Mi ubicación');
+        this.goToPosition(position.lat, position.lng, 50, 'Mi ubicación');
         this.getRoute({ lat: position.lat, lng: position.lng }, { lat: -33.44703, lng: -70.65762 }, "walking");
       }
     });
