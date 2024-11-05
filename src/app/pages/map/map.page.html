@@ -12,11 +12,18 @@
 
 <ion-content>
   <h3 class="text-center mt-2">{{ 'route.header' | translate }}</h3>
+  
+  <!-- Map Container -->
+  <div id="mapId" style="height: 300px; width: 100%;"></div>
+
   <div class="text-center mb-2">
-    <ion-button class="fs-6 mb-1 me-3">{{ 'route.duoc' | translate }}</ion-button>
-    <ion-button class="fs-6 mb-1 me-3">{{ 'route.here' | translate }}</ion-button>
-    <ion-button class="fs-6 mb-1">{{ 'route.route' | translate }}</ion-button>
+    <ion-button class="fs-6 mb-1 me-3" (click)="goToDUOC()">{{ 'route.duoc' | translate }}</ion-button>
+    <ion-button class="fs-6 mb-1 me-3" (click)="goToMyPosition()">{{ 'route.here' | translate }}</ion-button>
+    <ion-button class="fs-6 mb-1" (click)="showRouteToDuoc()">{{ 'route.route' | translate }}</ion-button>
   </div>
+
+  <!-- Display Distance -->
+  <p class="text-center">{{ distance }}</p>
 </ion-content>
 
 <ion-footer collapse="fade">
@@ -36,4 +43,3 @@
     </div>
   </ion-toolbar>
 </ion-footer>
-
