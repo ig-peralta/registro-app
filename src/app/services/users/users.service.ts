@@ -41,7 +41,7 @@ export class UsersService {
     for (const user of users) {
       const parsedUser: any = {...user};
       parsedUser.birthdate = user.birthdate.toString();
-      await this.save(parsedUser);
+      await this.create(parsedUser);
     }
   }
 
@@ -78,7 +78,7 @@ export class UsersService {
       return null;
   }
 
-  async save(user: User): Promise<User | null> {
+  async create(user: User): Promise<User | null> {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
     const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
@@ -88,6 +88,20 @@ export class UsersService {
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;
+    else
+      return null;
+  }
+
+  async update(user: User): Promise<User | null> {
+    const parsedUser: any = {...user};
+    parsedUser.birthdate = user.birthdate.toString();
+    const updateStatement = 'UPDATE USER SET email=?, password=?, name=?, lastname=?, birthdate=?, address=?, ' +
+      'education_level=?, security_question=?, security_answer=? WHERE username=?;';
+    await this.db.run(updateStatement, [parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
+      parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer, parsedUser.username]);
+    const updatedUser = await this.findOne(user.username);
+    if (updatedUser)
+      return updatedUser;
     else
       return null;
   }

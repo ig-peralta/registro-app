@@ -136,7 +136,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             birthdate: this.birthdate,
             securityAnswer: this.securityAnswer,
         };
-        const user = await this.users.save(payload);
+        const user = await this.users.update(payload);
         if (user) {
             this.session.user = user;
             this.setUpdateUserForm();
