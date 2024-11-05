@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonTextarea, IonButton, IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonItem, ToastController } from '@ionic/angular/standalone';
@@ -8,7 +8,9 @@ import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { PostsService } from 'src/app/services/posts/posts.service'; 
+import { SessionService } from 'src/app/services/session/session.service';
 import { Post } from 'src/app/_utils/interfaces/post.interface';
+import { User } from 'src/app/_utils/interfaces/user.interface';
 
 @Component({
   selector: 'app-forum',
@@ -27,6 +29,8 @@ export class ForumPage implements OnInit {
   
   items: Post[] = [];
   newPost: Post = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+  private readonly session = inject(SessionService);
+  user: User | null = null;
 
   constructor(private translate: TranslateService, 
               private postsService: PostsService,
@@ -38,6 +42,9 @@ export class ForumPage implements OnInit {
 
   ngOnInit() {
     this.loadPosts(); 
+    this.session.user.subscribe((user: User | null) => {
+      this.user = user;
+    });
   }
 
   private async loadPosts() {
@@ -51,12 +58,18 @@ export class ForumPage implements OnInit {
   async createPost() {
     if (this.newPost.title && this.newPost.content) {
       try {
+        if (this.user) {
+          this.newPost.email = this.user.email;
+          this.newPost.name = this.user.name;
+          this.newPost.lastname = this.user.lastname;
+        }
+
         if (this.newPost.id === 0) {
-          // Generar un nuevo ID para el post
           const newId = this.items.length ? Math.max(...this.items.map(item => item.id)) + 1 : 1; 
           this.newPost.id = newId; 
           const createdPost = await this.postsService.create(this.newPost);
-          this.items.push(createdPost); 
+          this.items.push(createdPost);
+          this.presentToast('Publicación guardada correctamente.');
         } else {
           await this.updatePost();
         }
@@ -67,7 +80,8 @@ export class ForumPage implements OnInit {
     } else {
       this.presentToast('El título y el contenido no pueden estar vacíos.'); 
     }
-  }
+}
+
 
   async deletePost(id: number) {
     try {
