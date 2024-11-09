@@ -7,39 +7,90 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-title class="text-center fs-4 mt-3 text-dark">{{ 'publication.header' | translate }}</ion-title>
-  <ion-card class="p-2">
-    <div class="d-flex align-items-center mt-2">
-      <h6 class="text-dark mb-0 me-2">{{ 'publication.title' | translate }}</h6>
-      <ion-input [(ngModel)]="newPost.title" class="mb-0 reduced-input" label-placement="floating" fill="outline" placeholder="{{ 'publication.title' | translate }}"></ion-input>
-    </div>
-    <div>
-      <h6 class="text-dark mt-2 mb-1">{{ 'publication.body' | translate }}</h6>
-      <ion-textarea [(ngModel)]="newPost.content" class="mb-2" fill="outline" [autoGrow]="true"></ion-textarea>
-    </div>
-    <div class="text-center">
-      <ion-button class="fs-6 mb-1 me-3" (click)="createPost()">{{ 'publication.save' | translate }}</ion-button>
-    </div>
+<ion-content class="ion-padding">
+  <ion-card class="shadow-sm">
+    <ion-card-header>
+      <ion-card-title class="text-center text-primary">
+        <ion-icon name="create-outline" class="me-2"></ion-icon>
+        {{ 'publication.header' | translate }}
+      </ion-card-title>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <div class="mb-3">
+        <label class="form-label text-muted small">{{ 'publication.title' | translate }}</label>
+        <ion-input 
+          [(ngModel)]="newPost.title" 
+          class="form-control"
+          fill="outline"
+          placeholder="{{ 'publication.title' | translate }}"
+        ></ion-input>
+      </div>
+      
+      <div class="mb-3">
+        <label class="form-label text-muted small">{{ 'publication.body' | translate }}</label>
+        <ion-textarea 
+          [(ngModel)]="newPost.content"
+          class="form-control"
+          fill="outline"
+          [autoGrow]="true"
+          rows="4"
+          placeholder="Write your post here..."
+        ></ion-textarea>
+      </div>
+      
+      <div class="d-flex justify-content-end">
+        <ion-button class="w-100" expand="block" (click)="createPost()">
+          <ion-icon name="send-outline" slot="start"></ion-icon>
+          {{ 'publication.save' | translate }}
+        </ion-button>
+      </div>
+    </ion-card-content>
   </ion-card>
 
-  <ion-title class="text-center fs-4 text-dark mt-3">{{ 'publication.recentPublications' | translate }}</ion-title>
-  <ion-list>
-    <ion-item *ngFor="let item of items; let index = index">
-      <ion-card class="p-2 w-100">
-        <div class="text-start mt-1">
-          <h5 style="margin-bottom: 1px; color: #68da04;">N° {{ item.id }} - {{ item.name }} {{ item.lastname }}</h5>
-          <h5 class="mb-2 text-primary">{{ item.title }}</h5>
-        </div>
-        <ion-textarea class="mb-2 text-dark" fill="outline" [autoGrow]="true" [value]="item.content" disabled="true"></ion-textarea>
-        <div class="text-end">
-          <ion-button class="me-2" (click)="editPost(item)"><ion-icon name="pencil-outline"></ion-icon></ion-button>
-          <ion-button color="danger" (click)="deletePost(item.id)"><ion-icon name="trash-outline"></ion-icon></ion-button>
-        </div>
-      </ion-card>
-    </ion-item>
-  </ion-list>
-  <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
-    <ion-infinite-scroll-content></ion-infinite-scroll-content>
-  </ion-infinite-scroll>
+  <div class="mt-4">
+    <h5 class="text-primary mb-3">
+      <ion-icon name="time-outline" class="me-2"></ion-icon>
+      {{ 'publication.recentPublications' | translate }}
+    </h5>
+    
+    <ion-list>
+      <ion-item-sliding *ngFor="let item of items; let index = index">
+        <ion-item lines="none">
+          <ion-card class="w-100 shadow-sm">
+            <ion-card-header>
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <span class="badge bg-success mb-2">Post #{{ item.id }}</span>
+                  <h6 class="mb-0 text-primary">{{ item.name }} {{ item.lastname }}</h6>
+                </div>
+                <div class="d-flex gap-2">
+                  <ion-button fill="clear" (click)="editPost(item)">
+                    <ion-icon name="pencil-outline" slot="icon-only"></ion-icon>
+                  </ion-button>
+                  <ion-button fill="clear" color="danger" (click)="deletePost(item.id)">
+                    <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </div>
+              </div>
+            </ion-card-header>
+            
+            <ion-card-content>
+              <h5 class="text-dark mb-2">{{ item.title }}</h5>
+              <ion-textarea
+                class="bg-light rounded p-2"
+                [autoGrow]="true"
+                [value]="item.content"
+                readonly="true"
+              ></ion-textarea>
+            </ion-card-content>
+          </ion-card>
+        </ion-item>
+      </ion-item-sliding>
+    </ion-list>
+    
+    <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+      <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+  </div>
 </ion-content>

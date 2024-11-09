@@ -1,14 +1,41 @@
-.Logo-DuocUC{   
-    width: 200px;
-    height: auto;
-  }
+.Logo-DuocUC {
+  width: 200px;
+  height: auto;
+}
 
-  ion-button {
-    text-transform: none !important;
-  }
-  
+ion-button {
+  text-transform: none !important;
+}
 
-  ion-input.reduced-input {
-    height: 30px !important;
-    min-height: 30px !important;
-  }
+ion-card {
+  border-radius: 12px;
+  margin: 8px 0;
+}
+
+ion-textarea.bg-light {
+  --background: #f8f9fa;
+  border-radius: 8px;
+  margin: 8px 0;
+}
+
+ion-item {
+  --padding-start: 0;
+  --inner-padding-end: 0;
+  --background: transparent;
+}
+
+ion-item-sliding {
+  margin-bottom: 16px;
+}
+
+.form-control {
+  background: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+}

@@ -1,8 +1,8 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonTextarea, IonButton, IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonItem, ToastController } from '@ionic/angular/standalone';
-import { pencilOutline, trashOutline } from 'ionicons/icons';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonCard, IonInput, IonTextarea, IonButton, IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent, IonItem, ToastController, IonCardHeader, IonCardTitle, IonCardContent, IonItemSliding } from '@ionic/angular/standalone';
+import { pencilOutline, trashOutline, createOutline, timeOutline, sendOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
@@ -22,7 +22,7 @@ import { User } from 'src/app/_utils/interfaces/user.interface';
     IonToolbar, CommonModule, FormsModule,
     IonCard, IonInput, IonTextarea, IonButton,
     IonIcon, IonList, IonInfiniteScroll, IonInfiniteScrollContent,
-    IonItem, TranslateModule
+    IonItem, TranslateModule, IonCardHeader, IonCardTitle, IonCardContent, IonItemSliding
   ]
 })
 export class ForumPage implements OnInit {
@@ -35,7 +35,11 @@ export class ForumPage implements OnInit {
   constructor(private translate: TranslateService, 
               private postsService: PostsService,
               private toastController: ToastController) { 
-    addIcons({ pencilOutline, trashOutline }); 
+    addIcons({ pencilOutline, 
+                trashOutline, 
+                createOutline, 
+                timeOutline, 
+                sendOutline  }); 
     const lang = localStorage.getItem('lang') || 'es';
     this.translate.use(lang);
   }
