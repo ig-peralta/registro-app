@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
-import { Geolocation, Position } from '@capacitor/geolocation'; // 'Position' viene de @capacitor/geolocation
+import { Geolocation, Position, PermissionStatus } from '@capacitor/geolocation';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -10,38 +10,89 @@ import { HttpClient } from '@angular/common/http';
 export class GeolocationService {
   constructor(private platform: Platform, private http: HttpClient) {}
 
-  // Cambiamos el tipo de retorno a solo latitud y longitud
+  async checkPermissions(): Promise<boolean> {
+    if (this.platform.is('capacitor')) {
+      const status = await Geolocation.checkPermissions();
+      return status.location === 'granted';
+    } else {
+      return new Promise((resolve) => {
+        if (!('permissions' in navigator)) {
+          resolve(true); // Si no hay API de permisos, asumimos que está permitido
+          return;
+        }
+        
+        navigator.permissions.query({ name: 'geolocation' })
+          .then(result => {
+            resolve(result.state === 'granted');
+          })
+          .catch(() => {
+            resolve(false);
+          });
+      });
+    }
+  }
+
+  async requestPermissions(): Promise<boolean> {
+    try {
+      if (this.platform.is('capacitor')) {
+        const status = await Geolocation.requestPermissions();
+        return status.location === 'granted';
+      } else {
+        // En web, la solicitud de permisos se maneja automáticamente al llamar a getCurrentPosition
+        return true;
+      }
+    } catch (error) {
+      console.error('Error requesting permissions:', error);
+      return false;
+    }
+  }
+
   async getCurrentPosition(): Promise<{ lat: number; lng: number } | null> {
     try {
-      // Si estamos en un dispositivo móvil usando Capacitor
+      const hasPermission = await this.checkPermissions();
+      
+      if (!hasPermission) {
+        const granted = await this.requestPermissions();
+        if (!granted) {
+          console.log('Permisos de ubicación denegados');
+          return null;
+        }
+      }
+
       if (this.platform.is('capacitor')) {
         console.log('Calculando posición con el dispositivo móvil');
         const position: Position = await Geolocation.getCurrentPosition({
-          enableHighAccuracy: true, // Alta precisión
-          timeout: 10000,           // Tiempo máximo en milisegundos antes de un error (opcional)
-          maximumAge: 0             // No usar ubicaciones almacenadas en caché
+          enableHighAccuracy: true,
+          timeout: 10000,
+          maximumAge: 0
         });
         
-        // Extraemos la latitud y longitud de la posición obtenida por Capacitor
-        const lat = position.coords.latitude;
-        const lng = position.coords.longitude;
-
-        return { lat, lng };
+        return {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
       } 
 
-      // Si estamos en un entorno web
       if (this.platform.is('desktop') || this.platform.is('pwa')) {
         return new Promise((resolve, reject) => {
           if ('geolocation' in navigator) {
             console.log('Calculando posición con el navegador');
             navigator.geolocation.getCurrentPosition(
               (position) => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-
-                resolve({ lat, lng });
+                resolve({
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                });
               },
-              (error) => reject(error)
+              (error) => {
+                console.error('Error de geolocalización:', error);
+                reject(error);
+              },
+              {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+              }
             );
           } else {
             reject('Geolocalización no está soportada en este navegador.');
@@ -55,7 +106,6 @@ export class GeolocationService {
       return null;
     }
   }
-
   getPlaceFromCoordinates(lat: number, lng: number): Observable<any> {
     const apiUrl = 'https://nominatim.openstreetmap.org/reverse';
     const url = `${apiUrl}?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1`;

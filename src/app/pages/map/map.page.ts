@@ -7,7 +7,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { addIcons } from 'ionicons';
 import { logoTwitter, logoInstagram, logoLinkedin } from "ionicons/icons";
 import { GeolocationService } from 'src/app/services/geolocation-service.service';
-import * as L from 'leaflet'; // Importamos Leaflet
+import * as L from 'leaflet';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -21,6 +21,11 @@ export class MapPage implements OnInit {
   map: L.Map | null = null;
   addressName: string = '';
   distance: string = '';
+  // Coordenadas por defecto (DUOC UC)
+  defaultPosition = {
+    lat: -33.44703,
+    lng: -70.65762
+  };
 
   constructor(private translate: TranslateService, private geo: GeolocationService, private http: HttpClient) {
     addIcons({ logoTwitter, logoInstagram, logoLinkedin });
@@ -34,37 +39,62 @@ export class MapPage implements OnInit {
   }
 
   async loadMap() {
-    await this.geo.getCurrentPosition().then((position: { lat: number, lng: number } | null) => {
-      if (position) {
-        // Configuramos el centro del mapa y el nivel de zoom
-        this.map = L.map('mapId').setView([position.lat, position.lng], 50);
+    try {
+      const position = await this.geo.getCurrentPosition();
+      
+      // Si no se obtiene la posición, usar la posición por defecto
+      const mapPosition = position || this.defaultPosition;
+      
+      // Inicializar el mapa con un zoom más alejado para mejor visualización
+      this.map = L.map('mapId').setView([mapPosition.lat, mapPosition.lng], 15);
 
-        // Cargamos el mapa de OpenStreetMap
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(this.map);
+      // Añadir el layer de OpenStreetMap
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(this.map);
 
-        // Ir a mi ubicación
-        this.goToMyPosition();
-      } else {
-        console.log('Posición geográfica desconocida');
-      }
-    }).catch((error) => {
-      console.log('Error al obtener la posición geográfica');
-    });
+      // Añadir marcador en la posición inicial
+      const marker = L.marker([mapPosition.lat, mapPosition.lng]).addTo(this.map);
+      marker.bindPopup(position ? 'Mi ubicación' : 'DUOC UC').openPopup();
+
+    } catch (error) {
+      console.error('Error al cargar el mapa:', error);
+      // Si hay un error, inicializar el mapa en la ubicación por defecto
+      this.initializeDefaultMap();
+    }
+  }
+
+  private initializeDefaultMap() {
+    this.map = L.map('mapId').setView([this.defaultPosition.lat, this.defaultPosition.lng], 15);
+    
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.map);
+
+    const marker = L.marker([this.defaultPosition.lat, this.defaultPosition.lng]).addTo(this.map);
+    marker.bindPopup('DUOC UC').openPopup();
   }
 
   goToDUOC() {
-    this.goToPosition(-33.44703, -70.65762, 50, 'Instituto DUOC Padre Alonso de Ovalle');
+    this.goToPosition(this.defaultPosition.lat, this.defaultPosition.lng, 15, 'Instituto DUOC Padre Alonso de Ovalle');
   }
 
   async goToMyPosition() {
-    this.geo.getCurrentPosition().then((position: { lat: number, lng: number } | null) => {
+    try {
+      const position = await this.geo.getCurrentPosition();
       if (position) {
-        this.goToPosition(position.lat, position.lng, 50, 'Mi ubicación');
+        this.goToPosition(position.lat, position.lng, 15, 'Mi ubicación');
+      } else {
+        console.log('No se pudo obtener la ubicación actual');
+        // Opcional: Mostrar un mensaje al usuario
+        alert('No se pudo obtener tu ubicación actual. Asegúrate de permitir el acceso a la ubicación.');
       }
-    });
+    } catch (error) {
+      console.error('Error al obtener la posición:', error);
+      alert('Error al obtener tu ubicación. Por favor, verifica los permisos de ubicación.');
+    }
   }
+
 
   goToPosition(lat: number, lng: number, zoom: number, popupText: string) {
     if (this.map) {
