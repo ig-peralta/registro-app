@@ -39,11 +39,12 @@ export class UsersService {
   async createTestUsers() {
     const users: User[] = testUsers;
     for (const user of users) {
+      const fetchedUser = await this.findOneByEmail(user.email)
       const parsedUser: any = {...user};
       parsedUser.birthdate = user.birthdate.toString();
-      if (!(await this.findOne(parsedUser.username)))
+      if (!fetchedUser)
         await this.create(parsedUser);
-    }
+    } 
   }
 
   async findAll(): Promise<User[]> {
@@ -56,16 +57,20 @@ export class UsersService {
     return users;
   }
 
-  async findOne(username: string): Promise<User | undefined> {
+  async findOne(username: string): Promise<User | null> {
     const users: any[] = (await this.db.query('SELECT * FROM USER WHERE username=?;', [username])).values as any[];
     const user = users[0];
+    if (user == undefined)
+      return null
     user.birthdate = new Date(user.birthdate);
     return user as User;
   }
 
-  async findOneByEmail(email: string): Promise<User | undefined> {
+  async findOneByEmail(email: string): Promise<User | null> {
     const users: any[] = (await this.db.query('SELECT * FROM USER WHERE email=?;', [email])).values as any[];
     const user = users[0];
+    if (user == undefined)
+      return null
     user.birthdate = new Date(user.birthdate);
     return user as User;
   }
@@ -83,7 +88,7 @@ export class UsersService {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
     const insertStatement = 'INSERT INTO USER (username, email, password, name, lastname, ' +
-      'birthdate, address, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?,?);';
+      'birthdate, address, educationLevel, securityQuestion, securityAnswer) VALUES (?,?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
       parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
     const newUser = await this.findOne(user.username);
@@ -97,7 +102,7 @@ export class UsersService {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
     const updateStatement = 'UPDATE USER SET email=?, password=?, name=?, lastname=?, birthdate=?, address=?, ' +
-      'education_level=?, security_question=?, security_answer=? WHERE username=?;';
+      'educationLevel=?, securityQuestion=?, securityAnswer=? WHERE username=?;';
     await this.db.run(updateStatement, [parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
       parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer, parsedUser.username]);
     const updatedUser = await this.findOne(user.username);

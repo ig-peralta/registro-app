@@ -152,7 +152,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     }
 
     goChangePassword() {
-        this.nav.redirectWithData('change-password', { email: this.user?.email });
+        this.nav.redirectWithData('change-password', { username: this.user?.username });
     }
 
     resetAnimations() {
