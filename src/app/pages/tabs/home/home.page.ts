@@ -1,16 +1,17 @@
-import { Component, OnInit, inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, inject, ElementRef, ViewChild, Output, EventEmitter } from '@angular/core';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { AnimationController } from '@ionic/angular/standalone';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { Router } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonSpinner } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonSpinner, IonButton } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { ScannerComponent } from './scanner/scanner.component';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { User } from 'src/app/_utils/interfaces/user.interface';
+import { Capacitor } from '@capacitor/core';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { User } from 'src/app/_utils/interfaces/user.interface';
   imports: [
     ScannerComponent, CommonModule, IonHeader,
     IonToolbar, IonTitle, IonContent,
-    IonCard, IonSpinner, TranslateModule
+    IonCard, IonSpinner, TranslateModule, IonButton
   ]
 })
 
@@ -33,7 +34,7 @@ export class HomePage implements OnInit {
     scanner = inject(ScannerService);
 
     @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef;
-
+    @Output() click = new EventEmitter<string>();
     name: string = '';
     lastname: string = '';
     scannerLoading: boolean = true
@@ -48,7 +49,7 @@ export class HomePage implements OnInit {
             this.name = user?.name || '';
             this.lastname = user?.lastname || '';
         })
-        this.scanner.loading.subscribe(state => this.scannerLoading = state);
+        
     }
 
     ngAfterViewInit() {
@@ -68,6 +69,16 @@ export class HomePage implements OnInit {
             .duration(6000)
             .fromTo('transform', 'translate(0%)', 'translate(100%)')
             .play();
+    }
+
+    sendClickEvent(buttonName: string) {
+        this.click.emit(buttonName);
+    }
+    async startScanning() {
+        // if (button === 'scan' && Capacitor.getPlatform() === 'web')
+        //     this.selectedComponent = 'qrwebscanner';
+        if (Capacitor.getPlatform() !== 'web')
+            console.log(await this.scanner.scan());
     }
 }
 

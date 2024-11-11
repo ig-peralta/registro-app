@@ -22,5 +22,8 @@
 			"electronMacLocation": "/Volumes/Development_Lacie/Development/Databases",
 			"electronLinuxLocation": "Databases"
 		}
+	},
+	"server": {
+		"url": "http://192.168.1.104:8100"
 	}
 }

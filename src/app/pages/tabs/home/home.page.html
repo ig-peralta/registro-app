@@ -7,15 +7,17 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
+
+  <ion-button (click)="sendClickEvent('scan')" size="small" fill="clear">
+    qr scan
+  </ion-button>
   <ion-card>
     <div class="mx-4 mt-3">
       <ion-title class="text-center fs-2 mb-4 text-dark">{{ 'welcome.header' | translate }}</ion-title>
       <h3 class="text-center text-dark mb-4">{{ name }} {{ lastname }}</h3>
       <h6 class="text-center text-dark">{{ 'welcome.qrInstruction' | translate }}</h6>
     </div>
-    <div class="spinner d-flex justify-content-center align-items-center" *ngIf="scannerLoading">
-      <ion-spinner></ion-spinner>
-    </div>
+
     <app-scanner></app-scanner>
   </ion-card>
 </ion-content>
