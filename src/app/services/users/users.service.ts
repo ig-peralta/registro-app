@@ -20,9 +20,9 @@ export class UsersService {
           lastname TEXT NOT NULL,
           address TEXT NOT NULL,
           birthdate TEXT NOT NULL,
-          education_level INTEGER NOT NULL,
-          security_question TEXT NOT NULL,
-          security_answer TEXT NOT NULL
+          educationLevel INTEGER NOT NULL,
+          securityQuestion TEXT NOT NULL,
+          securityAnswer TEXT NOT NULL
         );
       `]
     }
