@@ -33,18 +33,19 @@ export class UsersService {
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
     this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
-    //await this.createTestUsers();//
+    await this.createTestUsers();
   }
 
-  /* async createTestUsers() {
+  async createTestUsers() {
     const users: User[] = testUsers;
     for (const user of users) {
       const parsedUser: any = {...user};
-      parsedUser.birthdate = user.birthdate.toString(); se descomenta por si no funca
-      await this.create(parsedUser);
+      parsedUser.birthdate = user.birthdate.toString();
+      if (!(await this.findOne(parsedUser.username)))
+        await this.create(parsedUser);
     }
   }
-*/
+
   async findAll(): Promise<User[]> {
     const rawUsers: any[] = (await this.db.query('SELECT * FROM USER;')).values as any[];
     const users: User[] = [];
@@ -81,7 +82,7 @@ export class UsersService {
   async create(user: User): Promise<User | null> {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
-    const insertStatement = 'INSERT OR REPLACE INTO USER (username, email, password, name, lastname, ' +
+    const insertStatement = 'INSERT INTO USER (username, email, password, name, lastname, ' +
       'birthdate, address, education_level, security_question, security_answer) VALUES (?,?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
       parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
