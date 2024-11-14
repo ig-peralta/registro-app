@@ -40,6 +40,7 @@ export class TabsPage {
     }
 
     goHome() {
+        this.scannerState.scanning = true
         this.router.navigateByUrl('tabs/home');
     }
 
