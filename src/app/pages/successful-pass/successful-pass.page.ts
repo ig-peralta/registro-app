@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { addIcons } from "ionicons";
 import { logoTwitter, logoInstagram, logoLinkedin } from "ionicons/icons";
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonButton, IonFooter, IonIcon } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonButton, IonFooter, IonIcon, IonButtons, IonBackButton } from "@ionic/angular/standalone";
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -16,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
     imports: [
         IonHeader, IonToolbar, IonTitle,
         IonContent, IonCard, IonButton,
-        IonFooter, IonIcon, TranslateModule
+        IonFooter, IonIcon, TranslateModule,
+        IonButtons, IonBackButton
     ]
 })
 export class SuccessfulPassPage implements OnInit {
