@@ -4,13 +4,17 @@ import { SessionService } from 'src/app/services/session/session.service';
 import { AnimationController } from '@ionic/angular/standalone';
 import { NavigationService } from 'src/app/services/navigation/navigation.service';
 import { Router } from '@angular/router';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonSpinner } from "@ionic/angular/standalone";
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonSpinner, IonButton } from "@ionic/angular/standalone";
 import { CommonModule } from '@angular/common';
 import { ScannerComponent } from './scanner/scanner.component';
 import { ScannerService } from 'src/app/services/scanner/scanner.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { User } from 'src/app/_utils/interfaces/user.interface';
+import { ToastController } from '@ionic/angular/standalone';
+import { Class } from 'src/app/_utils/interfaces/class.interface';
+import { ClassService } from 'src/app/services/class/class.service';
+import { assertClass } from 'src/app/_utils/custom.asserts';
 
 
 @Component({
@@ -21,7 +25,8 @@ import { User } from 'src/app/_utils/interfaces/user.interface';
   imports: [
     ScannerComponent, CommonModule, IonHeader,
     IonToolbar, IonTitle, IonContent,
-    IonCard, IonSpinner, TranslateModule
+    IonCard, IonSpinner, TranslateModule,
+    IonButton
   ]
 })
 
@@ -31,6 +36,8 @@ export class HomePage implements OnInit {
     router = inject(Router);
     nav = inject(NavigationService);
     scanner = inject(ScannerService);
+    classService = inject(ClassService);
+    toasts = inject(ToastController);
 
     @ViewChild('titulo', { read: ElementRef }) itemTitulo!: ElementRef;
 
@@ -69,5 +76,22 @@ export class HomePage implements OnInit {
             .fromTo('transform', 'translate(0%)', 'translate(100%)')
             .play();
     }
+    async startScan() {
+        const qrData = await this.scanner.startScan();
+        if (qrData) {
+          try {
+            const parsedData = JSON.parse(qrData) as Class;
+            assertClass(parsedData);
+            this.classService.class = parsedData;
+            this.router.navigateByUrl('/tabs/my-class');
+          } catch (err) {
+            const toast = await this.toasts.create({
+              message: 'QR Inválido',
+              duration: 2000
+            });
+            await toast.present();
+          }
+        }
+      }
 }
 

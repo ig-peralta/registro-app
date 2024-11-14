@@ -16,6 +16,12 @@
     <div class="spinner d-flex justify-content-center align-items-center" *ngIf="scannerLoading">
       <ion-spinner></ion-spinner>
     </div>
-    <app-scanner></app-scanner>
+    <!-- <app-scanner></app-scanner> -->
+    <ion-button expand="block" class="mx-4 mb-4" (click)="startScan()">
+      Scanner QR
+    </ion-button>
+    <ion-button expand="block" class="mx-4 mb-4" (click)="scanner.stopScan()" color="danger">
+      Detener Scanner
+    </ion-button>
   </ion-card>
 </ion-content>
