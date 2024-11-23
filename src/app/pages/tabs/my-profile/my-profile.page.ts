@@ -33,7 +33,7 @@ import { User } from 'src/app/_utils/interfaces/user.interface';
       IonToolbar, IonTitle, IonContent,
       IonCard, IonList, IonInput,
       IonSelect, IonSelectOption, IonButton,
-      IonIcon, MatNativeDateModule,  TranslateModule
+      IonIcon, MatNativeDateModule, TranslateModule
     ],
     providers: [MatDatepickerModule],
     animations: [

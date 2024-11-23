@@ -1,0 +1,47 @@
+<ion-header class="ion-no-border mb-3">
+  <ion-toolbar color="secondary">
+    <div class="text-center animate-item">
+      <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
+    </div>
+    <ion-title class="text-center fs-2 mb-2 animate-item">{{ 'app.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content >
+  <ion-card class="shadow-sm">
+    <ion-card-header>
+      <ion-card-title class="text-center fs-2">
+        Administrar Usuarios
+      </ion-card-title>
+    </ion-card-header>
+    <div>
+      <ion-list>
+        <ion-item-sliding *ngFor="let user of users">
+          <ion-item lines="none">
+            <ion-card class="w-100 shadow-sm">
+              <ion-card-header>
+                <div class="d-flex justify-content-between align-items-center">
+                  <div>
+                    <span class="badge bg-success mb-2">User #{{ user.id }}</span>
+                    <h6 class="mb-0 text-primary fs-3">{{ user.name }}</h6>
+                    <p class="text-muted small mb-0 fs-6">{{ user.email }}</p>
+                  </div>
+                  <div>
+                    <ion-button  color="danger" (click)="deleteUser(user.id)">
+                      <ion-icon name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </div>
+                </div>
+              </ion-card-header>
+            </ion-card>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+      <ion-infinite-scroll (ionInfinite)="onIonInfinite($event)">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+      </ion-infinite-scroll>
+    </div>
+  </ion-card>
+
+
+</ion-content>

@@ -27,7 +27,11 @@ export const routes: Routes = [
         loadComponent: () => import('./forum/forum.page').then( m => m.ForumPage)
       },
     ],
+  },  {
+    path: 'users',
+    loadComponent: () => import('./users/users.page').then( m => m.UsersPage)
   },
+
 
 
 ];
