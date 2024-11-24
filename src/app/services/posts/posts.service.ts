@@ -19,7 +19,9 @@ export class PostsService {
   apiUrl = 'http://localhost:3000';
 
   async create(post: Post): Promise<Post> {
-    const newPost = await lastValueFrom(this.http.post<Post>(this.apiUrl + '/posts/', post, this.httpOptions));
+    const parsedPost: any = post;
+    parsedPost.id = post.id.toString();
+    const newPost = await lastValueFrom(this.http.post<Post>(this.apiUrl + '/posts/', parsedPost, this.httpOptions));
     return newPost;
   }
 

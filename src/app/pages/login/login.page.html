@@ -3,7 +3,7 @@
     <div class="text-center">
       <img src="assets/images/Logo_DuocUC.svg.png" alt="" class="Logo-DuocUC mt-2">
     </div>
-    <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title> 
+    <ion-title class="text-center fs-2 mb-2">{{ 'app.title' | translate }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -25,18 +25,18 @@
   <div class="h-100 d-flex flex-column justify-content-evenly content">
     <ion-card class="p-2" [@fadeInOut]>
       <ion-card-header>
-        <ion-card-title class="text-center fs-2">{{ 'login.title' | translate }}</ion-card-title> 
+        <ion-card-title class="text-center fs-2">{{ 'login.title' | translate }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
         <form [formGroup]="loginForm" (ngSubmit)="login()">
-          <ion-input label="{{ 'login.username' | translate }}" [clearInput]="true" label-placement="floating" fill="outline"
+          <ion-input label="{{ 'login.username' | translate }}" [clearInput]="true" label-placement="floating" fill="outline" id="username"
             placeholder="{{ 'login.username_placeholder' | translate }}" class="mb-3" formControlName="username" [@fadeInOut]></ion-input>
-          <ion-input label="{{ 'login.password' | translate }}" label-placement="floating" fill="outline" type="password" class="mb-3"
+          <ion-input label="{{ 'login.password' | translate }}" label-placement="floating" fill="outline" type="password" class="mb-3" id="password"
             formControlName="password" [@fadeInOut]>
             <ion-input-password-toggle *ngIf="password" slot="end"></ion-input-password-toggle>
           </ion-input>
           <div class="text-center d-flex flex-column">
-            <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2"
+            <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2" id="submit-button"
               [disabled]="passwordError || usernameError">{{ 'login.submit' | translate }}</ion-button>
             <ion-button href="/recover-password" size="small" fill="clear" class="fs-6 text-dark "
               [@fadeInOut]>{{ 'login.forgot_password' | translate }}</ion-button>
@@ -59,13 +59,13 @@
       <ion-content class="ion-padding">
         <div class="ion-margin-top">
           <ion-list [inset]="true">
-            <ion-item (click)="changeLanguage('en')" [button]="true"> 
+            <ion-item (click)="changeLanguage('en')" [button]="true">
               <ion-label class="text-center">{{ 'language.english' | translate }}</ion-label>
             </ion-item>
-            <ion-item (click)="changeLanguage('es')" [button]="true"> 
+            <ion-item (click)="changeLanguage('es')" [button]="true">
               <ion-label class="text-center">{{ 'language.spanish' | translate }}</ion-label>
             </ion-item>
-            <ion-item (click)="changeLanguage('mapudungun')" [button]="true"> 
+            <ion-item (click)="changeLanguage('mapudungun')" [button]="true">
               <ion-label class="text-center">{{ 'language.mapudungun' | translate }}</ion-label>
             </ion-item>
           </ion-list>

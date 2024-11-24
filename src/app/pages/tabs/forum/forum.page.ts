@@ -7,7 +7,7 @@ import { addIcons } from 'ionicons';
 import { InfiniteScrollCustomEvent } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PostsService } from 'src/app/services/posts/posts.service'; 
+import { PostsService } from 'src/app/services/posts/posts.service';
 import { SessionService } from 'src/app/services/session/session.service';
 import { Post } from 'src/app/_utils/interfaces/post.interface';
 import { User } from 'src/app/_utils/interfaces/user.interface';
@@ -26,26 +26,26 @@ import { User } from 'src/app/_utils/interfaces/user.interface';
   ]
 })
 export class ForumPage implements OnInit {
-  
+
   items: Post[] = [];
-  newPost: Post = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+  newPost: Post = { id: 0, email: '', name: '', lastname: '', title: '', content: '' };
   private readonly session = inject(SessionService);
   user: User | null = null;
 
-  constructor(private translate: TranslateService, 
+  constructor(private translate: TranslateService,
               private postsService: PostsService,
-              private toastController: ToastController) { 
-    addIcons({ pencilOutline, 
-                trashOutline, 
-                createOutline, 
-                timeOutline, 
-                sendOutline  }); 
+              private toastController: ToastController) {
+    addIcons({ pencilOutline,
+                trashOutline,
+                createOutline,
+                timeOutline,
+                sendOutline  });
     const lang = localStorage.getItem('lang') || 'es';
     this.translate.use(lang);
   }
 
   ngOnInit() {
-    this.loadPosts(); 
+    this.loadPosts();
     this.session.user.subscribe((user: User | null) => {
       this.user = user;
     });
@@ -53,9 +53,9 @@ export class ForumPage implements OnInit {
 
   private async loadPosts() {
     try {
-      this.items = await this.postsService.getAll(); 
+      this.items = await this.postsService.getAll();
     } catch (error) {
-      this.presentToast('Error al cargar las publicaciones. Intenta nuevamente.'); 
+      this.presentToast('Error al cargar las publicaciones. Intenta nuevamente.');
     }
   }
 
@@ -69,20 +69,20 @@ export class ForumPage implements OnInit {
         }
 
         if (this.newPost.id === 0) {
-          const newId = this.items.length ? Math.max(...this.items.map(item => item.id)) + 1 : 1; 
-          this.newPost.id = newId; 
+          const newId = this.items.length ? Math.max(...this.items.map(item => item.id)) + 1 : 1;
+          this.newPost.id = newId;
           const createdPost = await this.postsService.create(this.newPost);
           this.items.push(createdPost);
           this.presentToast('Publicación guardada correctamente.');
         } else {
           await this.updatePost();
         }
-        this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+        this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' };
       } catch (error) {
-        this.presentToast('Error al crear la publicación. Intenta nuevamente.'); 
+        this.presentToast('Error al crear la publicación. Intenta nuevamente.');
       }
     } else {
-      this.presentToast('El título y el contenido no pueden estar vacíos.'); 
+      this.presentToast('El título y el contenido no pueden estar vacíos.');
     }
 }
 
@@ -90,9 +90,9 @@ export class ForumPage implements OnInit {
   async deletePost(id: number) {
     try {
       await this.postsService.delete(id);
-      this.items = this.items.filter(post => post.id !== id); 
+      this.items = this.items.filter(post => post.id !== id);
     } catch (error) {
-      this.presentToast('Error al eliminar la publicación. Intenta nuevamente.'); 
+      this.presentToast('Error al eliminar la publicación. Intenta nuevamente.');
     }
   }
 
@@ -108,12 +108,12 @@ export class ForumPage implements OnInit {
         if (index !== -1) {
           this.items[index] = { ...this.newPost };
         }
-        this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' }; 
+        this.newPost = { id: 0, email: '', name: '', lastname: '', title: '', content: '' };
       } catch (error) {
-        this.presentToast('Error al actualizar la publicación. Intenta nuevamente.'); 
+        this.presentToast('Error al actualizar la publicación. Intenta nuevamente.');
       }
     } else {
-      this.presentToast('El título y el contenido no pueden estar vacíos.'); 
+      this.presentToast('El título y el contenido no pueden estar vacíos.');
     }
   }
 
@@ -122,12 +122,11 @@ export class ForumPage implements OnInit {
       message: message,
       duration: 2000,
       position: 'top',
-      color: 'danger'
     });
     await toast.present();
   }
 
-  onIonInfinite(ev: InfiniteScrollCustomEvent) { 
+  onIonInfinite(ev: InfiniteScrollCustomEvent) {
     setTimeout(() => {
       ev.target.complete();
     }, 500);
