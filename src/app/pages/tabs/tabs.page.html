@@ -1,10 +1,10 @@
 <ion-tabs>
   <ion-tab-bar slot="bottom">
-    <ion-tab-button tab="home" (click)="goHome()">
+    <ion-tab-button tab="home" (click)="goHome()" *ngIf="!isAdmin">
       <ion-icon name="home"></ion-icon>
       {{ 'tabs.home' | translate }}
     </ion-tab-button>
-    <ion-tab-button tab="my-class" (click)="goMyClass()">
+    <ion-tab-button tab="my-class" (click)="goMyClass()" *ngIf="!isAdmin">
       <ion-icon name="book-outline"></ion-icon>
       {{ 'tabs.myClass' | translate }}
     </ion-tab-button>
@@ -15,6 +15,10 @@
     <ion-tab-button tab="my-profile" (click)="goMyProfile()">
       <ion-icon name="person-circle-outline"></ion-icon>
       {{ 'tabs.myProfile' | translate }}
+    </ion-tab-button>
+    <ion-tab-button tab="users" (click)="goUsers()" *ngIf="isAdmin">
+      <ion-icon name="person-remove-outline"></ion-icon>
+      Usuarios
     </ion-tab-button>
     <ion-tab-button (click)="logout()">
       <ion-icon name="exit-outline"></ion-icon>

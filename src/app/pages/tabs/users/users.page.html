@@ -27,7 +27,7 @@
                     <p class="text-muted small mb-0 fs-6">{{ user.email }}</p>
                   </div>
                   <div>
-                    <ion-button  color="danger" (click)="deleteUser(user.id)">
+                    <ion-button  color="danger" (click)="deleteUser(user.username)" [disabled]="user.username===currentUser?.username">
                       <ion-icon name="trash-outline"></ion-icon>
                     </ion-button>
                   </div>

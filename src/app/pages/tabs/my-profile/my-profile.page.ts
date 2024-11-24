@@ -99,7 +99,6 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     setUserData(): void {
         this.session.user.subscribe((user: User | null) => {
             this.user = user;
-            console.log(user);
             this.username = user?.username || '';
             this.name = user?.name || '';
             this.email = user?.email || '';
@@ -125,6 +124,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             return;
         }
         const payload: User = {
+            id: this.user?.id,
             username: this.username,
             name: this.name,
             lastname: this.lastname,
@@ -135,6 +135,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             securityQuestion: this.securityQuestion,
             birthdate: this.birthdate,
             securityAnswer: this.securityAnswer,
+            isAdmin: this.user?.isAdmin || 0
         };
         const user = await this.users.update(payload);
         if (user) {
@@ -142,6 +143,11 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             this.setUpdateUserForm();
             this.toast.create({
                 message: 'Datos actualizados con éxito',
+                duration: 3000,
+            }).then(toast => toast.present());
+        } else {
+            this.toast.create({
+                message: 'No se ha podido actualizar los datos',
                 duration: 3000,
             }).then(toast => toast.present());
         }

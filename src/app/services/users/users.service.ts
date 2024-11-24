@@ -13,7 +13,8 @@ export class UsersService {
       toVersion: 1,
       statements: [`
         CREATE TABLE IF NOT EXISTS USER (
-          username TEXT PRIMARY KEY NOT NULL,
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          username TEXT NOT NULL UNIQUE,
           email TEXT NOT NULL UNIQUE,
           password TEXT NOT NULL,
           name TEXT NOT NULL,
@@ -23,6 +24,7 @@ export class UsersService {
           educationLevel INTEGER NOT NULL,
           securityQuestion TEXT NOT NULL,
           securityAnswer TEXT NOT NULL
+          isAdmin BOOLEAN DEFAULT FALSE
         );
       `]
     }
@@ -33,18 +35,22 @@ export class UsersService {
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
     this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
+    // await this.migrate();
     await this.createTestUsers();
+  }
+
+  async migrate() { // force the migration of the database
+    await this.db.run('DROP TABLE IF EXISTS USER;');
+    await this.db.run('CREATE TABLE IF NOT EXISTS USER (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL, name TEXT NOT NULL, lastname TEXT NOT NULL, address TEXT NOT NULL, birthdate TEXT NOT NULL, educationLevel INTEGER NOT NULL, securityQuestion TEXT NOT NULL, securityAnswer TEXT NOT NULL, isAdmin BOOLEAN DEFAULT FALSE);');
   }
 
   async createTestUsers() {
     const users: User[] = testUsers;
     for (const user of users) {
       const fetchedUser = await this.findOneByEmail(user.email)
-      const parsedUser: any = {...user};
-      parsedUser.birthdate = user.birthdate.toString();
       if (!fetchedUser)
-        await this.create(parsedUser);
-    } 
+        await this.create(user);
+    }
   }
 
   async findAll(): Promise<User[]> {
@@ -88,9 +94,9 @@ export class UsersService {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
     const insertStatement = 'INSERT INTO USER (username, email, password, name, lastname, ' +
-      'birthdate, address, educationLevel, securityQuestion, securityAnswer) VALUES (?,?,?,?,?,?,?,?,?,?);';
+      'birthdate, address, educationLevel, securityQuestion, securityAnswer, isAdmin) VALUES (?,?,?,?,?,?,?,?,?,?,?);';
     await this.db.run(insertStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
-      parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer]);
+      parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer, parsedUser.isAdmin]);
     const newUser = await this.findOne(user.username);
     if (newUser)
       return newUser;
@@ -101,10 +107,10 @@ export class UsersService {
   async update(user: User): Promise<User | null> {
     const parsedUser: any = {...user};
     parsedUser.birthdate = user.birthdate.toString();
-    const updateStatement = 'UPDATE USER SET email=?, password=?, name=?, lastname=?, birthdate=?, address=?, ' +
-      'educationLevel=?, securityQuestion=?, securityAnswer=? WHERE username=?;';
-    await this.db.run(updateStatement, [parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
-      parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer, parsedUser.username]);
+    const updateStatement = 'UPDATE USER SET username=?, email=?, password=?, name=?, lastname=?, birthdate=?, address=?, ' +
+      'educationLevel=?, securityQuestion=?, securityAnswer=?, isAdmin=? WHERE id=?;';
+    await this.db.run(updateStatement, [parsedUser.username, parsedUser.email, parsedUser.password, parsedUser.name, parsedUser.lastname,
+      parsedUser.birthdate, parsedUser.address, parsedUser.educationLevel, parsedUser.securityQuestion, parsedUser.securityAnswer, parsedUser.isAdmin, parsedUser.id]);
     const updatedUser = await this.findOne(user.username);
     if (updatedUser)
       return updatedUser;

@@ -27,6 +27,10 @@ export class SessionService {
     return this._user.asObservable();
   }
 
+  get userSnapshot(): User | null {
+    return this._user.getValue();
+  }
+
   checkUser(): void {
     const user = this.storage.getItem('user');
     if (user)

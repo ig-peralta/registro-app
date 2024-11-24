@@ -2,6 +2,19 @@ import { User } from "./interfaces/user.interface";
 
 export const testUsers: User[] = [
   {
+    name: 'FooAdmin',
+    lastname: 'BarAdmin',
+    birthdate: new Date(),
+    educationLevel: 4,
+    username: 'admin',
+    email: 'foobaradmin@gmail.com',
+    address: 'Foo Bar, 45, Admin, 28013, FooBar',
+    password: 'admin123',
+    securityQuestion: '¿Cuál es tu Foo?',
+    securityAnswer: 'bar',
+    isAdmin: 1
+  },
+  {
     name: 'John',
     lastname: 'Doe',
     birthdate: new Date(),
@@ -12,6 +25,7 @@ export const testUsers: User[] = [
     password: 'john123',
     securityQuestion: '¿Cuál es el nombre de tu mascota?',
     securityAnswer: 'rex',
+    isAdmin: 0
   },
   {
     name: 'Jane',
@@ -24,6 +38,7 @@ export const testUsers: User[] = [
     password: 'jane123',
     securityQuestion: '¿En que ciudad naciste?',
     securityAnswer: 'lima',
+    isAdmin: 0
   },
   {
     name: 'Foo',
@@ -36,6 +51,7 @@ export const testUsers: User[] = [
     password: 'foo123',
     securityQuestion: '¿Cuál es tu comida favorita?',
     securityAnswer: 'ceviche',
+    isAdmin: 0
   },
   {
     name: 'Bar',
@@ -47,6 +63,7 @@ export const testUsers: User[] = [
     address: 'Rue de Rivoli, 110, París, 75001, Francia',
     password: 'bar123',
     securityQuestion: '¿Cuál es tu color favorito?',
-    securityAnswer: 'amarillo'
+    securityAnswer: 'amarillo',
+    isAdmin: 0
   },
 ]

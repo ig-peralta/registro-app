@@ -16,41 +16,41 @@
         <ion-title class="text-center fs-2 mb-3 text-dark animate-item">Registrarte</ion-title>
       </div>
       <ion-list>
-        <ion-input label="{{ 'personalData.account' | translate }}" [clearInput]="true" label-placement="floating"
+        <ion-input label="{{ 'personalData.account' | translate }}" [(ngModel)]="username" [clearInput]="true" label-placement="floating"
           fill="outline" class="mb-3 animate-item"></ion-input>
-        <ion-input label="{{ 'personalData.name' | translate }}" [clearInput]="true" label-placement="floating"
+        <ion-input label="{{ 'personalData.name' | translate }}" [clearInput]="true" [(ngModel)]="name" label-placement="floating"
           fill="outline" class="mb-3 animate-item" ></ion-input>
-        <ion-input label="{{ 'personalData.lastname' | translate }}" [clearInput]="true" label-placement="floating"
+        <ion-input label="{{ 'personalData.lastname' | translate }}" [clearInput]="true" [(ngModel)]="lastname" label-placement="floating"
           fill="outline"  class="mb-3 animate-item" ></ion-input>
-        <ion-input label="{{ 'personalData.email' | translate }}" [clearInput]="true" label-placement="floating"
+        <ion-input label="{{ 'personalData.email' | translate }}" [clearInput]="true" [(ngModel)]="email" label-placement="floating"
           fill="outline"  class="mb-3 animate-item" ></ion-input>
-        <ion-input label="{{ 'personalData.address' | translate }}" [clearInput]="true" label-placement="floating"
+        <ion-input label="{{ 'personalData.address' | translate }}" [clearInput]="true" [(ngModel)]="address" label-placement="floating"
           fill="outline" class="mb-3 animate-item"></ion-input>
-        <ion-input label="{{ 'personalData.securityQuestion' | translate }}" [clearInput]="true"
+        <ion-input label="{{ 'personalData.securityQuestion' | translate }}" [clearInput]="true" [(ngModel)]="securityQuestion"
           label-placement="floating" fill="outline" class="mb-3 animate-item"
           ></ion-input>
-        <ion-input label="{{ 'personalData.securityAnswer' | translate }}" [clearInput]="true" label-placement="floating"
+        <ion-input label="{{ 'personalData.securityAnswer' | translate }}" [clearInput]="true" label-placement="floating" [(ngModel)]="securityAnswer"
           fill="outline" class="mb-3 animate-item" ></ion-input>
           <ion-select label="{{ 'personalData.educationLevel' | translate }}" label-placement="floating" fill="outline"
           [(ngModel)]="educationLevel" class="mb-3 animate-item">
-          <div *ngFor="let edLevel of educationLevels">
-            <ion-select-option value="{{ edLevel }}">{{ edLevel }}</ion-select-option>
+          <div *ngFor="let edLevel of educationLevelOptions; ">
+            <ion-select-option value="{{ edLevel.id }}">{{ edLevel.name }}</ion-select-option>
           </div>
         </ion-select>
-        <ion-input label="{{ 'changePassword.newPassword' | translate }}" label-placement="floating" fill="outline" type="password" class="mb-3">
+        <ion-input label="{{ 'changePassword.newPassword' | translate }}" label-placement="floating" fill="outline" [(ngModel)]="password" type="password" class="mb-3">
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
-        <ion-input label="{{ 'changePassword.confirmPassword' | translate }}" label-placement="floating" fill="outline" type="password" class="mb-3">
+        <ion-input label="{{ 'changePassword.confirmPassword' | translate }}" label-placement="floating" fill="outline" [(ngModel)]="confirmPassword" type="password" class="mb-3">
           <ion-input-password-toggle slot="end"></ion-input-password-toggle>
         </ion-input>
         <mat-form-field class="w-100 animate-item">
           <mat-label style="color: #242323;">{{ 'personalData.birthdate' | translate }}</mat-label>
-          <input matInput [matDatepicker]="picker" disabled style="color: #3b3b3b;">
+          <input matInput [matDatepicker]="picker" [(ngModel)]="birthdate" disabled style="color: #3b3b3b;">
           <mat-datepicker-toggle matIconSuffix [for]="picker" disabled="false"></mat-datepicker-toggle>
           <mat-datepicker #picker disabled="false"></mat-datepicker>
         </mat-form-field>
       </ion-list>
-      <ion-button shape="round" expand="full" type="submit" class="fs-6 mb-2">Registrarse</ion-button>
+      <ion-button shape="round" expand="full" type="submit" (click)="register()" class="fs-6 mb-2">Registrarse</ion-button>
     </ion-card>
 
 

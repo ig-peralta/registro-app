@@ -23,7 +23,7 @@
       <ion-input label="{{ 'personalData.email' | translate }}" [clearInput]="true" label-placement="floating"
         fill="outline" [(ngModel)]="email" class="mb-3 animate-item" value="{{ email }}"></ion-input>
       <ion-input label="{{ 'personalData.address' | translate }}" [clearInput]="true" label-placement="floating"
-        fill="outline" class="mb-3 animate-item" value="{{ address }}"></ion-input>
+        fill="outline" class="mb-3 animate-item" [(ngModel)]="address"></ion-input>
       <ion-input label="{{ 'personalData.securityQuestion' | translate }}" [clearInput]="true"
         label-placement="floating" fill="outline" [(ngModel)]="securityQuestion" class="mb-3 animate-item"
         value="{{ securityQuestion }}"></ion-input>
