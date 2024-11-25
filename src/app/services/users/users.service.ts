@@ -35,14 +35,14 @@ export class UsersService {
   async initDb() {
     await this.sqlite.createDb({database: this.dbName, upgrade: this.userUpgrades});
     this.db = await this.sqlite.initConnection(this.dbName, false, 'no-encryption', 1, false);
-    // await this.migrate();
+    await this.migrate();
     await this.createTestUsers();
   }
 
-  // async migrate() { // force the migration of the database JUST FOR DEVELOPMENT
-  //   await this.db.run('DROP TABLE IF EXISTS USER;');
-  //   await this.db.run('CREATE TABLE IF NOT EXISTS USER (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL, name TEXT NOT NULL, lastname TEXT NOT NULL, address TEXT NOT NULL, birthdate TEXT NOT NULL, educationLevel INTEGER NOT NULL, securityQuestion TEXT NOT NULL, securityAnswer TEXT NOT NULL, isAdmin BOOLEAN DEFAULT FALSE);');
-  // }
+  async migrate() { // force the migration of the database JUST FOR DEVELOPMENT
+    await this.db.run('DROP TABLE IF EXISTS USER;');
+    await this.db.run('CREATE TABLE IF NOT EXISTS USER (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT NOT NULL UNIQUE, email TEXT NOT NULL UNIQUE, password TEXT NOT NULL, name TEXT NOT NULL, lastname TEXT NOT NULL, address TEXT NOT NULL, birthdate TEXT NOT NULL, educationLevel INTEGER NOT NULL, securityQuestion TEXT NOT NULL, securityAnswer TEXT NOT NULL, isAdmin BOOLEAN DEFAULT FALSE);');
+  }
 
   async createTestUsers() {
     const users: User[] = testUsers;

@@ -78,6 +78,7 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     educationLevels = Object.values(EducationLevel).slice(0, 6);
     shakeState: string = '';
     animateState: string = '';
+    today = new Date();
 
     ngOnInit(): void {
         this.setUserData();
@@ -115,13 +116,22 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
     setUpdateUserForm(): void { }
 
     async updateUser() {
-        if (!this.username || !this.birthdate || !this.email || !this.username || !this.birthdate || !this.email || !this.name || !this.lastname || !this.educationLevel || !this.securityQuestion || !this.securityAnswer) {
+        if (!this.username.trim() || !this.birthdate || !this.email.trim() || !this.name.trim() || !this.lastname.trim() || !this.educationLevel || !this.securityQuestion.trim() || !this.securityAnswer.trim()) {
             this.toast.create({
                 message: 'No puede haber campos vacíos',
                 duration: 3000,
+                position: 'top'
             }).then(toast => toast.present());
             this.shakeState = "shake"
             return;
+        } else if (!this.validateEmail(this.email)) {
+          this.toast.create({
+            message: 'Email no válido',
+            duration: 3000,
+            position: 'top'
+          }).then(toast => toast.present());
+          this.shakeState = "shake"
+          return;
         }
         const payload: User = {
             id: this.user?.id,
@@ -137,21 +147,25 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
             securityAnswer: this.securityAnswer,
             isAdmin: this.user?.isAdmin || 0
         };
-        const user = await this.users.update(payload);
-        if (user) {
-            this.session.user = user;
-            this.setUpdateUserForm();
-            this.toast.create({
-                message: 'Datos actualizados con éxito',
-                duration: 3000,
-            }).then(toast => toast.present());
-        } else {
-            this.toast.create({
-                message: 'No se ha podido actualizar los datos',
-                duration: 3000,
-            }).then(toast => toast.present());
+        try {
+          const user = await this.users.update(payload);
+          if (user) {
+              this.session.user = user;
+              this.setUpdateUserForm();
+              this.toast.create({
+                  message: 'Datos actualizados con éxito',
+                  duration: 3000,
+                  position: 'top'
+              }).then(toast => toast.present());
+          }
+        } catch (error) {
+          this.toast.create({
+            message: 'Error al actualizar los datos',
+            duration: 3000,
+            position: 'top'
+          }).then(toast => toast.present());
         }
-    }
+      }
 
     logout(): void {
         this.auth.logout();
@@ -163,6 +177,11 @@ export class MyProfilePage implements OnInit, ViewWillEnter, ViewWillLeave {
 
     resetAnimations() {
         this.shakeState = '';
+    }
+
+    validateEmail(email: string): boolean {
+      const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+      return regex.test(email);
     }
 
     constructor(private translate: TranslateService) {

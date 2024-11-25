@@ -14,22 +14,22 @@
         }}</ion-title>
     </div>
     <ion-list class="mb-3">
-      <ion-input label="{{ 'personalData.account' | translate }}" [clearInput]="true" label-placement="floating"
+      <ion-input label="{{ 'personalData.account' | translate }}" [clearInput]="true" label-placement="floating" id="account" required
         fill="outline" [(ngModel)]="username" class="mb-3 animate-item" value="{{ username }}"></ion-input>
-      <ion-input label="{{ 'personalData.name' | translate }}" [clearInput]="true" label-placement="floating"
+      <ion-input label="{{ 'personalData.name' | translate }}" [clearInput]="true" label-placement="floating" id="name" required
         fill="outline" [(ngModel)]="name" class="mb-3 animate-item" value="{{ name }}"></ion-input>
-      <ion-input label="{{ 'personalData.lastname' | translate }}" [clearInput]="true" label-placement="floating"
+      <ion-input label="{{ 'personalData.lastname' | translate }}" [clearInput]="true" label-placement="floating" id="lastname" required
         fill="outline" [(ngModel)]="lastname" class="mb-3 animate-item" value="{{ lastname }}"></ion-input>
-      <ion-input label="{{ 'personalData.email' | translate }}" [clearInput]="true" label-placement="floating"
+      <ion-input label="{{ 'personalData.email' | translate }}" [clearInput]="true" label-placement="floating" id="email" required
         fill="outline" [(ngModel)]="email" class="mb-3 animate-item" value="{{ email }}"></ion-input>
-      <ion-input label="{{ 'personalData.address' | translate }}" [clearInput]="true" label-placement="floating"
+      <ion-input label="{{ 'personalData.address' | translate }}" [clearInput]="true" label-placement="floating" id="address" required
         fill="outline" class="mb-3 animate-item" [(ngModel)]="address"></ion-input>
-      <ion-input label="{{ 'personalData.securityQuestion' | translate }}" [clearInput]="true"
+      <ion-input label="{{ 'personalData.securityQuestion' | translate }}" [clearInput]="true" id="securityQuestion" required
         label-placement="floating" fill="outline" [(ngModel)]="securityQuestion" class="mb-3 animate-item"
         value="{{ securityQuestion }}"></ion-input>
-      <ion-input label="{{ 'personalData.securityAnswer' | translate }}" [clearInput]="true" label-placement="floating"
+      <ion-input label="{{ 'personalData.securityAnswer' | translate }}" [clearInput]="true" label-placement="floating" id="securityAnswer" required
         fill="outline" [(ngModel)]="securityAnswer" class="mb-3 animate-item" value="{{ securityAnswer }}"></ion-input>
-      <ion-select label="{{ 'personalData.educationLevel' | translate }}" label-placement="floating" fill="outline"
+      <ion-select label="{{ 'personalData.educationLevel' | translate }}" label-placement="floating" fill="outline" id="educationLevel"
         [(ngModel)]="educationLevel" class="mb-3 animate-item">
         <div *ngFor="let edLevel of educationLevels">
           <ion-select-option value="{{ edLevel }}">{{ edLevel }}</ion-select-option>
@@ -37,12 +37,12 @@
       </ion-select>
       <mat-form-field class="w-100 animate-item">
         <mat-label style="color: #242323;">{{ 'personalData.birthdate' | translate }}</mat-label>
-        <input matInput [matDatepicker]="picker" [(ngModel)]="birthdate" disabled style="color: #3b3b3b;">
-        <mat-datepicker-toggle matIconSuffix [for]="picker" disabled="false"></mat-datepicker-toggle>
+        <input matInput [matDatepicker]="picker" [(ngModel)]="birthdate" [max]="today" disabled style="color: #3b3b3b;" id="birthdate">
+        <mat-datepicker-toggle matIconSuffix [for]="picker" disabled="false" id="toggle-datepicker"></mat-datepicker-toggle>
         <mat-datepicker #picker disabled="false"></mat-datepicker>
       </mat-form-field>
     </ion-list>
-    <ion-button shape="round" expand="full" class="fs-6 mb-3 animate-item" (click)="updateUser()"
+    <ion-button shape="round" expand="full" class="fs-6 mb-3 animate-item" (click)="updateUser()" id="updateButton"
       [@shakeAnimation]="shakeState" (@shakeAnimation.done)="resetAnimations()">
       <ion-icon name="create-outline"></ion-icon>
       {{ 'personalData.updateData' | translate }}
