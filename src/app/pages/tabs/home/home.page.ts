@@ -25,7 +25,7 @@ import { assertClass } from 'src/app/_utils/custom.asserts';
   imports: [
     ScannerComponent, CommonModule, IonHeader,
     IonToolbar, IonTitle, IonContent,
-    IonCard, IonSpinner, TranslateModule,
+    IonCard, TranslateModule,
     IonButton
   ]
 })
@@ -43,7 +43,7 @@ export class HomePage implements OnInit {
 
     name: string = '';
     lastname: string = '';
-    scannerLoading: boolean = true
+    scanning: boolean = false;
 
     constructor(private translate: TranslateService, private animationController: AnimationController) {
         const lang = localStorage.getItem('lang') || 'es';
@@ -55,7 +55,7 @@ export class HomePage implements OnInit {
             this.name = user?.name || '';
             this.lastname = user?.lastname || '';
         })
-        this.scanner.loading.subscribe(state => this.scannerLoading = state);
+        this.scanner.scanning.subscribe(scanning => this.scanning = scanning);
     }
 
     ngAfterViewInit() {
@@ -92,6 +92,6 @@ export class HomePage implements OnInit {
             await toast.present();
           }
         }
-      }
+    }
 }
 
