@@ -24,10 +24,11 @@ export class TabsPage implements OnInit {
     public environmentInjector = inject(EnvironmentInjector);
     private readonly auth = inject(AuthService);
     private readonly router = inject(Router);
-    private readonly scannerState = inject(ScannerService);
+    private readonly scanner = inject(ScannerService);
     private readonly session = inject(SessionService);
 
     isAdmin: boolean = false;
+    scanning = false;
 
     constructor(private translate: TranslateService) {
         addIcons({ home });
@@ -47,6 +48,7 @@ export class TabsPage implements OnInit {
         else
           this.isAdmin = false;
       });
+      this.scanner.scanning.subscribe(scanning => this.scanning = scanning);
     }
 
     logout() {
@@ -55,7 +57,6 @@ export class TabsPage implements OnInit {
     }
 
     goHome() {
-      this.scannerState.scanning = true
       this.router.navigateByUrl('tabs/home');
     }
 
