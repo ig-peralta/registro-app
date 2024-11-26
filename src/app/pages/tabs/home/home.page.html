@@ -16,12 +16,11 @@
     <ion-button expand="block" class="mx-4 mb-4" (click)="startScan()">
       Scanner QR
     </ion-button>
-    <ion-button expand="block" class="mx-4 mb-4" (click)="scanner.stopScan()" color="danger">
-      Detener Scanner
-    </ion-button>
   </ion-card>
 </ion-content>
 
-<ion-button expand="block" class="mx-4 mb-4" (click)="scanner.stopScan()" color="danger" *ngIf="scanning">
-  Detener Scanner
-</ion-button>
+<div class="h-100 d-flex align-items-end">
+  <ion-button expand="block" class="mx-4 mb-4" (click)="scanner.stopScan()" color="danger" *ngIf="scanning">
+    Detener Scanner
+  </ion-button>
+</div>
