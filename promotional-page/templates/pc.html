@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Asistencia DUOC</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #202124;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 15px 0;
+        }
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .app-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            object-fit: cover;
+            margin-left: 30px;
+        }
+        .app-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .app-developer {
+            color: #5f6368;
+            margin-top: 5px;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+        .rating-stars {
+            color: #ffa500;
+            margin-right: 10px;
+        }
+        .rating-text {
+            color: #5f6368;
+        }
+        .screenshots-container {
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+        }
+        .screenshot {
+            display: inline-block;
+            width: 200px;
+            height: 400px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-right: 15px;
+        }
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .prev-btn {
+            left: 10px;
+        }
+        .next-btn {
+            right: 10px;
+        }
+        .description {
+            background-color: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .install-button {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 12px 24px;
+            background-color: #4285f4;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .install-button:hover {
+            background-color: #357ae8;
+        }
+        .qr-image{
+            height: 130px;
+            margin-left: 550px;
+        }
+    </style>
+</head>
+<body>
+    <div id="tipo-navegador"></div>
+    <div id="qrcode" class="qr">
+        <div class="container">
+            <div class="header">
+                <div class="app-header">
+                    <img src="/static/img/Duoc.png" alt="Ícono de la Aplicación" class="app-icon">
+                    <div>
+                        <div class="app-title">Registro de asistencia Duoc</div>
+                        <div class="app-developer">Duoc UC</div>
+                        <div class="rating">
+                            <div class="rating-stars">★★★★☆</div>
+                            <div class="rating-text">(4.2) • Más de 100,000 descargas</div>
+                        </div>
+         
+                    </div>
+                    <img src="/static/img/qr-code.png" alt="" class="qr-image">
+                </div>
+            </div>
+    
+            <div class="screenshots-container">
+                <div class="prev-btn">&lt;</div>
+                <div class="next-btn">&gt;</div>
+                <img src="/static/img/login.png" alt="Captura de pantalla 1" class="screenshot">
+                <img src="/static/img/Registro.png" alt="Captura de pantalla 2" class="screenshot">
+                <img src="/static/img/Qr.png" alt="Captura de pantalla 3" class="screenshot">
+                <img src="/static/img/Map.png" alt="Captura de pantalla 4" class="screenshot">
+                <img src="/static/img/Myprofile.png" alt="Captura de pantalla 4" class="screenshot">
+                <img src="/static/img/foro.png" alt="Captura de pantalla 4" class="screenshot">
+            </div>
+            <a href="/apk" class="install-button">Instalar</a>
+            <div class="description">
+                <h2>Sobre esta aplicación</h2>
+                <p>¡Simplifica tu experiencia en DUOC con nuestra app de registro de asistencia! 🚀
+
+                    Nuestra aplicación te permite gestionar tu vida estudiantil de manera rápida y eficiente:
+                    
+                    ✅ Registra tu asistencia fácilmente escaneando el código QR de tus clases.
+                    💬 Participa en el foro y comparte ideas con tus compañeros y docentes.
+                    🕒 Calcula tu tiempo de llegada al DUOC, para que nunca llegues tarde a tus actividades.
+                    
+                    Diseñada especialmente para estudiantes DUOC, esta app combina funcionalidad y conveniencia para ayudarte a optimizar tu tiempo y mantenerte al día con tus responsabilidades.
+                    
+                    ¡Descárgala ahora y haz que tu vida estudiantil sea más fácil y organizada!</p>
+            </div>
+    
+
+        </div>
+    
+        <script>
+            const screenshotsContainer = document.querySelector('.screenshots-container');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+    
+            prevBtn.addEventListener('click', () => {
+                screenshotsContainer.scrollBy(-200, 0);
+            });
+    
+            nextBtn.addEventListener('click', () => {
+                screenshotsContainer.scrollBy(200, 0);
+            });
+    
+
+        </script>
+    <script src="/static/javascript/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>

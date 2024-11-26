@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Asistencia DUOC</title>
+    <style>
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+            color: #202124;
+            line-height: 1.6;
+        }
+        .container {
+            padding: 16px;
+        }
+        .header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 12px 0;
+        }
+        .app-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            object-fit: cover;
+        }
+        .app-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .app-developer {
+            color: #5f6368;
+            margin-top: 4px;
+        }
+        .rating {
+            display: flex;
+            align-items: center;
+            margin-top: 8px;
+        }
+        .rating-stars {
+            color: #ffa500;
+            margin-right: 8px;
+        }
+        .rating-text {
+            color: #5f6368;
+            font-size: 14px;
+        }
+        .screenshots-container {
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 16px 0;
+            scroll-behavior: smooth;
+        }
+        .screenshot {
+            display: inline-block;
+            width: 160px;
+            height: 320px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-right: 12px;
+        }
+        .prev-btn, .next-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+            padding: 8px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 1;
+        }
+        .prev-btn {
+            left: 8px;
+        }
+        .next-btn {
+            right: 8px;
+        }
+        .description {
+            background-color: white;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .install-button {
+            display: block;
+            width: 100%;
+            max-width: 200px;
+            margin: 16px auto;
+            padding: 10px 20px;
+            background-color: #4285f4;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .install-button:hover {
+            background-color: #357ae8;
+        }
+    </style>
+</head>
+<body>
+    <div id="tipo-navegador"></div>
+    <a href="/apk">
+    </a>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div class="app-header">
+                    <img src="/static/img/Duoc.png" alt="Ícono de la Aplicación" class="app-icon">
+                    <div>
+                        <div class="app-title">Registro de asistencia Duoc</div>
+                        <div class="app-developer">Duoc UC</div>
+                        <div class="rating">
+                            <div class="rating-stars">★★★★☆</div>
+                            <div class="rating-text">(4.2) • Más de 100,000 descargas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="screenshots-container">
+                <div class="prev-btn">&lt;</div>
+                <div class="next-btn">&gt;</div>
+                <img src="/static/img/login.png" alt="Captura de pantalla 1" class="screenshot">
+                <img src="/static/img/Registro.png" alt="Captura de pantalla 2" class="screenshot">
+                <img src="/static/img/Qr.png" alt="Captura de pantalla 3" class="screenshot">
+                <img src="/static/img/Map.png" alt="Captura de pantalla 4" class="screenshot">
+                <img src="/static/img/Myprofile.png" alt="Captura de pantalla 4" class="screenshot">
+                <img src="/static/img/foro.png" alt="Captura de pantalla 4" class="screenshot">
+            </div>
+            <a href="/static/apk/app-release.apk" class="install-button">Instalar</a>
+            <div class="description">
+                <h2>Sobre esta aplicación</h2>
+                <p>
+                    Simplifica tu vida estudiantil en DUOC con nuestra app de registro de asistencia. 🚀
+                    
+                    ✅ Registra asistencia con un QR.
+                    💬 Conéctate en el foro con compañeros y docentes.
+                    🕒 Calcula tu tiempo de llegada para llegar siempre a tiempo.
+                    
+                    Diseñada para estudiantes DUOC, esta app optimiza tu tiempo y te mantiene organizado. ¡Descárgala ahora!</p>
+            </div>
+    
+        
+        </div>
+    
+        <script>
+            const screenshotsContainer = document.querySelector('.screenshots-container');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+    
+            prevBtn.addEventListener('click', () => {
+                screenshotsContainer.scrollBy(-160, 0);
+            });
+    
+            nextBtn.addEventListener('click', () => {
+                screenshotsContainer.scrollBy(160, 0);
+            });
+    
+        </script>
+    <script src="/static/javascript/script.js"></script>
+</body>
+</html>
