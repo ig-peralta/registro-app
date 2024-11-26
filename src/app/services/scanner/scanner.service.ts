@@ -9,7 +9,7 @@ import { Platform } from '@ionic/angular';
 export class ScannerService {
   private _loading = new BehaviorSubject<boolean>(false);
   private _scanning = new BehaviorSubject<boolean>(false);
-  
+
   constructor(private platform: Platform) {}
 
   get loading(): Observable<boolean> {
@@ -42,10 +42,10 @@ export class ScannerService {
     }
 
     // Make background transparent
-    document.querySelector('body')?.classList.add('scanner-active');
+    document.querySelector('#scanner')?.classList.add('scanner-active');
     const result = await BarcodeScanner.startScan();
-    document.querySelector('body')?.classList.remove('scanner-active');
-    
+    document.querySelector('#scanner')?.classList.remove('scanner-active');
+
     if (result.hasContent) {
       return result.content;
     }
@@ -53,7 +53,7 @@ export class ScannerService {
   }
 
   async stopScan() {
-    document.querySelector('body')?.classList.remove('scanner-active');
+    document.querySelector('#scanner')?.classList.remove('scanner-active');
     await BarcodeScanner.stopScan();
     this._scanning.next(false);
   }
