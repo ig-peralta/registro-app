@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BarcodeScanner } from '@capacitor-community/barcode-scanner';
 import { Platform } from '@ionic/angular';
@@ -42,11 +42,13 @@ export class ScannerService {
     }
 
     // Make background transparent
-    document.querySelector('#scanner')?.classList.add('scanner-active');
+    document.querySelector('body')?.classList.add('scanner-active');
+    this._scanning.next(true);
     const result = await BarcodeScanner.startScan();
-    document.querySelector('#scanner')?.classList.remove('scanner-active');
+    document.querySelector('body')?.classList.remove('scanner-active');
 
     if (result.hasContent) {
+      this._scanning.next(false);
       return result.content;
     }
     return null;
