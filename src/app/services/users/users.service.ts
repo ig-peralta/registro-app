@@ -23,7 +23,7 @@ export class UsersService {
           birthdate TEXT NOT NULL,
           educationLevel INTEGER NOT NULL,
           securityQuestion TEXT NOT NULL,
-          securityAnswer TEXT NOT NULL
+          securityAnswer TEXT NOT NULL,
           isAdmin BOOLEAN DEFAULT FALSE
         );
       `]
