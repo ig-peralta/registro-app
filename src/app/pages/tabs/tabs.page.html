@@ -1,5 +1,5 @@
-<ion-tabs *ngIf="!scanning">
-  <ion-tab-bar slot="bottom">
+<ion-tabs>
+  <ion-tab-bar slot="bottom" *ngIf="!scanning">
     <ion-tab-button tab="home" (click)="goHome()" *ngIf="!isAdmin">
       <ion-icon name="home"></ion-icon>
       {{ 'tabs.home' | translate }}
